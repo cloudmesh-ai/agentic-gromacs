@@ -1,73 +1,84 @@
-# Project Report: GROMACS Performance Engineering & Skill Suite Expansion
+# Project Report: Agentic GROMACS Performance Ecosystem
 
 ## Executive Summary
-This activity focused on transforming the GROMACS project from a basic installation and execution suite into a professional-grade performance engineering environment. The primary goal was to eliminate reliance on legacy profiling tools (e.g., `gprof`) and replace them with a modern, high-resolution "Sampling and Tracing" stack. 
+This activity has evolved the GROMACS project from a collection of installation guides into a professional-grade, agentic performance engineering ecosystem. The goal was to transition from "AI-assisted" work (where the user guides the AI) to an "Agentic" workflow (where specialized AI personas autonomously orchestrate the optimization of simulations).
 
-The result is a comprehensive ecosystem that enables users to move from a raw simulation crash or slow performance metric to a specific, code-level optimization proposal through a structured "Insight Pipeline."
+The result is a three-layer architecture comprising a **Standalone Execution Layer** (M1 scripts), an **Instruction Layer** (Expert Skills), and an **Integration Layer** (MCP Servers), all tied together by an **Agentic Framework** designed to maximize simulation performance (ns/day) while maintaining strict scientific validity.
 
 ---
 
 ## 1. Simulation Lifecycle & Operational Expansion
-The first phase involved filling critical gaps in the simulation workflow to ensure scientific validity and operational stability.
+The core simulation workflow was expanded to provide end-to-end guidance, reducing the risk of user error during the most critical stages of a simulation.
 
-### New Capabilities implemented:
-- **MDP Parameter Optimization (`/sim:mdp-optimize`)**: A guide for selecting physically accurate and numerically stable parameters (cut-offs, time-steps) for EM, NVT, NPT, and Production stages.
-- **Crash Diagnostics (`/ops:debug-crash`)**: A diagnostic framework to translate cryptic GROMACS error messages (e.g., "LINCS warning", "Water molecule too far") into actionable fixes.
-- **Trajectory Post-Processing (`/sim:post-process`)**: Standardized workflows for PBC correction, centering, and fitting, ensuring that analysis is performed on a cleaned trajectory.
-- **Version Migration (`/ops:migrate-version`)**: A structured approach to updating scripts and `.mdp` files when migrating between GROMACS versions.
-- **Visualization Best Practices**: Updated `/ops:viz-setup` to include publication-quality rendering and VMD automation.
+### Key Deliverables:
+- **MDP Parameter Optimization (`/sim:mdp-optimize`)**: A guide for selecting physically accurate and numerically stable parameters.
+- **Simulation Post-Processing (`/sim:post-process`)**: Standardized workflows for PBC correction, centering, and fitting.
+- **Crash Diagnostics (`/ops:debug-crash`)**: A diagnostic framework to translate GROMACS error signatures into actionable fixes.
+- **Version Migration (`/ops:migrate-version`)**: A structured approach to updating scripts and `.mdp` files across GROMACS versions.
+- **Visualization Setup (`/ops:viz-setup`)**: Enhanced guidance on publication-quality rendering and VMD automation.
 
 ---
 
 ## 2. The Modern Performance Stack
-The core of the activity was the implementation of a "Modern Gold Standard" for performance analysis. This replaces instrumentation-based profiling with sampling and system tracing.
+We replaced legacy instrumentation (e.g., `gprof`) with a high-resolution sampling and tracing stack that provides a transparent view of CPU and GPU bottlenecks.
 
-### The Profiling Pipeline:
-The suite now supports a complete high-resolution pipeline:
+### The "Modern Gold Standard" Pipeline:
 **Prepare (Build)** $\rightarrow$ **Capture (Sample)** $\rightarrow$ **Transform (Script)** $\rightarrow$ **Visualize (Flame Graph)**
 
-### New Specialized Skills:
-- **`install/perf-stack`**: Intelligent discovery and installation of `perf`, `bpftrace`, and `py-spy`, prioritizing existing system modules.
-- **`benchmark/compile-profile`**: A critical build skill that enforces `RelWithDebInfo` and `-fno-omit-frame-pointer` to ensure clean call stacks and symbols.
+### Implemented Skills:
+- **`benchmark/compile-profile`**: Enforces `RelWithDebInfo` and `-fno-omit-frame-pointer` to ensure clean call stacks.
 - **`benchmark/profile-modern`**: Implements the `perf` $\rightarrow$ `perf script` $\rightarrow$ **Hotspot/Firefox Profiler** workflow.
-- **`benchmark/simulation-profile`**: Deep-dive deterministic analysis using **Valgrind/Callgrind** for instruction-level counting.
-- **`benchmark/lang-profile`**: Support for sampling Python wrappers via **Py-Spy** without restarting processes.
-- **`system/tracing`**: Real-time system visibility using **eBPF** and **bpftrace** for syscall and I/O latency analysis.
+- **`benchmark/simulation-profile`**: Deterministic instruction-level analysis via **Valgrind/Callgrind**.
+- **`benchmark/lang-profile`**: Low-overhead sampling for Python wrappers using **Py-Spy**.
+- **`/optimize:bottleneck-analysis`**: The "Brain" skill that transforms raw profiling data into actionable optimization proposals.
 
 ---
 
-## 3. The "Insight Pipeline" (`/optimize:bottleneck-analysis`)
-To ensure the profiling data leads to actual speedups, a new "Brain" skill was created. Instead of just identifying "where" time is spent, it analyzes "why" and proposes "how" to fix it.
+## 3. The MCP Integration Layer
+To eliminate "hallucinations" and manual text parsing, we implemented a Model Context Protocol (MCP) layer. This provides the AI with native, structured APIs to interact with the cluster and the data.
 
-**The Logic Flow:**
-1. **Identify**: Find "Flat Tops" in a Flame Graph.
-2. **Diagnose**: Select the correct tool (e.g., `analyze-kernels` for compute, `tracing` for system).
-3. **Propose**: Suggest a specific code change or `mdrun` flag.
-4. **Verify**: Compare the new profile against the baseline to prove the ns/day increase.
+### Implemented MCP Servers:
+- **Slurm Bridge**: Native API for cluster job management (`list_jobs`, `get_job_details`).
+- **GMX Docs (RAG)**: A FAISS-powered vector search server for the official GROMACS manual, providing evidence-based parameter lookups.
+- **Profile API**: A binary parser for `perf.data` and `callgrind.out` that identifies "Flat Tops" programmatically.
+- **GMX Data Query**: Structured access to `.log` and `.edr` energy files.
+- **Topology Explorer**: API for parsing `.top` and `.itp` force field parameters.
+- **VMD Bridge**: Remote control of the VMD Tcl console for automated visualization.
+- **`setup_all.sh`**: A one-click orchestrator that manages venvs, dependencies, and `claude_desktop_config.json` generation.
 
 ---
 
-## 4. Apple Silicon (M1/M2/M3) Specialization
-Recognizing the unique needs of macOS users, a dedicated set of standalone, non-skill-dependent scripts was developed in `platform/scripts/m1/`.
+## 4. The Agentic AI Framework
+The framework moves beyond single-prompt interactions to a multi-agent orchestration pattern.
 
-### Standalone Deliverables:
-- **`install_gromacs.sh`**: Full OpenCL GPU installation for M1.
-- **`compile_profile.sh`**: Generates the profiling-ready binary with frame pointers.
-- **`run.sh`**: Orchestrates a benchmark and provides the "Bridge" to Xcode Instruments.
-- **`analyze_performance.py`**: A Python tool that parses GROMACS logs and generates a **visual HTML report** of bottlenecks.
+### The Agent Team:
+- **The Architect**: Project manager; defines goals and maintains the Optimization Ledger.
+- **The Profiler**: Data gatherer; identifies hotspots and "Flat Tops."
+- **The Optimizer**: Physics expert; designs the technical fix using the GMX Manual RAG.
+- **The Validator**: Scientific guard; ensures no "numerical drift" or instability.
+- **The Cluster Op**: Infrastructure specialist; manages Slurm and hardware telemetry.
+
+**The Loop**: Plan $\rightarrow$ Probe $\rightarrow$ Diagnose $\rightarrow$ Implement $\rightarrow$ Verify $\rightarrow$ Evaluate.
+
+---
+
+## 5. Apple Silicon (M1/M2/M3) Specialization
+A dedicated toolkit was created to provide a "Fast Path" for macOS users.
+
+### Deliverables in `platform/scripts/m1/`:
+- **`install_gromacs.sh`**: Automated OpenCL GPU installation.
+- **`compile_profile.sh`**: High-res profiling build.
+- **`run.sh`**: Benchmark execution and Xcode Instruments guide.
+- **`analyze_performance.py`**: Standalone Python tool that generates a visual HTML report of bottlenecks.
 
 ---
 
 ## Summary of Deliverables
 
-| Category | New/Improved Skills | Standalone Scripts |
+| Layer | Components | Key Outcome |
 | :--- | :--- | :--- |
-| **Simulation** | `mdp-optimize`, `post-process` | - |
-| **Operations** | `debug-crash`, `migrate-version`, `viz-setup` | - |
-| **Profiling** | `compile-profile`, `profile-modern`, `simulation-profile`, `lang-profile` | `compile_profile.sh`, `run.sh` |
-| **Tracing** | `system/tracing` | - |
-| **Analysis** | `bottleneck-analysis` | `analyze_performance.py` |
-| **Installation**| `perf-stack` | `install_gromacs.sh` |
-
-## Conclusion
-The project has been evolved from a set of installation guides into a professional performance engineering framework. The user can now move seamlessly from a high-level performance goal to a low-level kernel optimization, supported by an automated, validated, and documented toolchain.
+| **Instruction** | 15+ Expert Skills | Guided, a-priori knowledge for GROMACS tasks. |
+| **Integration** | 6 MCP Servers | Native, structured access to data and hardware. |
+| **Execution** | M1 Toolkit & Scripts | One-click deployment and analysis on Apple Silicon. |
+| **Orchestration**| Agentic Framework | Autonomous loop for evidence-based optimization. |
+| **Documentation** | 4 Comprehensive READMEs | Complete transparency of the system and roadmap. |
