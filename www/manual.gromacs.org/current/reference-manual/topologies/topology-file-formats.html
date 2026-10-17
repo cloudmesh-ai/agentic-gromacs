@@ -1,0 +1,2094 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Force field organization" href="force-field-organization.html" /><link rel="prev" title="pdb2gmx input files" href="pdb2gmx-input-files.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>File formats - GROMACS 2026.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css%3Fv=354aac6f.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css%3Fv=fd3f3429.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css%3Fv=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css%3Fv=4c969af8.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css%3Fv=302659d7.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="topology-file-formats.html#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">GROMACS 2026.4 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/gmx_logo_blue.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../download.html">Downloads</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../release-notes/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Release notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.4.html">GROMACS 2026.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.3.html">GROMACS 2026.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.2.html">GROMACS 2026.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.1.html">GROMACS 2026.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.5.html">GROMACS 2025.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.4.html">GROMACS 2025.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.3.html">GROMACS 2025.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.2.html">GROMACS 2025.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.1.html">GROMACS 2025.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.7.html">GROMACS 2024.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.6.html">GROMACS 2024.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.5.html">GROMACS 2024.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.4.html">GROMACS 2024.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.3.html">GROMACS 2024.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.2.html">GROMACS 2024.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.1.html">GROMACS 2024.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.5.html">GROMACS 2023.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.4.html">GROMACS 2023.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.3.html">GROMACS 2023.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.2.html">GROMACS 2023.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.1.html">GROMACS 2023.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.6.html">GROMACS 2022.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.5.html">GROMACS 2022.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.4.html">GROMACS 2022.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.3.html">GROMACS 2022.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.2.html">GROMACS 2022.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.1.html">GROMACS 2022.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.7.html">GROMACS 2021.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.6.html">GROMACS 2021.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.5.html">GROMACS 2021.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.4.html">GROMACS 2021.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.3.html">GROMACS 2021.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.2.html">GROMACS 2021.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.1.html">GROMACS 2021.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.7.html">GROMACS 2020.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.6.html">GROMACS 2020.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.5.html">GROMACS 2020.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.4.html">GROMACS 2020.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.3.html">GROMACS 2020.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.2.html">GROMACS 2020.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.1.html">GROMACS 2020.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.6.html">GROMACS 2019.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.5.html">GROMACS 2019.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.4.html">GROMACS 2019.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.3.html">GROMACS 2019.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.2.html">GROMACS 2019.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.1.html">GROMACS 2019.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.7.html">GROMACS 2018.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.6.html">GROMACS 2018.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.5.html">GROMACS 2018.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.4.html">GROMACS 2018.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.3.html">GROMACS 2018.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.2.html">GROMACS 2018.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.1.html">GROMACS 2018.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.5.html">GROMACS 2016.5 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.4.html">GROMACS 2016.4 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.3.html">GROMACS 2016.3 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.2.html">GROMACS 2016.2 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.1.html">GROMACS 2016.1 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/new-features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#gpu-improvements">GPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#cpu-improvements">CPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#threading-improvements">Threading improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#other-improvements">Other improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/bugs-fixed.html#fixes-for-bugs-introduced-during-development">Fixes for bugs introduced during development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/removed-features.html">Removed mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/older/index.html">Release notes for older GROMACS versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../install-guide/index.html">Installation guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Installation guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../install-guide/exotic.html">Installation guide for exotic configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../user-guide/index.html">User guide</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of User guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/known-issues.html">Known issues affecting users of GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/getting-started.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user-guide/flow.html">Flow Chart</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/system-preparation.html">System preparation</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of System preparation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/managing-simulations.html">Managing long simulations</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/faq.html">Answers to frequently asked questions (FAQs)</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Answers to frequently asked questions (FAQs)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/force-fields.html">Force fields in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdp-options.html">Molecular dynamics parameters (.mdp options)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdrun-features.html">Useful mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdrun-performance.html">Getting good performance from <span class="xref std std-ref">mdrun</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/run-time-errors.html">Common errors when using GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/cmdline.html">Command-line reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of Command-line reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx.html">molecular dynamics simulation suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-anaeig.html">gmx anaeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-analyze.html">gmx analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-angle.html">gmx angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-awh.html">gmx awh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-bar.html">gmx bar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-bundle.html">gmx bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-check.html">gmx check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-chi.html">gmx chi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-cluster.html">gmx cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-clustsize.html">gmx clustsize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-confrms.html">gmx confrms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-convert-tpr.html">gmx convert-tpr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-convert-trj.html">gmx convert-trj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-covar.html">gmx covar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-current.html">gmx current</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-density.html">gmx density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-densmap.html">gmx densmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-densorder.html">gmx densorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dielectric.html">gmx dielectric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dipoles.html">gmx dipoles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-disre.html">gmx disre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-distance.html">gmx distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dos.html">gmx dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dssp.html">gmx dssp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dump.html">gmx dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dyecoupl.html">gmx dyecoupl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-editconf.html">gmx editconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-eneconv.html">gmx eneconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-enemat.html">gmx enemat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-energy.html">gmx energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-extract-cluster.html">gmx extract-cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-filter.html">gmx filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-freevolume.html">gmx freevolume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gangle.html">gmx gangle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genconf.html">gmx genconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genion.html">gmx genion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genrestr.html">gmx genrestr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-grompp.html">gmx grompp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gyrate.html">gmx gyrate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gyrate-legacy.html">gmx gyrate-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-h2order.html">gmx h2order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hbond.html">gmx hbond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hbond-legacy.html">gmx hbond-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-helix.html">gmx helix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-helixorient.html">gmx helixorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-help.html">gmx help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hydorder.html">gmx hydorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-insert-molecules.html">gmx insert-molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-lie.html">gmx lie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-make_edi.html">gmx make_edi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-make_ndx.html">gmx make_ndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mdmat.html">gmx mdmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mdrun.html">gmx mdrun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mindist.html">gmx mindist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mk_angndx.html">gmx mk_angndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-msd.html">gmx msd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmeig.html">gmx nmeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmens.html">gmx nmens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmr.html">gmx nmr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmtraj.html">gmx nmtraj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nonbonded-benchmark.html">gmx nonbonded-benchmark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-order.html">gmx order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pairdist.html">gmx pairdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pdb2gmx.html">gmx pdb2gmx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pme_error.html">gmx pme_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-polystat.html">gmx polystat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-potential.html">gmx potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-principal.html">gmx principal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rama.html">gmx rama</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rdf.html">gmx rdf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-report-methods.html">gmx report-methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rms.html">gmx rms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rmsdist.html">gmx rmsdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rmsf.html">gmx rmsf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rotacf.html">gmx rotacf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rotmat.html">gmx rotmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-saltbr.html">gmx saltbr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sans-legacy.html">gmx sans-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sasa.html">gmx sasa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-saxs-legacy.html">gmx saxs-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-scattering.html">gmx scattering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-select.html">gmx select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sham.html">gmx sham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sigeps.html">gmx sigeps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-solvate.html">gmx solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sorient.html">gmx sorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-spatial.html">gmx spatial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-spol.html">gmx spol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-tcaf.html">gmx tcaf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-traj.html">gmx traj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trajectory.html">gmx trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjcat.html">gmx trjcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjconv.html">gmx trjconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjorder.html">gmx trjorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-tune_pme.html">gmx tune_pme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-vanhove.html">gmx vanhove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-velacc.html">gmx velacc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-wham.html">gmx wham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-wheel.html">gmx wheel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-x2top.html">gmx x2top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-xpm2ps.html">gmx xpm2ps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/selections.html">Selection syntax and usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/terminology.html">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/validation.html">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/environment-variables.html">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/floating-point.html">Floating point arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/security.html">Security when using GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/deprecation-policy.html">Policy for deprecating GROMACS functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to/index.html">Short How-To guides</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Short How-To guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/beginners.html">Beginners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html">Adding a Residue to a Force Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#water-solvation">Water solvation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#non-water-solvent">Non water solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#mixed-solvent">Mixed solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#making-disulfide-bonds">Making Disulfide Bonds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html">Running membrane simulations in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#parameterization-of-novel-molecules">Parameterization of novel molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#potential-of-mean-force">Potential of Mean Force</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#single-point-energy">Single-Point Energy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#carbon-nanotube">Carbon Nanotube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html">Visualization Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#extracting-trajectory-information">Extracting Trajectory Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#external-tools-to-perform-trajectory-analysis">External tools to perform trajectory analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#plotting-data">Plotting Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#micelle-clustering">Micelle Clustering</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Reference Manual</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Reference Manual</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../preface.html">Preface and Disclaimer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../definitions.html">Definitions and Units</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../algorithms/algorithms.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Algorithms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/periodic-boundary-conditions.html">Periodic boundary conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/group-concept.html">The group concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/molecular-dynamics.html">Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/shell-molecular-dynamics.html">Shell molecular dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/constraint-algorithms.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/simulated-annealing.html">Simulated Annealing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/stochastic-dynamics.html">Stochastic Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/brownian-dynamics.html">Brownian Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/energy-minimization.html">Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/normal-mode-analysis.html">Normal-Mode Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/free-energy-calculations.html">Free energy calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/replica-exchange.html">Replica exchange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/essential-dynamics.html">Essential Dynamics sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/expanded-ensemble.html">Expanded Ensemble</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/parallelization-domain-decomp.html">Parallelization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/parallelization-domain-decomp.html#domain-decomposition">Domain decomposition</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../functions/functions.html">Interaction function and force fields</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Interaction function and force fields</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/nonbonded-interactions.html">Non-bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/bonded-interactions.html">Bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/restraints.html">Restraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/polarization.html">Polarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/free-energy-interactions.html">Free energy interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/interaction-methods.html">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/interaction-methods.html#virtual-interaction-sites">Virtual interaction sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/long-range-electrostatics.html">Long Range Electrostatics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/long-range-vdw.html">Long Range Van der Waals interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/force-field.html">Force field</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="topologies.html">Topologies</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Topologies</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="particle-type.html">Particle type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parameter-files.html">Parameter files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="molecule-definition.html">Molecule definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="constraint-algorithm-section.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdb2gmx-input-files.html"><span class="xref std std-ref">pdb2gmx</span> input files</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="topology-file-formats.html#">File formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="force-field-organization.html">Force field organization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../file-formats.html">File formats</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../special/special.html">Special Topics</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of Special Topics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../special/free-energy-implementation.html">Free energy implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/free-energy-implementation.html#potential-of-mean-force">Potential of mean force</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/pulling.html">Non-equilibrium pulling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/pulling.html#collective-variables-the-pull-code">Collective variables: the pull code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/awh.html">Adaptive biasing with AWH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/enforced-rotation.html">Enforced Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/electric-fields.html">Electric fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/comp-electrophys.html">Computational Electrophysiology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/free-energy-pmf.html">Calculating a PMF using the free-energy code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/remove-fast-dgf.html">Removing fastest degrees of freedom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/viscosity-calculation.html">Viscosity calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/shearing.html">Shear simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/tabulated-interaction-functions.html">Tabulated interaction functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/qmmm.html">Hybrid Quantum-Classical simulations (QM/MM) with CP2K interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/mimic-qmmm.html">MiMiC Hybrid Quantum Mechanical/Molecular Mechanical simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/vmd-imd.html">Using VMD plug-ins for trajectory file I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/vmd-imd.html#interactive-molecular-dynamics">Interactive Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/membrane-embedding.html">Embedding proteins into the membranes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/density-guided-simulation.html">Applying forces from three-dimensional densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/colvars.html">Collective Variable simulations with the Colvars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/plumed.html">Using PLUMED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/nnpot.html">Neural Network Potentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../special/fmm.html">Fast Multipole Method (FMM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../run-parameters.html">Run parameters and Programs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../analysis/analysis.html">Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Analysis</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/using-groups.html">Using Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/looking-at-trajectory.html">Looking at your trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/general-properties.html">General properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/radial-distribution-function.html">Radial distribution functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/correlation-function.html">Correlation functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/curve-fitting.html">Curve fitting in GROMACS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/mean-square-displacement.html">Mean Square Displacement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/bond-angle-dihedral.html">Bonds/distances, angles and dihedrals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/radius-of-gyration.html">Radius of gyration and distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/rmsd.html">Root mean square deviations in structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/covariance-analysis.html">Covariance analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/dihedral-pca.html">Dihedral principal component analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/hydrogen-bonds.html">Hydrogen bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/protein-related.html">Protein-related items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/interface-related.html">Interface-related items</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../details.html">Some implementation details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../averages.html">Averages and fluctuations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references.html">Bibliography</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../gmxapi/index.html">gmxapi Python package</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of gmxapi Python package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../gmxapi/userguide/install.html">Full installation instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gmxapi/userguide/usage.html">Using the Python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gmxapi/userguide/pythonreference.html">gmxapi Python module reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../nblib/index.html">(Non-)Bonded LIBrary (NB-LIB) API</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of (Non-)Bonded LIBrary (NB-LIB) API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nblib/guide-to-writing-MD-programs.html">Guide to Writing MD Programs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/index.html">C++ API</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of C++ API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/gmxlibs.html">Public C++ API</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../dev-manual/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of Developer Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/contribute.html">Contribute to GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/overview.html">Codebase overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/build-system.html">Build system overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/change-management.html">Change Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/relocatable-binaries.html">Relocatable binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/documentation-generation.html">Documentation generation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../dev-manual/style.html">Style guidelines</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of Style guidelines</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/formatting.html">Guidelines for code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/includestyle.html">Guidelines for #include directives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/naming.html">Naming conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/language-features.html">Allowed language features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/reportstyle.html">Guidelines for creating meaningful issue reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/commitstyle.html">Guidelines for formatting of git commits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/error-handling.html">Error handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../dev-manual/tools.html">Development-time tools</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of Development-time tools</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/doxygen.html">Using Doxygen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/change-management.html">Change Management</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../dev-manual/infrastructure.html">Automation and Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of Automation and Infrastructure</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dev-manual/gitlab-ci.html">GitLab CI Pipeline Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/gmxtree.html">Source tree checker scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/code-formatting.html">Automatic source code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/testutils.html">Unit testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/physical_validation.html">Physical validation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/known-issues.html">Known issues relevant for developers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev-manual/index.html#doxygen-documentation">Doxygen documentation</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="topology-file-formats.html#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/blob/main/docs/reference-manual/topologies/topology-file-formats.rst" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/-/edit/main/docs/reference-manual/topologies/topology-file-formats.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="file-formats">
+<h1>File formats<a class="headerlink" href="topology-file-formats.html#file-formats" title="Link to this heading">¶</a></h1>
+<section id="topology-file">
+<span id="topfile"></span><h2>Topology file<a class="headerlink" href="topology-file-formats.html#topology-file" title="Link to this heading">¶</a></h2>
+<p>The topology file is built following the GROMACS specification for a
+molecular topology. A <a class="reference internal" href="../file-formats.html#top"><span class="std std-ref">top</span></a> file can be generated by
+<a class="reference internal" href="../../onlinehelp/gmx-pdb2gmx.html#gmx-pdb2gmx"><span class="std std-ref">pdb2gmx</span></a>. All possible entries in the topology file are
+listed in <a class="reference internal" href="topology-file-formats.html#tab-topfile1"><span class="std std-numref">Tables 13</span></a> and
+<a class="reference internal" href="topology-file-formats.html#tab-topfile2"><span class="std std-numref">14</span></a>. Also tabulated are: all the units of
+the parameters, which interactions can be perturbed for free energy
+calculations, which bonded interactions are used by
+<a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a> for generating exclusions, and which bonded
+interactions can be converted to constraints by <a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a>.</p>
+<div class="table-wrapper docutils container" id="id37">
+<span id="tab-topfile1"></span><span id="tab-topfile1"></span><table class="docutils align-default" id="id37">
+<caption><span class="caption-number">Table 13 </span><span class="caption-text">The <a class="reference internal" href="../file-formats.html#top"><span class="std std-ref">topology</span></a> file.</span><a class="headerlink" href="topology-file-formats.html#id37" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head" colspan="5"><p>Parameters</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>interaction type</p></td>
+<td><p>directive</p></td>
+<td><p>#
+at.</p></td>
+<td><p>f.
+tp</p></td>
+<td><p>parameters</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>mandatory</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">defaults</span></code></p></td>
+<td colspan="3"><p>non-bonded function type;
+combination rule<span class="math notranslate nohighlight">\(^{(cr)}\)</span>;
+generate pairs (no/yes);
+fudge LJ (); fudge QQ ()</p></td>
+</tr>
+<tr class="row-even"><td><p><em>mandatory</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">atomtypes</span></code></p></td>
+<td colspan="3"><p>atom type; bonded type; atomic number;
+m (u); q (e); particle type;
+V<span class="math notranslate nohighlight">\(^{(cr)}\)</span> ; W<span class="math notranslate nohighlight">\(^{(cr)}\)</span>
+(bonded type and atomic number are optional)</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bondtypes</span></code></p></td>
+<td colspan="3"><div class="line-block">
+<div class="line">(see <a class="reference internal" href="topology-file-formats.html#tab-topfile2"><span class="std std-numref">Table 14</span></a>, directive <code class="docutils literal notranslate"><span class="pre">bonds</span></code>)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pairtypes</span></code></p></td>
+<td colspan="3"><div class="line-block">
+<div class="line">(see <a class="reference internal" href="topology-file-formats.html#tab-topfile2"><span class="std std-numref">Table 14</span></a>, directive <code class="docutils literal notranslate"><span class="pre">pairs</span></code>)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angletypes</span></code></p></td>
+<td colspan="3"><div class="line-block">
+<div class="line">(see <a class="reference internal" href="topology-file-formats.html#tab-topfile2"><span class="std std-numref">Table 14</span></a>, directive <code class="docutils literal notranslate"><span class="pre">angles</span></code>)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedraltypes</span></code><span class="math notranslate nohighlight">\(^{(*)}\)</span></p></td>
+<td colspan="3"><div class="line-block">
+<div class="line">(see <a class="reference internal" href="topology-file-formats.html#tab-topfile2"><span class="std std-numref">Table 14</span></a>, directive <code class="docutils literal notranslate"><span class="pre">dihedrals</span></code>)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">constrainttypes</span></code></p></td>
+<td colspan="3"><div class="line-block">
+<div class="line">(see <a class="reference internal" href="topology-file-formats.html#tab-topfile2"><span class="std std-numref">Table 14</span></a>, directive <code class="docutils literal notranslate"><span class="pre">constraints</span></code>)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>LJ</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nonbond_params</span></code></p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>V<span class="math notranslate nohighlight">\(^{(cr)}\)</span>  ; W<span class="math notranslate nohighlight">\(^{(cr)}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Buckingham</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nonbond_params</span></code></p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(a~\mathrm{kJ~mol}^{-1}\)</span> ; <span class="math notranslate nohighlight">\(b~\mathrm{nm}^{-1}\)</span>;
+<span class="math notranslate nohighlight">\(c_6\)</span> (<span class="math notranslate nohighlight">\(\mathrm{kJ~mol}^{-1}~\mathrm{nm}^{-6}\)</span>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head" colspan="4"><p>Molecule definition(s)</p></th>
+<th class="head"><ol class="upperalpha simple" start="6">
+<li><ol class="upperalpha simple" start="5">
+<li></li>
+</ol>
+</li>
+</ol>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>mandatory</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">moleculetype</span></code></p></td>
+<td></td>
+<td><p>molecule name; <span class="math notranslate nohighlight">\(n_{ex}^{(nrexcl)}\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><em>mandatory</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">atoms</span></code></p></td>
+<td><p>1</p></td>
+<td><p>atom type; residue number;
+residue name; atom name;
+charge group number; <span class="math notranslate nohighlight">\(q\)</span> (e); <span class="math notranslate nohighlight">\(m\)</span> (u)</p></td>
+<td><p>type</p>
+<p><span class="math notranslate nohighlight">\(q,m\)</span></p>
+</td>
+</tr>
+<tr class="row-even"><td colspan="5"><p>intra-molecular interaction and geometry definitions as described in <a class="reference internal" href="topology-file-formats.html#tab-topfile2"><span class="std std-numref">Table 14</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>System</p></th>
+<th class="head"></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>mandatory</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">system</span></code></p></td>
+<td><p>system name</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>mandatory</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">molecules</span></code></p></td>
+<td><p>molecule name; number of molecules</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Inter-molecular interactions</p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>optional</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">intermolecular_interactions</span></code></p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p>one or more bonded interactions as described in <a class="reference internal" href="topology-file-formats.html#tab-topfile2"><span class="std std-numref">Table 14</span></a>, with two or more atoms,
+no interactions that generate exclusions, no constraints, use global atom numbers</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">at</span></code> is the required number of atom type indices for this directive</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f.</span> <span class="pre">tp</span></code> is the value used to select this function type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F.</span> <span class="pre">E.</span></code> indicates which of the parameters can be interpolated in free energy calculations</p></li>
+<li><p><span class="math notranslate nohighlight">\(^{(cr)}\)</span> the combination rule determines the type of LJ parameters, see <a class="reference internal" href="parameter-files.html#nbpar"><span class="std std-ref">Non-bonded parameters</span></a></p></li>
+<li><p><span class="math notranslate nohighlight">\(^{(*)}\)</span> for <code class="docutils literal notranslate"><span class="pre">dihedraltypes</span></code> one can specify 4 atoms or the inner (outer for improper) 2 atoms</p></li>
+<li><p><span class="math notranslate nohighlight">\(n_{ex}^{(nrexcl)}\)</span> exclude neighbors <span class="math notranslate nohighlight">\(n_{ex}\)</span> bonds away for non-bonded interactions</p></li>
+<li><p>For free energy calculations, type, <span class="math notranslate nohighlight">\(q\)</span> and <span class="math notranslate nohighlight">\(m\)</span>  or no parameters should be added for topology <code class="docutils literal notranslate"><span class="pre">B</span></code> (<span class="math notranslate nohighlight">\(\lambda = 1\)</span>) on the same line, after the normal parameters.</p></li>
+</ul>
+<div class="table-wrapper docutils container" id="id38">
+<span id="tab-topfile2"></span><span id="tab-topfile2"></span><table class="docutils align-default" id="id38">
+<caption><span class="caption-number">Table 14 </span><span class="caption-text">Details of <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">moleculetype</span> <span class="pre">]</span></code> directives</span><a class="headerlink" href="topology-file-formats.html#id38" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name of interaction</p></th>
+<th class="head"><p>Topology file directive</p></th>
+<th class="head"><p>num.
+atoms <a class="footnote-reference brackets" href="topology-file-formats.html#id29" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></th>
+<th class="head"><p>func.
+type <a class="footnote-reference brackets" href="topology-file-formats.html#id30" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></th>
+<th class="head"><p>Order of parameters and their units</p></th>
+<th class="head"><p>use in
+F.E.? <a class="footnote-reference brackets" href="topology-file-formats.html#id31" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bond</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bonds</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id32" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="topology-file-formats.html#id33" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_0\)</span> (nm); <span class="math notranslate nohighlight">\(k_b\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-2}\)</span></p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>G96 bond</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bonds</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id32" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="topology-file-formats.html#id33" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_0\)</span> (nm); <span class="math notranslate nohighlight">\(k_b\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-4}\)</span></p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-even"><td><p>Morse</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bonds</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id32" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="topology-file-formats.html#id33" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_0\)</span> (nm); <span class="math notranslate nohighlight">\(D\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>; <span class="math notranslate nohighlight">\(\beta\)</span> (nm<span class="math notranslate nohighlight">\(^{-1}\)</span></p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>cubic bond</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bonds</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id32" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="topology-file-formats.html#id33" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></td>
+<td><p>2</p></td>
+<td><p>4</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_0\)</span> (nm); <span class="math notranslate nohighlight">\(C_{i=2,3}\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-i}\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>connection</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bonds</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id32" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></td>
+<td><p>2</p></td>
+<td><p>5</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>harmonic potential</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bonds</span></code></p></td>
+<td><p>2</p></td>
+<td><p>6</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_0\)</span> (nm); <span class="math notranslate nohighlight">\(k_b\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-2}\)</span></p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-even"><td><p>FENE bond</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bonds</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id32" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></td>
+<td><p>2</p></td>
+<td><p>7</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_m\)</span>   (nm); <span class="math notranslate nohighlight">\(k_b\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-2}\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>tabulated bond</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bonds</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id32" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></td>
+<td><p>2</p></td>
+<td><p>8</p></td>
+<td><p>table number (<span class="math notranslate nohighlight">\(\geq 0\)</span>); <span class="math notranslate nohighlight">\(k\)</span> kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(k\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>tabulated bond <a class="footnote-reference brackets" href="topology-file-formats.html#id34" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bonds</span></code></p></td>
+<td><p>2</p></td>
+<td><p>9</p></td>
+<td><p>table number (<span class="math notranslate nohighlight">\(\geq 0\)</span>); <span class="math notranslate nohighlight">\(k\)</span> kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(k\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>restraint potential</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bonds</span></code></p></td>
+<td><p>2</p></td>
+<td><p>10</p></td>
+<td><p>low, up<span class="math notranslate nohighlight">\(_1\)</span>,<span class="math notranslate nohighlight">\(_2\)</span> (nm); <span class="math notranslate nohighlight">\(k_{dr}\)</span> ((kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-2}\)</span>)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-even"><td><p>extra LJ or Coulomb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pairs</span></code></p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(V\)</span> <a class="footnote-reference brackets" href="topology-file-formats.html#id35" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>; <span class="math notranslate nohighlight">\(W\)</span> <a class="footnote-reference brackets" href="topology-file-formats.html#id35" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a></p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>extra LJ or Coulomb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pairs</span></code></p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>fudge QQ (); <span class="math notranslate nohighlight">\(q_i\)</span>; <span class="math notranslate nohighlight">\(q_j\)</span> (e), <span class="math notranslate nohighlight">\(V\)</span> <a class="footnote-reference brackets" href="topology-file-formats.html#id35" id="id18" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>; <span class="math notranslate nohighlight">\(W\)</span> <a class="footnote-reference brackets" href="topology-file-formats.html#id35" id="id19" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>extra LJ or Coulomb</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pairs_nb</span></code></p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(q_i\)</span>; <span class="math notranslate nohighlight">\(q_j\)</span> (e); <span class="math notranslate nohighlight">\(V\)</span> <a class="footnote-reference brackets" href="topology-file-formats.html#id35" id="id20" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>; <span class="math notranslate nohighlight">\(W\)</span> <a class="footnote-reference brackets" href="topology-file-formats.html#id35" id="id21" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>angle</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angles</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id33" id="id22" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(\theta_0\)</span> (deg); <span class="math notranslate nohighlight">\(k_\theta\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>rad<span class="math notranslate nohighlight">\(^{-2}\)</span>)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-even"><td><p>G96 angle</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angles</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id33" id="id23" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(\theta_0\)</span> (deg); <span class="math notranslate nohighlight">\(k_\theta\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>cross bond-bond</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angles</span></code></p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(r_{1e}\)</span>, <span class="math notranslate nohighlight">\(r_{2e}\)</span> (nm); <span class="math notranslate nohighlight">\(k_{rr'}\)</span> ((kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-2}\)</span>)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cross bond-angle</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angles</span></code></p></td>
+<td><p>3</p></td>
+<td><p>4</p></td>
+<td><p><span class="math notranslate nohighlight">\(r_{1e}\)</span>, <span class="math notranslate nohighlight">\(r_{2e}\)</span>, <span class="math notranslate nohighlight">\(r_{3e}\)</span> (nm); <span class="math notranslate nohighlight">\(k_{r\theta}\)</span> ((kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-2}\)</span>)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Urey-Bradley</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angles</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id33" id="id24" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></td>
+<td><p>3</p></td>
+<td><p>5</p></td>
+<td><p><span class="math notranslate nohighlight">\(\theta_0\)</span> (deg); <span class="math notranslate nohighlight">\(k_\theta\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>rad<span class="math notranslate nohighlight">\(^{-2}\)</span>); <span class="math notranslate nohighlight">\(r_{13}\)</span> (nm); <span class="math notranslate nohighlight">\(k_{UB}\)</span> ((kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-2}\)</span>)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-even"><td><p>quartic angle</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angles</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id33" id="id25" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a></p></td>
+<td><p>3</p></td>
+<td><p>6</p></td>
+<td><p><span class="math notranslate nohighlight">\(\theta_0\)</span> (deg); <span class="math notranslate nohighlight">\(C_{i=0,1,2,3,4}\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>rad<span class="math notranslate nohighlight">\(^{-i}\)</span>)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>tabulated angle</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angles</span></code></p></td>
+<td><p>3</p></td>
+<td><p>8</p></td>
+<td><p>table number (<span class="math notranslate nohighlight">\(\geq 0\)</span>); <span class="math notranslate nohighlight">\(k\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(k\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>linear angle</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angles</span></code></p></td>
+<td><p>3</p></td>
+<td><p>9</p></td>
+<td><p><span class="math notranslate nohighlight">\(a_0\)</span>; <span class="math notranslate nohighlight">\(k_{lin}\)</span> ((kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-2}\)</span>)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line">restricted</div>
+<div class="line">bending potential</div>
+</div>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angles</span></code></p></td>
+<td><p>3</p></td>
+<td><p>10</p></td>
+<td><p><span class="math notranslate nohighlight">\(\theta_0\)</span> (deg); <span class="math notranslate nohighlight">\(k_\theta\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>proper dihedral</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedrals</span></code></p></td>
+<td><p>4</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(\phi_s\)</span> (deg); <span class="math notranslate nohighlight">\(k_\phi\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>); multiplicity</p></td>
+<td><p><span class="math notranslate nohighlight">\(\phi,k\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>improper dihedral</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedrals</span></code></p></td>
+<td><p>4</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(\xi_0\)</span> (deg); <span class="math notranslate nohighlight">\(k_\xi\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>rad<span class="math notranslate nohighlight">\(^{-2}\)</span>)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-even"><td><p>Ryckaert-Bellemans dihedral</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedrals</span></code></p></td>
+<td><p>4</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(C_0\)</span>, <span class="math notranslate nohighlight">\(C_1\)</span>, <span class="math notranslate nohighlight">\(C_2\)</span>, <span class="math notranslate nohighlight">\(C_3\)</span>, <span class="math notranslate nohighlight">\(C_4\)</span>, <span class="math notranslate nohighlight">\(C_5\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>periodic improper dihedral</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedrals</span></code></p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p><span class="math notranslate nohighlight">\(\phi_s\)</span> (deg); <span class="math notranslate nohighlight">\(k_\phi\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>); multiplicity</p></td>
+<td><p><span class="math notranslate nohighlight">\(\phi,k\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Fourier dihedral</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedrals</span></code></p></td>
+<td><p>4</p></td>
+<td><p>5</p></td>
+<td><p><span class="math notranslate nohighlight">\(C_1\)</span>, <span class="math notranslate nohighlight">\(C_2\)</span>, <span class="math notranslate nohighlight">\(C_3\)</span>, <span class="math notranslate nohighlight">\(C_4\)</span>, <span class="math notranslate nohighlight">\(C_5\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>tabulated dihedral</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedrals</span></code></p></td>
+<td><p>4</p></td>
+<td><p>8</p></td>
+<td><p>table number (<span class="math notranslate nohighlight">\(\geq 0\)</span>); <span class="math notranslate nohighlight">\(k\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(k\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>proper dihedral (multiple) <a class="footnote-reference brackets" href="topology-file-formats.html#id36" id="id26" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedrals</span></code></p></td>
+<td><p>4</p></td>
+<td><p>9</p></td>
+<td><p><span class="math notranslate nohighlight">\(\phi_s\)</span> (deg); <span class="math notranslate nohighlight">\(k_\phi\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>); multiplicity</p></td>
+<td><p><span class="math notranslate nohighlight">\(\phi,k\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>restricted dihedral</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedrals</span></code></p></td>
+<td><p>4</p></td>
+<td><p>10</p></td>
+<td><p><span class="math notranslate nohighlight">\(\phi_0\)</span> (deg); <span class="math notranslate nohighlight">\(k_\phi\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>combined bending-torsion potential</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedrals</span></code></p></td>
+<td><p>4</p></td>
+<td><p>11</p></td>
+<td><p><span class="math notranslate nohighlight">\(k_\phi\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>); <span class="math notranslate nohighlight">\(a_0\)</span>, <span class="math notranslate nohighlight">\(a_1\)</span>, <span class="math notranslate nohighlight">\(a_2\)</span>, <span class="math notranslate nohighlight">\(a_3\)</span>, <span class="math notranslate nohighlight">\(a_4\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>exclusions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">exclusions</span></code></p></td>
+<td><p>1</p></td>
+<td></td>
+<td><p>one or more atom indices</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>constraint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">constraints</span></code> <a class="footnote-reference brackets" href="topology-file-formats.html#id32" id="id27" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a></p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_0\)</span> (nm)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>constraint <a class="footnote-reference brackets" href="topology-file-formats.html#id34" id="id28" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">constraints</span></code></p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(b_0\)</span> (nm)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-even"><td><p>SETTLE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">settles</span></code></p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(d_{\mathrm{oh}}\)</span>, <span class="math notranslate nohighlight">\(d_{\mathrm{hh}}\)</span> (nm)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>1-body virtual site</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sites1</span></code></p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>2-body virtual site</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sites2</span></code></p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(a\)</span> ()</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>2-body virtual site (fd)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sites2</span></code></p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(d\)</span> (nm)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>3-body virtual site</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sites3</span></code></p></td>
+<td><p>4</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> ()</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>3-body virtual site (fd)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sites3</span></code></p></td>
+<td><p>4</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(a\)</span> (); <span class="math notranslate nohighlight">\(d\)</span> (nm)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>3-body virtual site (fad)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sites3</span></code></p></td>
+<td><p>4</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\(\theta\)</span> (deg); <span class="math notranslate nohighlight">\(d\)</span> (nm)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>3-body virtual site (out)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sites3</span></code></p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p><span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> (); <span class="math notranslate nohighlight">\(c\)</span> (nm<span class="math notranslate nohighlight">\(^{-1}\)</span>)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>4-body virtual site (fdn)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sites4</span></code></p></td>
+<td><p>5</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> (); <span class="math notranslate nohighlight">\(c\)</span> (nm)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>N-body virtual site (COG)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sitesn</span></code></p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>one or more constructing atom indices</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>N-body virtual site (COM)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sitesn</span></code></p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>one or more constructing atom indices</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>N-body virtual site (COW)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">virtual_sitesn</span></code></p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><div class="line-block">
+<div class="line">one or more pairs consisting of</div>
+<div class="line">constructing atom index and weight</div>
+</div>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>position restraint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">position_restraints</span></code></p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(k_{x}\)</span>, <span class="math notranslate nohighlight">\(k_{y}\)</span>, <span class="math notranslate nohighlight">\(k_{z}\)</span> ((kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-2}\)</span>)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>flat-bottomed position restraint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">position_restraints</span></code></p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\(g\)</span>, <span class="math notranslate nohighlight">\(r\)</span> (nm), <span class="math notranslate nohighlight">\(k\)</span> ((kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>nm<span class="math notranslate nohighlight">\(^{-2}\)</span>)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>distance restraint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">distance_restraints</span></code></p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>type; label; low, up<span class="math notranslate nohighlight">\(_1\)</span>,<span class="math notranslate nohighlight">\(_2\)</span> (nm); weight ()</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dihedral restraint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dihedral_restraints</span></code></p></td>
+<td><p>4</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(\phi_0\)</span> (deg); <span class="math notranslate nohighlight">\(\Delta\phi\)</span> (deg); <span class="math notranslate nohighlight">\(k_{\mathrm{dihr}}\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>rad<span class="math notranslate nohighlight">\(^{-2}\)</span>)</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-even"><td><p>orientation restraint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">orientation_restraints</span></code></p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>exp.; label; <span class="math notranslate nohighlight">\(\alpha\)</span>; <span class="math notranslate nohighlight">\(c\)</span> (U nm<span class="math notranslate nohighlight">\(^{\alpha}\)</span>; obs. (U); weight (U<span class="math notranslate nohighlight">\(^{-1}\)</span>)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>angle restraint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angle_restraints</span></code></p></td>
+<td><p>4</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(\theta_0\)</span> (deg); <span class="math notranslate nohighlight">\(k_c\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>); multiplicity</p></td>
+<td><p><span class="math notranslate nohighlight">\(\theta,k\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>angle restraint (z)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">angle_restraints_z</span></code></p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\(\theta_0\)</span> (deg); <span class="math notranslate nohighlight">\(k_c\)</span> (kJ mol<span class="math notranslate nohighlight">\(^{-1}\)</span>); multiplicity</p></td>
+<td><p><span class="math notranslate nohighlight">\(\theta,k\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id29" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="topology-file-formats.html#id1">1</a><span class="fn-bracket">]</span></span>
+<p>The required number of atom indices for this directive</p>
+</aside>
+<aside class="footnote brackets" id="id30" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="topology-file-formats.html#id2">2</a><span class="fn-bracket">]</span></span>
+<p>The index to use to select this function type</p>
+</aside>
+<aside class="footnote brackets" id="id31" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="topology-file-formats.html#id3">3</a><span class="fn-bracket">]</span></span>
+<p>Indicates which of the parameters can be interpolated in free energy calculations</p>
+</aside>
+<aside class="footnote brackets" id="id32" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="topology-file-formats.html#id4">1</a>,<a role="doc-backlink" href="topology-file-formats.html#id6">2</a>,<a role="doc-backlink" href="topology-file-formats.html#id8">3</a>,<a role="doc-backlink" href="topology-file-formats.html#id10">4</a>,<a role="doc-backlink" href="topology-file-formats.html#id12">5</a>,<a role="doc-backlink" href="topology-file-formats.html#id13">6</a>,<a role="doc-backlink" href="topology-file-formats.html#id14">7</a>,<a role="doc-backlink" href="topology-file-formats.html#id27">8</a>)</span>
+<p>This interaction type will be used by <a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a> for generating exclusions</p>
+</aside>
+<aside class="footnote brackets" id="id33" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="topology-file-formats.html#id5">1</a>,<a role="doc-backlink" href="topology-file-formats.html#id7">2</a>,<a role="doc-backlink" href="topology-file-formats.html#id9">3</a>,<a role="doc-backlink" href="topology-file-formats.html#id11">4</a>,<a role="doc-backlink" href="topology-file-formats.html#id22">5</a>,<a role="doc-backlink" href="topology-file-formats.html#id23">6</a>,<a role="doc-backlink" href="topology-file-formats.html#id24">7</a>,<a role="doc-backlink" href="topology-file-formats.html#id25">8</a>)</span>
+<p>This interaction type can be converted to constraints by <a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a></p>
+</aside>
+<aside class="footnote brackets" id="id34" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="topology-file-formats.html#id15">1</a>,<a role="doc-backlink" href="topology-file-formats.html#id28">2</a>)</span>
+<p>No connection, and so no exclusions, are generated for this interaction</p>
+</aside>
+<aside class="footnote brackets" id="id35" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="topology-file-formats.html#id16">1</a>,<a role="doc-backlink" href="topology-file-formats.html#id17">2</a>,<a role="doc-backlink" href="topology-file-formats.html#id18">3</a>,<a role="doc-backlink" href="topology-file-formats.html#id19">4</a>,<a role="doc-backlink" href="topology-file-formats.html#id20">5</a>,<a role="doc-backlink" href="topology-file-formats.html#id21">6</a>)</span>
+<p>The combination rule determines the type of LJ parameters, see <a class="reference internal" href="parameter-files.html#nbpar"><span class="std std-ref">Non-bonded parameters</span></a></p>
+</aside>
+<aside class="footnote brackets" id="id36" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="topology-file-formats.html#id26">8</a><span class="fn-bracket">]</span></span>
+<p>Multiple, consecutive parameter entries will generate multiple dihedral potentials</p>
+</aside>
+</aside>
+<p>Description of the file layout:</p>
+<ul class="simple">
+<li><p>Semicolon (;) and newline characters surround comments</p></li>
+<li><p>On a line ending with <span class="math notranslate nohighlight">\(\backslash\)</span> the newline character is
+ignored.</p></li>
+<li><p>Directives are surrounded by <code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code></p></li>
+<li><p>The topology hierarchy (which must be followed) consists of three
+levels:</p>
+<ul>
+<li><p>the parameter level, which defines certain force-field
+specifications (see <a class="reference internal" href="topology-file-formats.html#tab-topfile1"><span class="std std-numref">Table 13</span></a>)</p></li>
+<li><p>the molecule level, which should contain one or more molecule
+definitions (see <a class="reference internal" href="topology-file-formats.html#tab-topfile2"><span class="std std-numref">Table 14</span></a>)</p></li>
+<li><p>the system level, containing only system-specific information
+(<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">system</span> <span class="pre">]</span></code> and <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">molecules</span> <span class="pre">]</span></code>)</p></li>
+</ul>
+</li>
+<li><p>Items should be separated by spaces or tabs, not commas</p></li>
+<li><p>Atoms in molecules should be numbered consecutively starting at 1</p></li>
+<li><p>Atoms in the same charge group must be listed consecutively</p></li>
+<li><p>Bonded atom type name must contain at least one non-digit character.</p></li>
+<li><p>The file is parsed only once, which implies that no forward
+references can be treated: items must be defined before they can be
+used</p></li>
+<li><p>Exclusions can be generated from the bonds or overridden manually</p></li>
+<li><p>The bonded force types can be generated from the atom types or
+overridden per bond</p></li>
+<li><p>It is possible to apply multiple bonded interactions of the same type
+on the same atoms</p></li>
+<li><p>Descriptive comment lines and empty lines are highly recommended</p></li>
+<li><p>All directives at the parameter level can be used multiple times
+and there are no restrictions on the order, except that an atom type
+needs to be defined before it can be used in other parameter definitions</p></li>
+<li><p>If parameters for a certain interaction are defined multiple times
+for the same combination of atom types the last definition is used;
+<a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a> generates a warning for parameter redefinitions
+with different values, with the exception of <code class="docutils literal notranslate"><span class="pre">[dihedraltype]</span></code> 9</p></li>
+<li><p>Using one of the <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">atoms</span> <span class="pre">]</span></code>,
+<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">bonds</span> <span class="pre">]</span></code>, <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">pairs</span> <span class="pre">]</span></code>,
+<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">angles</span> <span class="pre">]</span></code>, etc. without having used
+<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">moleculetype</span> <span class="pre">]</span></code> before is meaningless and generates
+a warning</p></li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">molecules</span> <span class="pre">]</span></code> without having used
+<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">system</span> <span class="pre">]</span></code> before is meaningless and generates a
+warning.</p></li>
+<li><p>After <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">system</span> <span class="pre">]</span></code> the only allowed directive is
+<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">molecules</span> <span class="pre">]</span></code></p></li>
+<li><p>Using an unknown string in <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> causes all the data
+until the next directive to be ignored and generates a warning</p></li>
+</ul>
+<p>Here is an example of a topology file, <code class="docutils literal notranslate"><span class="pre">urea.top</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">;</span>
+<span class="p">;</span>       <span class="n">Example</span> <span class="n">topology</span> <span class="n">file</span>
+<span class="p">;</span>
+<span class="p">;</span> <span class="n">The</span> <span class="n">force</span><span class="o">-</span><span class="n">field</span> <span class="n">files</span> <span class="n">to</span> <span class="n">be</span> <span class="n">included</span>
+<span class="c1">#include &quot;amber99.ff/forcefield.itp&quot;</span>
+
+<span class="p">[</span> <span class="n">moleculetype</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">name</span>  <span class="n">nrexcl</span>
+<span class="n">Urea</span>         <span class="mi">3</span>
+
+<span class="p">[</span> <span class="n">atoms</span> <span class="p">]</span>
+   <span class="mi">1</span>  <span class="n">C</span>  <span class="mi">1</span>  <span class="n">URE</span>      <span class="n">C</span>      <span class="mi">1</span>     <span class="mf">0.880229</span>  <span class="mf">12.01000</span>   <span class="p">;</span> <span class="n">amber</span> <span class="n">C</span>  <span class="nb">type</span>
+   <span class="mi">2</span>  <span class="n">O</span>  <span class="mi">1</span>  <span class="n">URE</span>      <span class="n">O</span>      <span class="mi">2</span>    <span class="o">-</span><span class="mf">0.613359</span>  <span class="mf">16.00000</span>   <span class="p">;</span> <span class="n">amber</span> <span class="n">O</span>  <span class="nb">type</span>
+   <span class="mi">3</span>  <span class="n">N</span>  <span class="mi">1</span>  <span class="n">URE</span>     <span class="n">N1</span>      <span class="mi">3</span>    <span class="o">-</span><span class="mf">0.923545</span>  <span class="mf">14.01000</span>   <span class="p">;</span> <span class="n">amber</span> <span class="n">N</span>  <span class="nb">type</span>
+   <span class="mi">4</span>  <span class="n">H</span>  <span class="mi">1</span>  <span class="n">URE</span>    <span class="n">H11</span>      <span class="mi">4</span>     <span class="mf">0.395055</span>   <span class="mf">1.00800</span>   <span class="p">;</span> <span class="n">amber</span> <span class="n">H</span>  <span class="nb">type</span>
+   <span class="mi">5</span>  <span class="n">H</span>  <span class="mi">1</span>  <span class="n">URE</span>    <span class="n">H12</span>      <span class="mi">5</span>     <span class="mf">0.395055</span>   <span class="mf">1.00800</span>   <span class="p">;</span> <span class="n">amber</span> <span class="n">H</span>  <span class="nb">type</span>
+   <span class="mi">6</span>  <span class="n">N</span>  <span class="mi">1</span>  <span class="n">URE</span>     <span class="n">N2</span>      <span class="mi">6</span>    <span class="o">-</span><span class="mf">0.923545</span>  <span class="mf">14.01000</span>   <span class="p">;</span> <span class="n">amber</span> <span class="n">N</span>  <span class="nb">type</span>
+   <span class="mi">7</span>  <span class="n">H</span>  <span class="mi">1</span>  <span class="n">URE</span>    <span class="n">H21</span>      <span class="mi">7</span>     <span class="mf">0.395055</span>   <span class="mf">1.00800</span>   <span class="p">;</span> <span class="n">amber</span> <span class="n">H</span>  <span class="nb">type</span>
+   <span class="mi">8</span>  <span class="n">H</span>  <span class="mi">1</span>  <span class="n">URE</span>    <span class="n">H22</span>      <span class="mi">8</span>     <span class="mf">0.395055</span>   <span class="mf">1.00800</span>   <span class="p">;</span> <span class="n">amber</span> <span class="n">H</span>  <span class="nb">type</span>
+
+<span class="p">[</span> <span class="n">bonds</span> <span class="p">]</span>
+    <span class="mi">1</span>    <span class="mi">2</span>
+    <span class="mi">1</span>    <span class="mi">3</span>
+    <span class="mi">1</span>    <span class="mi">6</span>
+    <span class="mi">3</span>    <span class="mi">4</span>
+    <span class="mi">3</span>    <span class="mi">5</span>
+    <span class="mi">6</span>    <span class="mi">7</span>
+    <span class="mi">6</span>    <span class="mi">8</span>
+
+<span class="p">[</span> <span class="n">dihedrals</span> <span class="p">]</span>
+<span class="p">;</span>   <span class="n">ai</span>    <span class="n">aj</span>    <span class="n">ak</span>    <span class="n">al</span> <span class="n">funct</span>  <span class="n">definition</span>
+     <span class="mi">2</span>     <span class="mi">1</span>     <span class="mi">3</span>     <span class="mi">4</span>   <span class="mi">9</span>
+     <span class="mi">2</span>     <span class="mi">1</span>     <span class="mi">3</span>     <span class="mi">5</span>   <span class="mi">9</span>
+     <span class="mi">2</span>     <span class="mi">1</span>     <span class="mi">6</span>     <span class="mi">7</span>   <span class="mi">9</span>
+     <span class="mi">2</span>     <span class="mi">1</span>     <span class="mi">6</span>     <span class="mi">8</span>   <span class="mi">9</span>
+     <span class="mi">3</span>     <span class="mi">1</span>     <span class="mi">6</span>     <span class="mi">7</span>   <span class="mi">9</span>
+     <span class="mi">3</span>     <span class="mi">1</span>     <span class="mi">6</span>     <span class="mi">8</span>   <span class="mi">9</span>
+     <span class="mi">6</span>     <span class="mi">1</span>     <span class="mi">3</span>     <span class="mi">4</span>   <span class="mi">9</span>
+     <span class="mi">6</span>     <span class="mi">1</span>     <span class="mi">3</span>     <span class="mi">5</span>   <span class="mi">9</span>
+
+<span class="p">[</span> <span class="n">dihedrals</span> <span class="p">]</span>
+     <span class="mi">3</span>     <span class="mi">6</span>     <span class="mi">1</span>     <span class="mi">2</span>   <span class="mi">4</span>
+     <span class="mi">1</span>     <span class="mi">4</span>     <span class="mi">3</span>     <span class="mi">5</span>   <span class="mi">4</span>
+     <span class="mi">1</span>     <span class="mi">7</span>     <span class="mi">6</span>     <span class="mi">8</span>   <span class="mi">4</span>
+
+<span class="p">[</span> <span class="n">position_restraints</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">you</span> <span class="n">wouldn</span><span class="s1">&#39;t normally use this for a molecule like Urea,</span>
+<span class="p">;</span> <span class="n">but</span> <span class="n">we</span> <span class="n">include</span> <span class="n">it</span> <span class="n">here</span> <span class="k">for</span> <span class="n">didactic</span> <span class="n">purposes</span>
+<span class="p">;</span> <span class="n">ai</span>   <span class="n">funct</span>    <span class="n">fc</span>
+   <span class="mi">1</span>     <span class="mi">1</span>     <span class="mi">1000</span>    <span class="mi">1000</span>    <span class="mi">1000</span> <span class="p">;</span> <span class="n">Restrain</span> <span class="n">to</span> <span class="n">a</span> <span class="n">point</span>
+   <span class="mi">2</span>     <span class="mi">1</span>     <span class="mi">1000</span>       <span class="mi">0</span>    <span class="mi">1000</span> <span class="p">;</span> <span class="n">Restrain</span> <span class="n">to</span> <span class="n">a</span> <span class="n">line</span> <span class="p">(</span><span class="n">Y</span><span class="o">-</span><span class="n">axis</span><span class="p">)</span>
+   <span class="mi">3</span>     <span class="mi">1</span>     <span class="mi">1000</span>       <span class="mi">0</span>       <span class="mi">0</span> <span class="p">;</span> <span class="n">Restrain</span> <span class="n">to</span> <span class="n">a</span> <span class="n">plane</span> <span class="p">(</span><span class="n">Y</span><span class="o">-</span><span class="n">Z</span><span class="o">-</span><span class="n">plane</span><span class="p">)</span>
+
+<span class="p">[</span> <span class="n">dihedral_restraints</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">ai</span>   <span class="n">aj</span>    <span class="n">ak</span>    <span class="n">al</span>  <span class="nb">type</span>  <span class="n">phi</span>  <span class="n">dphi</span>  <span class="n">fc</span>
+    <span class="mi">3</span>    <span class="mi">6</span>     <span class="mi">1</span>    <span class="mi">2</span>     <span class="mi">1</span>  <span class="mi">180</span>     <span class="mi">0</span>  <span class="mi">10</span>
+    <span class="mi">1</span>    <span class="mi">4</span>     <span class="mi">3</span>    <span class="mi">5</span>     <span class="mi">1</span>  <span class="mi">180</span>     <span class="mi">0</span>  <span class="mi">10</span>
+
+<span class="p">;</span> <span class="n">Include</span> <span class="n">TIP3P</span> <span class="n">water</span> <span class="n">topology</span>
+<span class="c1">#include &quot;amber99.ff/tip3p.itp&quot;</span>
+
+<span class="p">[</span> <span class="n">system</span> <span class="p">]</span>
+<span class="n">Urea</span> <span class="ow">in</span> <span class="n">Water</span>
+
+<span class="p">[</span> <span class="n">molecules</span> <span class="p">]</span>
+<span class="p">;</span><span class="n">molecule</span> <span class="n">name</span>   <span class="n">nr</span><span class="o">.</span>
+<span class="n">Urea</span>             <span class="mi">1</span>
+<span class="n">SOL</span>              <span class="mi">1000</span>
+</pre></div>
+</div>
+<p>Here follows the explanatory text.</p>
+<p><strong>#include “amber99.ff/forcefield.itp” :</strong> this includes
+the information for the force field you are using, including bonded and
+non-bonded parameters. This example uses the AMBER99 force field, but
+your simulation may use a different force field. <a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a>
+will automatically go and find this file and copy-and-paste its content.
+That content can be seen in
+<code class="docutils literal notranslate"><span class="pre">share/top/amber99.ff/forcefield.itp}</span></code>, and it
+is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define _FF_AMBER</span>
+<span class="c1">#define _FF_AMBER99</span>
+
+<span class="p">[</span> <span class="n">defaults</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">nbfunc</span>        <span class="n">comb</span><span class="o">-</span><span class="n">rule</span>       <span class="n">gen</span><span class="o">-</span><span class="n">pairs</span>       <span class="n">fudgeLJ</span> <span class="n">fudgeQQ</span>
+<span class="mi">1</span>               <span class="mi">2</span>               <span class="n">yes</span>             <span class="mf">0.5</span>     <span class="mf">0.8333</span>
+
+<span class="c1">#include &quot;ffnonbonded.itp&quot;</span>
+<span class="c1">#include &quot;ffbonded.itp&quot;</span>
+</pre></div>
+</div>
+<p>The two <code class="docutils literal notranslate"><span class="pre">#define</span></code> statements set up the conditions so that
+future parts of the topology can know that the AMBER 99 force field is
+in use.</p>
+<p><strong>[ defaults ] :</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nbfunc</span></code> is the non-bonded function type. Use 1 (Lennard-Jones) or 2
+(Buckingham, no longer supported by <a class="reference internal" href="../../onlinehelp/gmx-mdrun.html#gmx-mdrun"><span class="std std-ref">gmx mdrun</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">comb-rule</span></code> is the number of the combination rule (see <a class="reference internal" href="parameter-files.html#nbpar"><span class="std std-ref">Non-bonded parameters</span></a>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen-pairs</span></code> is for pair generation. The default is
+‘no’, <em>i.e.</em> get 1-4 parameters from the pairtypes list. When
+parameters are not present in the list, stop with a fatal error.
+Setting ‘yes’ generates 1-4 parameters that are not present in the
+pair list from normal Lennard-Jones parameters using
+<code class="docutils literal notranslate"><span class="pre">fudgeLJ</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fudgeLJ</span></code> is the factor by which to multiply
+Lennard-Jones 1-4 interactions, default 1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fudgeQQ</span></code> is the factor by which to multiply
+electrostatic 1-4 interactions, default 1</p></li>
+<li><p><span class="math notranslate nohighlight">\(N\)</span> is the power for the repulsion term in a 6-<span class="math notranslate nohighlight">\(N\)</span>
+potential (with nonbonded-type Lennard-Jones only), starting with
+GROMACS version 4.5, <a class="reference internal" href="../../onlinehelp/gmx-mdrun.html#gmx-mdrun"><span class="std std-ref">grompp</span></a> also reads and applies
+<span class="math notranslate nohighlight">\(N\)</span>, for values not equal to 12 tabulated interaction functions
+are used (in older version you would have to use user tabulated
+interactions).</p></li>
+</ul>
+<p><strong>Note</strong> that <code class="docutils literal notranslate"><span class="pre">gen-pairs</span></code>, <code class="docutils literal notranslate"><span class="pre">fudgeLJ</span></code>,
+<code class="docutils literal notranslate"><span class="pre">fudgeQQ</span></code>, and <span class="math notranslate nohighlight">\(N\)</span> are optional.
+<code class="docutils literal notranslate"><span class="pre">fudgeLJ</span></code> is only used when generate pairs is set to
+‘yes’, and <code class="docutils literal notranslate"><span class="pre">fudgeQQ</span></code> is always used. However, if you want
+to specify <span class="math notranslate nohighlight">\(N\)</span> you need to give a value for the other parameters
+as well.</p>
+<p>Then some other <code class="docutils literal notranslate"><span class="pre">#include</span></code> statements add in the large
+amount of data needed to describe the rest of the force field. We will
+skip these and return to <code class="docutils literal notranslate"><span class="pre">urea.top</span></code>. There we will see</p>
+<p><strong>[ moleculetype ] :</strong> defines the name of your molecule
+in this <a class="reference internal" href="../file-formats.html#top"><span class="std std-ref">top</span></a> and nrexcl = 3 stands for excluding
+non-bonded interactions between atoms that are no further than 3 bonds
+away.</p>
+<p><strong>[ atoms ] :</strong> defines the molecule, where
+<code class="docutils literal notranslate"><span class="pre">nr</span></code> and <code class="docutils literal notranslate"><span class="pre">type</span></code> are fixed, the rest is user
+defined. So <code class="docutils literal notranslate"><span class="pre">atom</span></code> can be named as you like,
+<code class="docutils literal notranslate"><span class="pre">cgnr</span></code> made larger or smaller (if possible, the total
+charge of a charge group should be zero), and charges can be changed
+here too.</p>
+<p><strong>[ bonds ] :</strong> no comment.</p>
+<p><strong>[ pairs ] :</strong> LJ and Coulomb 1-4 interactions</p>
+<p><strong>[ angles ] :</strong> no comment</p>
+<p><strong>[ dihedrals ] :</strong> in this case there are 9 proper
+dihedrals (funct = 1), 3 improper (funct = 4) and no Ryckaert-Bellemans
+type dihedrals. If you want to include Ryckaert-Bellemans type dihedrals
+in a topology, do the following (in case of <em>e.g.</em> decane):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">dihedrals</span> <span class="p">]</span>
+<span class="p">;</span>  <span class="n">ai</span>    <span class="n">aj</span>    <span class="n">ak</span>    <span class="n">al</span> <span class="n">funct</span>       <span class="n">c0</span>       <span class="n">c1</span>       <span class="n">c2</span>
+    <span class="mi">1</span>    <span class="mi">2</span>     <span class="mi">3</span>     <span class="mi">4</span>     <span class="mi">3</span>
+    <span class="mi">2</span>    <span class="mi">3</span>     <span class="mi">4</span>     <span class="mi">5</span>     <span class="mi">3</span>
+</pre></div>
+</div>
+<p>In the original implementation of the potential for
+alkanes <a class="reference internal" href="../references.html#refryckaert78"><span class="std std-ref">131</span></a> no 1-4 interactions were used, which means that in
+order to implement that particular force field you need to remove the
+1-4 interactions from the <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">pairs</span> <span class="pre">]</span></code> section of your
+topology. In most modern force fields, like OPLS/AA or Amber the rules
+are different, and the Ryckaert-Bellemans potential is used as a cosine
+series in combination with 1-4 interactions.</p>
+<p><strong>[ position_restraints ] :</strong> harmonically restrain the selected particles to reference
+positions (<a class="reference internal" href="../functions/restraints.html#positionrestraint"><span class="std std-ref">Position restraints</span></a>). The reference positions are read
+from a separate coordinate file by <a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a>.</p>
+<p><strong>[ dihedral_restraints ] :</strong> restrain selected dihedrals to a reference value. The
+implementation of dihedral restraints is described in section
+<a class="reference internal" href="../functions/restraints.html#dihedralrestraint"><span class="std std-ref">Dihedral restraints</span></a> of the manual. The parameters specified in
+the <code class="docutils literal notranslate"><span class="pre">[dihedral_restraints]</span></code> directive are as follows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> has only one possible value which is 1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">phi</span></code> is the value of <span class="math notranslate nohighlight">\(\phi_0\)</span> in <a class="reference internal" href="../functions/restraints.html#equation-eqndphi">(217)</a> and
+<a class="reference internal" href="../functions/restraints.html#equation-eqndihre">(218)</a> of the manual.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dphi</span></code> is the value of <span class="math notranslate nohighlight">\(\Delta\phi\)</span> in <a class="reference internal" href="../functions/restraints.html#equation-eqndihre">(218)</a> of the
+manual.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fc</span></code> is the force constant <span class="math notranslate nohighlight">\(k_{dihr}\)</span> in <a class="reference internal" href="../functions/restraints.html#equation-eqndihre">(218)</a> of the
+manual.</p></li>
+</ul>
+<p><strong>#include “tip3p.itp” :</strong> includes a topology file that was already
+constructed (see section <a class="reference internal" href="topology-file-formats.html#molitp"><span class="std std-ref">Molecule.itp file</span></a>).</p>
+<p><strong>[ system ] :</strong> title of your system, user-defined</p>
+<p><strong>[ molecules ] :</strong> this defines the total number of (sub)molecules in your system
+that are defined in this <a class="reference internal" href="../file-formats.html#top"><span class="std std-ref">top</span></a>. In this example file, it stands for 1
+urea molecule dissolved in 1000 water molecules. The molecule type <code class="docutils literal notranslate"><span class="pre">SOL</span></code>
+is defined in the <code class="docutils literal notranslate"><span class="pre">tip3p.itp</span></code> file. Each name here must correspond to a
+name given with <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">moleculetype</span> <span class="pre">]</span></code> earlier in the topology. The order of the blocks of
+molecule types and the numbers of such molecules must match the
+coordinate file that accompanies the topology when supplied to <a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a>.
+The blocks of molecules do not need to be contiguous, but some tools
+(e.g. <a class="reference internal" href="../../onlinehelp/gmx-genion.html#gmx-genion"><span class="std std-ref">genion</span></a>) may act only on the first or last such block of a
+particular molecule type. Also, these blocks have nothing to do with the
+definition of groups (see sec. <a class="reference internal" href="../algorithms/group-concept.html#groupconcept"><span class="std std-ref">The group concept</span></a> and
+sec. <a class="reference internal" href="../analysis/using-groups.html#usinggroups"><span class="std std-ref">Using Groups</span></a>).</p>
+</section>
+<section id="molecule-itp-file">
+<span id="molitp"></span><h2>Molecule.itp file<a class="headerlink" href="topology-file-formats.html#molecule-itp-file" title="Link to this heading">¶</a></h2>
+<p>If you construct a topology file you will use frequently (like the water
+molecule, <code class="docutils literal notranslate"><span class="pre">tip3p.itp</span></code>, which is already constructed for
+you) it is good to make a <code class="docutils literal notranslate"><span class="pre">molecule.itp</span></code> file. This only
+lists the information of one particular molecule and allows you to
+re-use the <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">moleculetype</span> <span class="pre">]</span></code> in multiple systems without
+re-invoking <a class="reference internal" href="../../onlinehelp/gmx-pdb2gmx.html#gmx-pdb2gmx"><span class="std std-ref">pdb2gmx</span></a> or manually copying and pasting. An
+example <code class="docutils literal notranslate"><span class="pre">urea.itp</span></code> follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">moleculetype</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">molname</span>   <span class="n">nrexcl</span>
+<span class="n">URE</span>     <span class="mi">3</span>
+
+<span class="p">[</span> <span class="n">atoms</span> <span class="p">]</span>
+   <span class="mi">1</span>  <span class="n">C</span>  <span class="mi">1</span>  <span class="n">URE</span>      <span class="n">C</span>      <span class="mi">1</span>     <span class="mf">0.880229</span>  <span class="mf">12.01000</span>   <span class="p">;</span> <span class="n">amber</span> <span class="n">C</span>  <span class="nb">type</span>
+<span class="o">...</span>
+   <span class="mi">8</span>  <span class="n">H</span>  <span class="mi">1</span>  <span class="n">URE</span>    <span class="n">H22</span>      <span class="mi">8</span>     <span class="mf">0.395055</span>   <span class="mf">1.00800</span>   <span class="p">;</span> <span class="n">amber</span> <span class="n">H</span>  <span class="nb">type</span>
+
+<span class="p">[</span> <span class="n">bonds</span> <span class="p">]</span>
+    <span class="mi">1</span>   <span class="mi">2</span>
+<span class="o">...</span>
+    <span class="mi">6</span>   <span class="mi">8</span>
+<span class="p">[</span> <span class="n">dihedrals</span> <span class="p">]</span>
+<span class="p">;</span>   <span class="n">ai</span>    <span class="n">aj</span>    <span class="n">ak</span>    <span class="n">al</span> <span class="n">funct</span>  <span class="n">definition</span>
+     <span class="mi">2</span>     <span class="mi">1</span>     <span class="mi">3</span>     <span class="mi">4</span>   <span class="mi">9</span>
+<span class="o">...</span>
+     <span class="mi">6</span>     <span class="mi">1</span>     <span class="mi">3</span>     <span class="mi">5</span>   <span class="mi">9</span>
+<span class="p">[</span> <span class="n">dihedrals</span> <span class="p">]</span>
+     <span class="mi">3</span>     <span class="mi">6</span>     <span class="mi">1</span>     <span class="mi">2</span>   <span class="mi">4</span>
+     <span class="mi">1</span>     <span class="mi">4</span>     <span class="mi">3</span>     <span class="mi">5</span>   <span class="mi">4</span>
+     <span class="mi">1</span>     <span class="mi">7</span>     <span class="mi">6</span>     <span class="mi">8</span>   <span class="mi">4</span>
+</pre></div>
+</div>
+<p>Using <a class="reference internal" href="../file-formats.html#itp"><span class="std std-ref">itp</span></a> files results in a very short
+<a class="reference internal" href="../file-formats.html#top"><span class="std std-ref">top</span></a> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">;</span>
+<span class="p">;</span>       <span class="n">Example</span> <span class="n">topology</span> <span class="n">file</span>
+<span class="p">;</span>
+<span class="p">;</span> <span class="n">The</span> <span class="n">force</span> <span class="n">field</span> <span class="n">files</span> <span class="n">to</span> <span class="n">be</span> <span class="n">included</span>
+<span class="c1">#include &quot;amber99.ff/forcefield.itp&quot;</span>
+
+<span class="c1">#include &quot;urea.itp&quot;</span>
+
+<span class="p">;</span> <span class="n">Include</span> <span class="n">TIP3P</span> <span class="n">water</span> <span class="n">topology</span>
+<span class="c1">#include &quot;amber99/tip3p.itp&quot;</span>
+
+<span class="p">[</span> <span class="n">system</span> <span class="p">]</span>
+<span class="n">Urea</span> <span class="ow">in</span> <span class="n">Water</span>
+
+<span class="p">[</span> <span class="n">molecules</span> <span class="p">]</span>
+<span class="p">;</span><span class="n">molecule</span> <span class="n">name</span>   <span class="n">nr</span><span class="o">.</span>
+<span class="n">Urea</span>             <span class="mi">1</span>
+<span class="n">SOL</span>              <span class="mi">1000</span>
+</pre></div>
+</div>
+</section>
+<section id="ifdef-statements">
+<h2>Ifdef statements<a class="headerlink" href="topology-file-formats.html#ifdef-statements" title="Link to this heading">¶</a></h2>
+<p>A very powerful feature in GROMACS is the use of <code class="docutils literal notranslate"><span class="pre">#ifdef</span></code>
+statements in your <a class="reference internal" href="../file-formats.html#top"><span class="std std-ref">top</span></a> file. By making use of this
+statement, and associated <code class="docutils literal notranslate"><span class="pre">#define</span></code> statements like were
+seen in <code class="docutils literal notranslate"><span class="pre">amber99.ff/forcefield.itp</span></code> earlier,
+different parameters for one molecule can be used in the same
+<a class="reference internal" href="../file-formats.html#top"><span class="std std-ref">top</span></a> file. An example is given for TFE, where there is
+an option to use different charges on the atoms: charges derived by De
+Loof et al. <a class="reference internal" href="../references.html#refloof92"><span class="std std-ref">132</span></a> or by Van Buuren and
+Berendsen <a class="reference internal" href="../references.html#refbuuren93a"><span class="std std-ref">133</span></a>. In fact, you can use much of the
+functionality of the C preprocessor, <code class="docutils literal notranslate"><span class="pre">cpp</span></code>, because
+<a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a> contains similar pre-processing functions to scan
+the file. The way to make use of the <code class="docutils literal notranslate"><span class="pre">#ifdef</span></code> option is as
+follows:</p>
+<ul class="simple">
+<li><p>either use the option <code class="docutils literal notranslate"><span class="pre">define</span> <span class="pre">=</span> <span class="pre">-DDeLoof</span></code> in the
+<a class="reference internal" href="../file-formats.html#mdp"><span class="std std-ref">mdp</span></a> file (containing <a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a> input
+parameters), or use the line <code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">DeLoof</span></code> early in
+your <a class="reference internal" href="../file-formats.html#top"><span class="std std-ref">top</span></a> or <a class="reference internal" href="../file-formats.html#itp"><span class="std std-ref">itp</span></a> file; and</p></li>
+<li><p>put the <code class="docutils literal notranslate"><span class="pre">#ifdef</span></code> statements in your
+<a class="reference internal" href="../file-formats.html#top"><span class="std std-ref">top</span></a>, as shown below:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+
+
+
+<span class="p">[</span> <span class="n">atoms</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">nr</span>     <span class="nb">type</span>     <span class="n">resnr</span>    <span class="n">residu</span>     <span class="n">atom</span>      <span class="n">cgnr</span>      <span class="n">charge</span>        <span class="n">mass</span>
+<span class="c1">#ifdef DeLoof</span>
+<span class="p">;</span> <span class="n">Use</span> <span class="n">Charges</span> <span class="kn">from</span> <span class="nn">DeLoof</span>
+   <span class="mi">1</span>        <span class="n">C</span>        <span class="mi">1</span>        <span class="n">TFE</span>        <span class="n">C</span>         <span class="mi">1</span>        <span class="mf">0.74</span>
+   <span class="mi">2</span>        <span class="n">F</span>        <span class="mi">1</span>        <span class="n">TFE</span>        <span class="n">F</span>         <span class="mi">1</span>       <span class="o">-</span><span class="mf">0.25</span>
+   <span class="mi">3</span>        <span class="n">F</span>        <span class="mi">1</span>        <span class="n">TFE</span>        <span class="n">F</span>         <span class="mi">1</span>       <span class="o">-</span><span class="mf">0.25</span>
+   <span class="mi">4</span>        <span class="n">F</span>        <span class="mi">1</span>        <span class="n">TFE</span>        <span class="n">F</span>         <span class="mi">1</span>       <span class="o">-</span><span class="mf">0.25</span>
+   <span class="mi">5</span>      <span class="n">CH2</span>        <span class="mi">1</span>        <span class="n">TFE</span>      <span class="n">CH2</span>         <span class="mi">1</span>        <span class="mf">0.25</span>
+   <span class="mi">6</span>       <span class="n">OA</span>        <span class="mi">1</span>        <span class="n">TFE</span>       <span class="n">OA</span>         <span class="mi">1</span>       <span class="o">-</span><span class="mf">0.65</span>
+   <span class="mi">7</span>       <span class="n">HO</span>        <span class="mi">1</span>        <span class="n">TFE</span>       <span class="n">HO</span>         <span class="mi">1</span>        <span class="mf">0.41</span>
+<span class="c1">#else</span>
+<span class="p">;</span> <span class="n">Use</span> <span class="n">Charges</span> <span class="kn">from</span> <span class="nn">VanBuuren</span>
+   <span class="mi">1</span>        <span class="n">C</span>        <span class="mi">1</span>        <span class="n">TFE</span>        <span class="n">C</span>         <span class="mi">1</span>        <span class="mf">0.59</span>
+   <span class="mi">2</span>        <span class="n">F</span>        <span class="mi">1</span>        <span class="n">TFE</span>        <span class="n">F</span>         <span class="mi">1</span>       <span class="o">-</span><span class="mf">0.2</span>
+   <span class="mi">3</span>        <span class="n">F</span>        <span class="mi">1</span>        <span class="n">TFE</span>        <span class="n">F</span>         <span class="mi">1</span>       <span class="o">-</span><span class="mf">0.2</span>
+   <span class="mi">4</span>        <span class="n">F</span>        <span class="mi">1</span>        <span class="n">TFE</span>        <span class="n">F</span>         <span class="mi">1</span>       <span class="o">-</span><span class="mf">0.2</span>
+   <span class="mi">5</span>      <span class="n">CH2</span>        <span class="mi">1</span>        <span class="n">TFE</span>      <span class="n">CH2</span>         <span class="mi">1</span>        <span class="mf">0.26</span>
+   <span class="mi">6</span>       <span class="n">OA</span>        <span class="mi">1</span>        <span class="n">TFE</span>       <span class="n">OA</span>         <span class="mi">1</span>       <span class="o">-</span><span class="mf">0.55</span>
+   <span class="mi">7</span>       <span class="n">HO</span>        <span class="mi">1</span>        <span class="n">TFE</span>       <span class="n">HO</span>         <span class="mi">1</span>        <span class="mf">0.3</span>
+<span class="c1">#endif</span>
+
+<span class="p">[</span> <span class="n">bonds</span> <span class="p">]</span>
+<span class="p">;</span>  <span class="n">ai</span>    <span class="n">aj</span> <span class="n">funct</span>           <span class="n">c0</span>           <span class="n">c1</span>
+    <span class="mi">6</span>     <span class="mi">7</span>     <span class="mi">1</span> <span class="mf">1.000000e-01</span> <span class="mf">3.138000e+05</span>
+    <span class="mi">1</span>     <span class="mi">2</span>     <span class="mi">1</span> <span class="mf">1.360000e-01</span> <span class="mf">4.184000e+05</span>
+    <span class="mi">1</span>     <span class="mi">3</span>     <span class="mi">1</span> <span class="mf">1.360000e-01</span> <span class="mf">4.184000e+05</span>
+    <span class="mi">1</span>     <span class="mi">4</span>     <span class="mi">1</span> <span class="mf">1.360000e-01</span> <span class="mf">4.184000e+05</span>
+    <span class="mi">1</span>     <span class="mi">5</span>     <span class="mi">1</span> <span class="mf">1.530000e-01</span> <span class="mf">3.347000e+05</span>
+    <span class="mi">5</span>     <span class="mi">6</span>     <span class="mi">1</span> <span class="mf">1.430000e-01</span> <span class="mf">3.347000e+05</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>This mechanism is used by <a class="reference internal" href="../../onlinehelp/gmx-pdb2gmx.html#gmx-pdb2gmx"><span class="std std-ref">pdb2gmx</span></a> to implement optional position
+restraints (<a class="reference internal" href="../functions/restraints.html#positionrestraint"><span class="std std-ref">Position restraints</span></a>) by <code class="docutils literal notranslate"><span class="pre">#include</span></code>-ing an <a class="reference internal" href="../file-formats.html#itp"><span class="std std-ref">itp</span></a> file
+whose contents will be meaningful only if a particular <code class="docutils literal notranslate"><span class="pre">#define</span></code> is set
+(and spelled correctly!)</p>
+</section>
+<section id="topologies-for-free-energy-calculations">
+<h2>Topologies for free energy calculations<a class="headerlink" href="topology-file-formats.html#topologies-for-free-energy-calculations" title="Link to this heading">¶</a></h2>
+<p>Free energy differences between two systems, A and B, can be calculated
+as described in sec. <a class="reference internal" href="../algorithms/free-energy-calculations.html#fecalc"><span class="std std-ref">Free energy calculations</span></a>. Systems A and B are described by
+topologies consisting of the same number of molecules with the same
+number of atoms. Masses and non-bonded interactions can be perturbed by
+adding B parameters under the <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">atoms</span> <span class="pre">]</span></code> directive. Bonded interactions can be
+perturbed by adding B parameters to the bonded types or the bonded
+interactions. The parameters that can be perturbed are listed in
+<a class="reference internal" href="topology-file-formats.html#tab-topfile1"><span class="std std-numref">Tables 13</span></a> and <a class="reference internal" href="topology-file-formats.html#tab-topfile2"><span class="std std-numref">14</span></a>.
+The <span class="math notranslate nohighlight">\(\lambda\)</span>-dependence of the
+interactions is described in section sec. <a class="reference internal" href="../functions/free-energy-interactions.html#feia"><span class="std std-ref">Free energy interactions</span></a>. The bonded
+parameters that are used (on the line of the bonded interaction
+definition, or the ones looked up on atom types in the bonded type
+lists) is explained in <a class="reference internal" href="topology-file-formats.html#tab-topfe"><span class="std std-numref">Table 15</span></a>. In most cases, things should
+work intuitively. When the A and B atom types in a bonded interaction
+are not all identical and parameters are not present for the B-state,
+either on the line or in the bonded types, <a class="reference internal" href="../../onlinehelp/gmx-grompp.html#gmx-grompp"><span class="std std-ref">grompp</span></a> uses the A-state
+parameters and issues a warning. For free energy calculations, all or no
+parameters for topology B (<span class="math notranslate nohighlight">\(\lambda = 1\)</span>) should be added on the
+same line, after the normal parameters, in the same order as the normal
+parameters. From GROMACS 4.6 onward, if <span class="math notranslate nohighlight">\(\lambda\)</span> is treated as a
+vector, then the <code class="docutils literal notranslate"><span class="pre">bonded-lambdas</span></code> component controls all bonded terms that
+are not explicitly labeled as restraints. Restrain terms are controlled
+by the <code class="docutils literal notranslate"><span class="pre">restraint-lambdas</span></code> component.</p>
+<div class="table-wrapper docutils container" id="id39">
+<span id="tab-topfe"></span><span id="tab-topfe"></span><table class="docutils align-default" id="id39">
+<caption><span class="caption-number">Table 15 </span><span class="caption-text">The bonded parameters that are used for free energy topologies,
+on the line of the bonded interaction definition or looked up
+in the bond types section based on atom types. A and B indicate the
+parameters used for state A and B respectively, + and <span class="math notranslate nohighlight">\(-\)</span> indicate
+the (non-)presence of parameters in the topology, x indicates that
+the presence has no influence.</span><a class="headerlink" href="topology-file-formats.html#id39" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head" rowspan="2"><p>B-state atom types</p>
+<p>all identical to</p>
+<p>A-state atom types</p>
+</th>
+<th class="head" colspan="2"><p>parameters</p>
+<p>on line</p>
+</th>
+<th class="head" colspan="4"><p>parameters in   | parameters in
+bonded types    | bonded types
+of A atoms      | of B atoms</p></th>
+<th class="head" rowspan="2"><p>expected
+message</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>yes</p></td>
+<td><p>+AB</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>yes</p></td>
+<td><p>+A</p></td>
+<td><p>+B</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>yes</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td></td>
+<td></td>
+<td><p>error</p></td>
+</tr>
+<tr class="row-even"><td><p>yes</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>+AB</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>yes</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>+A</p></td>
+<td><p>+B</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>no</p></td>
+<td><p>+AB</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td><p>warning</p></td>
+</tr>
+<tr class="row-odd"><td><p>no</p></td>
+<td><p>+A</p></td>
+<td><p>+B</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>no</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>x</p></td>
+<td><p>x</p></td>
+<td><p>error</p></td>
+</tr>
+<tr class="row-odd"><td><p>no</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>+AB</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>warning</p></td>
+</tr>
+<tr class="row-even"><td><p>no</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>+A</p></td>
+<td><p>+B</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>warning</p></td>
+</tr>
+<tr class="row-odd"><td><p>no</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>+A</p></td>
+<td><p>x</p></td>
+<td><p>+B</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>no</p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(-\)</span></p></td>
+<td><p>+A</p></td>
+<td><p>x</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td><p>+B</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Below is an example of a topology which changes from 200 propanols to
+200 pentanes using the GROMOS-96 force field.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">;</span> <span class="n">Include</span> <span class="n">force</span> <span class="n">field</span> <span class="n">parameters</span>
+<span class="c1">#include &quot;gromos43a1.ff/forcefield.itp&quot;</span>
+
+<span class="p">[</span> <span class="n">moleculetype</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">Name</span>            <span class="n">nrexcl</span>
+<span class="n">PropPent</span>          <span class="mi">3</span>
+
+<span class="p">[</span> <span class="n">atoms</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">nr</span> <span class="nb">type</span> <span class="n">resnr</span> <span class="n">residue</span> <span class="n">atom</span> <span class="n">cgnr</span>  <span class="n">charge</span>    <span class="n">mass</span>  <span class="n">typeB</span> <span class="n">chargeB</span>  <span class="n">massB</span>
+  <span class="mi">1</span>    <span class="n">H</span>    <span class="mi">1</span>     <span class="n">PROP</span>    <span class="n">PH</span>    <span class="mi">1</span>   <span class="mf">0.398</span>    <span class="mf">1.008</span>  <span class="n">CH3</span>     <span class="mf">0.0</span>  <span class="mf">15.035</span>
+  <span class="mi">2</span>   <span class="n">OA</span>    <span class="mi">1</span>     <span class="n">PROP</span>    <span class="n">PO</span>    <span class="mi">1</span>  <span class="o">-</span><span class="mf">0.548</span>  <span class="mf">15.9994</span>  <span class="n">CH2</span>     <span class="mf">0.0</span>  <span class="mf">14.027</span>
+  <span class="mi">3</span>  <span class="n">CH2</span>    <span class="mi">1</span>     <span class="n">PROP</span>   <span class="n">PC1</span>    <span class="mi">1</span>   <span class="mf">0.150</span>   <span class="mf">14.027</span>  <span class="n">CH2</span>     <span class="mf">0.0</span>  <span class="mf">14.027</span>
+  <span class="mi">4</span>  <span class="n">CH2</span>    <span class="mi">1</span>     <span class="n">PROP</span>   <span class="n">PC2</span>    <span class="mi">2</span>   <span class="mf">0.000</span>   <span class="mf">14.027</span>
+  <span class="mi">5</span>  <span class="n">CH3</span>    <span class="mi">1</span>     <span class="n">PROP</span>   <span class="n">PC3</span>    <span class="mi">2</span>   <span class="mf">0.000</span>   <span class="mf">15.035</span>
+
+<span class="p">[</span> <span class="n">bonds</span> <span class="p">]</span>
+<span class="p">;</span>  <span class="n">ai</span>    <span class="n">aj</span> <span class="n">funct</span>    <span class="n">par_A</span>  <span class="n">par_B</span>
+    <span class="mi">1</span>     <span class="mi">2</span>     <span class="mi">2</span>    <span class="n">gb_1</span>   <span class="n">gb_26</span>
+    <span class="mi">2</span>     <span class="mi">3</span>     <span class="mi">2</span>    <span class="n">gb_17</span>  <span class="n">gb_26</span>
+    <span class="mi">3</span>     <span class="mi">4</span>     <span class="mi">2</span>    <span class="n">gb_26</span>  <span class="n">gb_26</span>
+    <span class="mi">4</span>     <span class="mi">5</span>     <span class="mi">2</span>    <span class="n">gb_26</span>
+
+<span class="p">[</span> <span class="n">pairs</span> <span class="p">]</span>
+<span class="p">;</span>  <span class="n">ai</span>    <span class="n">aj</span> <span class="n">funct</span>
+    <span class="mi">1</span>     <span class="mi">4</span>     <span class="mi">1</span>
+    <span class="mi">2</span>     <span class="mi">5</span>     <span class="mi">1</span>
+
+<span class="p">[</span> <span class="n">angles</span> <span class="p">]</span>
+<span class="p">;</span>  <span class="n">ai</span>    <span class="n">aj</span>    <span class="n">ak</span> <span class="n">funct</span>    <span class="n">par_A</span>   <span class="n">par_B</span>
+    <span class="mi">1</span>     <span class="mi">2</span>     <span class="mi">3</span>     <span class="mi">2</span>    <span class="n">ga_11</span>   <span class="n">ga_14</span>
+    <span class="mi">2</span>     <span class="mi">3</span>     <span class="mi">4</span>     <span class="mi">2</span>    <span class="n">ga_14</span>   <span class="n">ga_14</span>
+    <span class="mi">3</span>     <span class="mi">4</span>     <span class="mi">5</span>     <span class="mi">2</span>    <span class="n">ga_14</span>   <span class="n">ga_14</span>
+
+<span class="p">[</span> <span class="n">dihedrals</span> <span class="p">]</span>
+<span class="p">;</span>  <span class="n">ai</span>    <span class="n">aj</span>    <span class="n">ak</span>    <span class="n">al</span> <span class="n">funct</span>    <span class="n">par_A</span>   <span class="n">par_B</span>
+    <span class="mi">1</span>     <span class="mi">2</span>     <span class="mi">3</span>     <span class="mi">4</span>     <span class="mi">1</span>    <span class="n">gd_12</span>   <span class="n">gd_17</span>
+    <span class="mi">2</span>     <span class="mi">3</span>     <span class="mi">4</span>     <span class="mi">5</span>     <span class="mi">1</span>    <span class="n">gd_17</span>   <span class="n">gd_17</span>
+
+<span class="p">[</span> <span class="n">system</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">Name</span>
+<span class="n">Propanol</span> <span class="n">to</span> <span class="n">Pentane</span>
+
+<span class="p">[</span> <span class="n">molecules</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">Compound</span>        <span class="c1">#mols</span>
+<span class="n">PropPent</span>          <span class="mi">200</span>
+</pre></div>
+</div>
+<p>Atoms that are not perturbed, <code class="docutils literal notranslate"><span class="pre">PC2</span></code> and
+<code class="docutils literal notranslate"><span class="pre">PC3</span></code>, do not need B-state parameter specifications, since
+the B parameters will be copied from the A parameters. Bonded
+interactions between atoms that are not perturbed do not need B
+parameter specifications, as is the case for the last bond in the
+example topology. Topologies using the OPLS/AA force field need no
+bonded parameters at all, since both the A and B parameters are
+determined by the atom types. Non-bonded interactions involving one or
+two perturbed atoms use the free-energy perturbation functional forms.
+Non-bonded interactions between two non-perturbed atoms use the normal
+functional forms. This means that when, for instance, only the charge of
+a particle is perturbed, its Lennard-Jones interactions will also be
+affected when lambda is not equal to zero or one.</p>
+<p><strong>Note</strong> that this topology uses the GROMOS-96 force field, in which the
+bonded interactions are not determined by the atom types. The bonded
+interaction strings are converted by the C-preprocessor. The force-field
+parameter files contain lines like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define gb_26       0.1530  7.1500e+06</span>
+
+<span class="c1">#define gd_17     0.000       5.86          3</span>
+</pre></div>
+</div>
+</section>
+<section id="constraint-forces">
+<span id="constraintforce"></span><h2>Constraint forces<a class="headerlink" href="topology-file-formats.html#constraint-forces" title="Link to this heading">¶</a></h2>
+<div class="line-block">
+<div class="line">The constraint force between two atoms in one molecule can be
+calculated with the free energy perturbation code by adding a
+constraint between the two atoms, with a different length in the A and
+B topology. When the B length is 1 nm longer than the A length and
+lambda is kept constant at zero, the derivative of the Hamiltonian
+with respect to lambda is the constraint force. For constraints
+between molecules, the pull code can be used, see sec. <a class="reference internal" href="../special/pulling.html#pull"><span class="std std-ref">Collective variables: the pull code</span></a>.
+Below is an example for calculating the constraint force at 0.7 nm
+between two methanes in water, by combining the two methanes into one
+“molecule.” <strong>Note</strong> that the definition of a “molecule” in GROMACS
+does not necessarily correspond to the chemical definition of a
+molecule. In GROMACS, a “molecule” can be defined as any group of
+atoms that one wishes to consider simultaneously. The added constraint
+is of function type 2, which means that it is not used for generating
+exclusions (see sec. <a class="reference internal" href="molecule-definition.html#excl"><span class="std std-ref">Exclusions</span></a>). Note that the constraint free energy
+term is included in the derivative term, and is specifically included
+in the <code class="docutils literal notranslate"><span class="pre">bonded-lambdas</span></code> component. However, the free energy for changing
+constraints is <em>not</em> included in the potential energy differences used
+for BAR and MBAR, as this requires reevaluating the energy at each of
+the constraint components. This functionality is planned for later
+versions.</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">;</span> <span class="n">Include</span> <span class="n">force</span><span class="o">-</span><span class="n">field</span> <span class="n">parameters</span>
+<span class="c1">#include &quot;gromos43a1.ff/forcefield.itp&quot;</span>
+
+<span class="p">[</span> <span class="n">moleculetype</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">Name</span>            <span class="n">nrexcl</span>
+<span class="n">Methanes</span>               <span class="mi">1</span>
+
+<span class="p">[</span> <span class="n">atoms</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">nr</span>   <span class="nb">type</span>   <span class="n">resnr</span>  <span class="n">residu</span>   <span class="n">atom</span>    <span class="n">cgnr</span>     <span class="n">charge</span>    <span class="n">mass</span>
+   <span class="mi">1</span>    <span class="n">CH4</span>     <span class="mi">1</span>     <span class="n">CH4</span>      <span class="n">C1</span>       <span class="mi">1</span>          <span class="mi">0</span>    <span class="mf">16.043</span>
+   <span class="mi">2</span>    <span class="n">CH4</span>     <span class="mi">1</span>     <span class="n">CH4</span>      <span class="n">C2</span>       <span class="mi">2</span>          <span class="mi">0</span>    <span class="mf">16.043</span>
+<span class="p">[</span> <span class="n">constraints</span> <span class="p">]</span>
+<span class="p">;</span>  <span class="n">ai</span>    <span class="n">aj</span> <span class="n">funct</span>   <span class="n">length_A</span>  <span class="n">length_B</span>
+    <span class="mi">1</span>     <span class="mi">2</span>     <span class="mi">2</span>        <span class="mf">0.7</span>       <span class="mf">1.7</span>
+
+<span class="c1">#include &quot;gromos43a1.ff/spc.itp&quot;</span>
+
+<span class="p">[</span> <span class="n">system</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">Name</span>
+<span class="n">Methanes</span> <span class="ow">in</span> <span class="n">Water</span>
+
+<span class="p">[</span> <span class="n">molecules</span> <span class="p">]</span>
+<span class="p">;</span> <span class="n">Compound</span>        <span class="c1">#mols</span>
+<span class="n">Methanes</span>              <span class="mi">1</span>
+<span class="n">SOL</span>                <span class="mi">2002</span>
+</pre></div>
+</div>
+</section>
+<section id="coordinate-file">
+<h2>Coordinate file<a class="headerlink" href="topology-file-formats.html#coordinate-file" title="Link to this heading">¶</a></h2>
+<p>Files with the <a class="reference internal" href="../file-formats.html#gro"><span class="std std-ref">gro</span></a> file extension contain a molecular
+structure in GROMOS-87 format. A sample piece is included below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MD</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">waters</span><span class="p">,</span> <span class="n">reformat</span> <span class="n">step</span><span class="p">,</span> <span class="n">PA</span> <span class="n">aug</span><span class="o">-</span><span class="mi">91</span>
+    <span class="mi">6</span>
+    <span class="mi">1</span><span class="n">WATER</span>  <span class="n">OW1</span>    <span class="mi">1</span>   <span class="mf">0.126</span>   <span class="mf">1.624</span>   <span class="mf">1.679</span>  <span class="mf">0.1227</span> <span class="o">-</span><span class="mf">0.0580</span>  <span class="mf">0.0434</span>
+    <span class="mi">1</span><span class="n">WATER</span>  <span class="n">HW2</span>    <span class="mi">2</span>   <span class="mf">0.190</span>   <span class="mf">1.661</span>   <span class="mf">1.747</span>  <span class="mf">0.8085</span>  <span class="mf">0.3191</span> <span class="o">-</span><span class="mf">0.7791</span>
+    <span class="mi">1</span><span class="n">WATER</span>  <span class="n">HW3</span>    <span class="mi">3</span>   <span class="mf">0.177</span>   <span class="mf">1.568</span>   <span class="mf">1.613</span> <span class="o">-</span><span class="mf">0.9045</span> <span class="o">-</span><span class="mf">2.6469</span>  <span class="mf">1.3180</span>
+    <span class="mi">2</span><span class="n">WATER</span>  <span class="n">OW1</span>    <span class="mi">4</span>   <span class="mf">1.275</span>   <span class="mf">0.053</span>   <span class="mf">0.622</span>  <span class="mf">0.2519</span>  <span class="mf">0.3140</span> <span class="o">-</span><span class="mf">0.1734</span>
+    <span class="mi">2</span><span class="n">WATER</span>  <span class="n">HW2</span>    <span class="mi">5</span>   <span class="mf">1.337</span>   <span class="mf">0.002</span>   <span class="mf">0.680</span> <span class="o">-</span><span class="mf">1.0641</span> <span class="o">-</span><span class="mf">1.1349</span>  <span class="mf">0.0257</span>
+    <span class="mi">2</span><span class="n">WATER</span>  <span class="n">HW3</span>    <span class="mi">6</span>   <span class="mf">1.326</span>   <span class="mf">0.120</span>   <span class="mf">0.568</span>  <span class="mf">1.9427</span> <span class="o">-</span><span class="mf">0.8216</span> <span class="o">-</span><span class="mf">0.0244</span>
+   <span class="mf">1.82060</span>   <span class="mf">1.82060</span>   <span class="mf">1.82060</span>
+</pre></div>
+</div>
+<p>This format is fixed, <em>i.e.</em> all columns are in a fixed position. If you
+want to read such a file in your own program without using the GROMACS
+libraries you can use the following formats:</p>
+<p><strong>C-format:</strong>
+<code class="docutils literal notranslate"><span class="pre">“%5i%5s%5s%5i%8.3f%8.3f%8.3f%8.4f%8.4f%8.4f”</span></code></p>
+<p>Or to be more precise, with title <em>etc.</em> it looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">Title</span>
+<span class="s2">&quot;</span><span class="si">%5d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">natoms</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">natoms</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="s2">&quot;</span><span class="si">%5d%-5s%5s%5d%8.3f%8.3f%8.3f%8.4f%8.4f%8.4f</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">residuenr</span><span class="p">,</span><span class="n">residuename</span><span class="p">,</span><span class="n">atomname</span><span class="p">,</span><span class="n">atomnr</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">vx</span><span class="p">,</span><span class="n">vy</span><span class="p">,</span><span class="n">vz</span>
+<span class="p">}</span>
+<span class="s2">&quot;</span><span class="si">%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f%10.5f</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+  <span class="n">box</span><span class="p">[</span><span class="n">X</span><span class="p">][</span><span class="n">X</span><span class="p">],</span><span class="n">box</span><span class="p">[</span><span class="n">Y</span><span class="p">][</span><span class="n">Y</span><span class="p">],</span><span class="n">box</span><span class="p">[</span><span class="n">Z</span><span class="p">][</span><span class="n">Z</span><span class="p">],</span>
+  <span class="n">box</span><span class="p">[</span><span class="n">X</span><span class="p">][</span><span class="n">Y</span><span class="p">],</span><span class="n">box</span><span class="p">[</span><span class="n">X</span><span class="p">][</span><span class="n">Z</span><span class="p">],</span><span class="n">box</span><span class="p">[</span><span class="n">Y</span><span class="p">][</span><span class="n">X</span><span class="p">],</span><span class="n">box</span><span class="p">[</span><span class="n">Y</span><span class="p">][</span><span class="n">Z</span><span class="p">],</span><span class="n">box</span><span class="p">[</span><span class="n">Z</span><span class="p">][</span><span class="n">X</span><span class="p">],</span><span class="n">box</span><span class="p">[</span><span class="n">Z</span><span class="p">][</span><span class="n">Y</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Fortran format:</strong>
+<code class="docutils literal notranslate"><span class="pre">(i5,2a5,i5,3f8.3,3f8.4)</span></code></p>
+<p>So <code class="docutils literal notranslate"><span class="pre">confin.gro</span></code> is the GROMACS coordinate file and is
+almost the same as the GROMOS-87 file (for GROMOS users: when used with
+<code class="docutils literal notranslate"><span class="pre">ntx=7</span></code>). The only difference is the box for which GROMACS
+uses a tensor, not a vector.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="force-field-organization.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Force field organization</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="pdb2gmx-input-files.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><span class="xref std std-ref">pdb2gmx</span> input files</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, GROMACS development team
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="topology-file-formats.html#">File formats</a><ul>
+<li><a class="reference internal" href="topology-file-formats.html#topology-file">Topology file</a></li>
+<li><a class="reference internal" href="topology-file-formats.html#molecule-itp-file">Molecule.itp file</a></li>
+<li><a class="reference internal" href="topology-file-formats.html#ifdef-statements">Ifdef statements</a></li>
+<li><a class="reference internal" href="topology-file-formats.html#topologies-for-free-energy-calculations">Topologies for free energy calculations</a></li>
+<li><a class="reference internal" href="topology-file-formats.html#constraint-forces">Constraint forces</a></li>
+<li><a class="reference internal" href="topology-file-formats.html#coordinate-file">Coordinate file</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js%3Fv=602b4562"></script>
+    <script src="../../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js%3Fv=5fa4622c"></script>
+    <script src="../../_static/clipboard.min.js%3Fv=a7894cd8"></script>
+    <script src="../../_static/copybutton.js%3Fv=f281be69"></script>
+    <script src="../../_static/tabs.js%3Fv=3ee01567"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

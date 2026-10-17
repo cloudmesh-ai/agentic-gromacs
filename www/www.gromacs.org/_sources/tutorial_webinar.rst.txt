@@ -1,0 +1,76 @@
+Tutorials and Webinars
+=======================
+
+Tutorials
+----------
+
+On the `GROMACS tutorial page <http:\\tutorials.gromacs.org>`_  you find a
+collection of training resource and free online GROMACS tutorials, provided as
+interactive Jupyter notebooks. More on the GROMACS tutorial 
+`here <https://bioexcel.eu/webinar-the-gromacs-tutorial-suite-from-basic-to-advanced-applications-2025-12-2/>`_
+
+Workshops materials
+--------------------
+
+:doc:`workshop`: Learn to code in GROMACS (2024)
+
+    * lecture materials `doi:10.5281/zenodo.13739992 <https://zenodo.org/records/13739992>`_
+
+:doc:`workshop`: Learn to code in GROMACS (2023)
+
+    * lecture materials `doi:10.5281/zenodo.10276348 <https://zenodo.org/records/10276348>`_
+
+`Workshop: How to run GROMACS efficiently on the LUMI supercomputer <https://bioexcel.eu/events/running-gromacs-efficiently-on-lumi-workshop-2024/>`_
+(2024) 
+
+    * `overview and collaborative document <https://zenodo.org/records/10683366/files/Gromacs-on-LUMI-Q_A-document.pdf?download=1>`_ used during the workshop
+    * lecture and hands-on materials `doi:10.5281/zenodo.10683366 <https://doi.org/10.5281/zenodo.10683366>`_
+
+    
+GROMACS webinars
+-----------------
+
+`GROMACS <https://www.youtube.com/watch?v=MWafKFVgFTU>`_
+
+GROMACS-related webinars
+-------------------------
+
+`Peeking into the black box of GROMACS performance <https://youtu.be/bdCAOs4sl1Q>`_
+
+`Improvements in the GROMACS heterogeneous parallelization <https://youtu.be/rTUz28f8p6g>`_
+
+`Getting good performance in GROMACS default <https://youtu.be/RUqdzntAgMc>`_
+
+`A walk through simulation parameter options (.mdp files) for GROMACS <https://youtu.be/0JwSpuysCfc>`_
+
+`Enhance Simulation Sampling using GROMACS <https://youtu.be/dqBGJ6vpTzA>`_
+
+`Accelerating sampling in GROMACS with the AWH method <https://youtu.be/SN-Ompgp-mE>`_
+
+`Applying the Accelerated Weight Histogram method to alchemical transformations <https://youtu.be/E5nGLcbyqTQ>`_
+
+`Mastering the Accelerated Weight Histogram Method: from Principles to Practice <https://youtu.be/hm1S3Md3pHE>`_
+
+`Density guided simulations – combining cryo-EM data and molecular dynamics simulation <https://youtu.be/D8Cu06HVHe0>`_
+
+`Cryo-EM structure refinement with density-guided simulations in GROMACS <https://youtu.be/zLYn9X5fuyQ>`_
+
+`NB-LIB: A performance portable library for computing forces and energies of multi-particle systems <https://youtu.be/43gRI03rRWY>`_
+
+
+GROMACS release webinars
+------------------------
+
+`What’s new in GROMACS 2026 <https://youtu.be/LUnOuUdTSwA>`_
+
+`What’s new in GROMACS 2025 <https://youtu.be/Bp2ah2Y-xFk>`_
+
+`GROMACS 2024: new features and improvements <https://youtu.be/5LB6ebxq3ek>`_
+
+`What’s new in GROMACS 2023 <https://youtu.be/3unq1H23aOk>`_
+
+`What’s new in GROMACS 2022 <https://youtu.be/yIblJjez6P0>`_
+
+`What’s new in GROMACS 2021 <https://youtu.be/5WVc7S_yhWw>`_
+
+`What’s new in GROMACS 2020 <https://youtu.be/GKsAkVrIuak>`_

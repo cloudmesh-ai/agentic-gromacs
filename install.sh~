@@ -1,0 +1,29 @@
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install cmake wget gcc libomp fftw hwloc
+
+wget https://gromacs.org
+wget https://ftp.gromacs.org/regressiontests/regressiontests-2023.3.tar.gz
+
+tar xfz gromacs-2023.3.tar.gz
+tar xfz regressiontests-2023.3.tar.gz
+cd gromacs-2023.3
+
+mkdir build
+cd build
+mkdir build
+cd build
+cmake .. \
+  -DCMAKE_INSTALL_PREFIX=$HOME/gromacs \
+  -DGMX_BUILD_OWN_FFTW=ON \
+  -DREGRESSIONTEST_DOWNLOAD=OFF \
+  -DREGRESSIONTEST_PATH=../../regressiontests-2023.3 \
+  -DCMAKE_C_COMPILER=gcc \
+  -DCMAKE_CXX_COMPILER=g++
+
+
+
+make -j$(sysctl -n hw.logicalcpu)
+make check
+make install
+
+source $HOME/gromacs/bin/GMXRC

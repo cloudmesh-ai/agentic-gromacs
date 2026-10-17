@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Hybrid Quantum-Classical simulations (QM/MM) with CP2K interface &#8212; GROMACS webpage https://www.gromacs.org documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="hybrid-quantum-classical-simulations-qm-mm-with-cp2k-interface">
+<h1>Hybrid Quantum-Classical simulations (QM/MM) with CP2K interface<a class="headerlink" href="qmmm.html#hybrid-quantum-classical-simulations-qm-mm-with-cp2k-interface" title="Permalink to this heading">¶</a></h1>
+<img alt="../_images/qmmm_2.png" src="../_images/qmmm_2.png" />
+<p>Simulations of chemical reactions pathways can provide an atomistic insight into many
+biological and chemical processes. To perform such kind of modelling in complex systems,
+that includes solvent and/or proteins Multi-scale Quantum Mechanics / Molecular Mechanics
+(QM/MM) approaches are often used. Here we introduce a whole new interface to perform QM/MM
+simulations in fully periodic systems using MDModule that couples GROMACS with CP2K
+quantum chemistry package. This enables hybrid simulations of systems in systems
+where chemical reactions occurs. The interface supports most of the simulations techniques
+available in GROMACS including energy minimization, classical MD and enhanced sampling methods
+such as umbrella sampling and accelerated weight histogram method.</p>
+<a class="reference internal image-reference" href="../_images/qmmm_1.png"><img alt="../_images/qmmm_1.png" class="align-center" src="../_images/qmmm_1.png" style="width: 482.25px; height: 384.0px;" /></a>
+<p>Interactions between the QM and the MM subsystems are handled using
+the GEEP approach as described by Laino et al. This method of evaluating interactions between
+the QM and MM subsystems is a variant of the “electrostatic embedding” scheme. An important
+advantage of using the CP2K/GEEP combination is that it allows evaluation of forces for both
+QM-QM and QM-MM interactions, in the case of systems with periodic boundary conditions (PBC).</p>
+<p>Other features of the GROMACS QM/MM interface includes:</p>
+<ul class="simple">
+<li><p>Automatized topology conversion from classical MD to QM/MM: charges and bonds modifications, as well as link-atoms setup on the frontier.</p></li>
+<li><p>Validated CP2K QM parameters setup for the biological systems.</p></li>
+<li><p>Compatibility with the most simulation techniques, tools and third-party software for analysis available for GROMACS.</p></li>
+<li><p>Supports highly parallelizable simulation methods, like umbrella sampling and AWH.</p></li>
+</ul>
+<p>A description of the interface is available online in <a class="reference external" href="https://www.youtube.com/watch?v=GqUq8T98gP8">webinar format</a>.</p>
+<p><strong>References</strong></p>
+<ol class="arabic simple">
+<li><p>Laino T., Mohamed F., Laio A. and Parrinello M., “An Efficient Real Space Multigrid QM/MM Electrostatic Coupling” <a class="reference external" href="https://doi.org/10.1021/ct050123f">doi:10.1021/ct050123f</a></p></li>
+<li><p>Kuhne T., Iannuzzi M., Del Ben M. and Hutter J. <em>et al.</em>, “CP2K: An electronic structure and molecular dynamics software package - Quickstep: Efficient and accurate electronic structure calculations” <a class="reference external" href="https://doi.org/10.1063/5.0007045">doi:10.1063/5.0007045</a></p></li>
+</ol>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/gmx_logo_blue.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About GROMACS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://manual.gromacs.org/current/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles.html">Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_webinar.html">Tutorials and Webinars</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://manual.gromacs.org">Downloads</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://forum.gromacs.org">GROMACS forum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../report_issue.html">Report an issue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_contributions.html">User contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_survey.html">User Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workshop.html">GROMACS workshop</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022-2024, GROMACS development team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/topic/qmmm.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

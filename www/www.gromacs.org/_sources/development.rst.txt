@@ -1,0 +1,132 @@
+.. Both developers list has to be update every major release 
+
+Development
+==================
+
+GROMACS is a team effort with contributions from several current and former
+developers all over world! 
+
+Want to contribute to this Open Source community? You are super welcome!
+Whether you're a beginner or an expert software developer, we can fix you! Drop an email to anyone of us with your ideas/intentions and we'll get back to you.
+
+To know how to contribute see `developer guide`_ and to learn how to
+contribute go to the `contribute to GROMACS`_ page. To get involved, subscribe to
+the :doc:`gmx-devel`. Every second Wednesday we have a GROMACS developer
+videoconference, to get the announcement to enrol to :doc:`gmx-devel`. 
+   
+
+
+Developers
+------------
+
+GROMACS was first developed in Herman Berendsen's group, department of
+Biophysical Chemistry of Groningen University, and now lead in Stockholm from
+the Science for Life Laboratory.
+
+   
+Project leaders
+-------------------------------
+* `Berk Hess`_ (KTH-Royal Institute of Technology, SE)
+* `Erik Lindahl`_ (Stockholm University and KTH-Royal Institute of Technology, SE)
+
+Current contributors
+----------------------
+`Mark Abraham <https://www.linkedin.com/in/mark-abraham-5a329599>`_,
+`Andrey Alekseenko <https://www.kth.se/profile/andreyal>`_,
+Brian Andrews,
+Paul Bauer,
+Cathrine Bergh,
+Hugh Bird,
+Eliane Briand,
+Ania Brown,
+Yiqi Chen,
+Mahesh Doijade,
+`Giacomo Fiorin <https://research.ninds.nih.gov/staff-directory/giacomo-fiorin-phd>`_,
+Stefan Fleischmann,
+Sergey Gorelov,
+Gilles Gouaillardet,
+`Alan Gray <https://uk.linkedin.com/in/alan-gray-8040981b>`_,
+Farzaneh Jalalypour,
+Petter Johansson,
+`Carsten Kutzner <https://www.mpinat.mpg.de/grubmueller/kutzner>`_,
+Grzegorz Łazarski,
+`Justin A. Lemkul <https://www.thelemkullab.com/>`_,
+Magnus Lundborg,
+Julio Maia,
+`Pascal Merz <https://www.linkedin.com/in/pascal-t-merz/>`_,
+`Vedran Miletić <https://vedran.miletic.net/>`_,
+`Dmitry Morozov <https://www.linkedin.com/in/dmitry-morozov-528629153>`_,
+Lukas Müllender,
+`Szilárd Páll <https://www.kth.se/profile/pszilard>`_,
+Andrea Pasquadibisceglie,
+Michele Pellegrino,
+Nicola Piasentin,
+Daniele Rapetti,
+Muhammad Umair Sadiq,
+Hubert Santuz,
+Michael Shirts,
+Tatiana Shugaeva,
+Alexey Shvetsov,
+Bálint Soproni,
+Philip Turner,
+`Alessandra Villa <https://www.kth.se/profile/avilla>`_,
+Yang Zhang.
+
+Previous contributors
+----------------------
+Emile Apol,
+Rossen Apostolov,
+James Barnett,
+Vladimir Basov,
+Herman J.C. Berendsen,
+Pär Bjelkmar,
+Christian Blau,
+Viacheslav Bolnykh,
+Kevin Boyd,
+Aldert van Buuren,
+Carlo Camilloni,
+Rudi van Drunen,
+Anton Feenstra,
+Oliver Fleetwood,
+Vytas Gapsys,
+Gaurav Garg,
+Gerrit Groenhof,
+Bert de Groot,
+Anca Hamuraru,
+Vincent Hindriksen,
+Victor Holanda,
+`M. Eric Irrgang <https://www.linkedin.com/in/m-eric-irrgang>`_,
+Aleksei Iupinov,
+Joe Jordan,
+`Christoph Junghans <https://www.compphys.de/>`_,
+Prashanth Kanduri,
+Dimitrios Karkoulis,
+Peter Kasson,
+Sebastian Kehl,
+Sebastian Keller,
+Jiri Kraus,
+Per Larsson,
+Viveca Lindahl,
+Erik Marklund,
+Pieter Meulenhoff,
+Teemu Murtola,
+Julien Nabet,
+Sander Pronk,
+Roland Schulz,
+Alfons Sijbers,
+David van der Spoel,
+Peter Tieleman,
+Carsten Uphoff,
+Jon Vincent,
+Teemu Virolainen,
+Christian Wennberg,
+Sebastian Wingbermühle,
+Maarten Wolf,
+`Artem Zhmurov <https://artemzhmurov.gitlab.io/webpage/>`_.
+
+..  _`developer guide`: https://manual.gromacs.org/current/dev-manual/index.html 
+..  _`contribute to GROMACS`: https://manual.gromacs.org/current/dev-manual/contribute.html
+
+.. _`Erik Lindahl`: https://www.biophysics.se/index.php/members/erik-lindahl/
+
+.. _`Berk Hess`: https://www.biophysics.se/index.php/members/berk-hess/

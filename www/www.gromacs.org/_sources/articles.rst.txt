@@ -1,0 +1,32 @@
+Articles
+========
+
+Principal Papers
+-----------------
+* Páll, et al. (2020) J. Chem. Phys. 153, 134110 (`DOI:10.1063/5.0018516 <https://doi.org/10.1063/5.0018516>`_)
+* Abraham, et al. (2015) SoftwareX 1-2 19-25 (`DOI:10.1016/j.softx.2015.06.001 <http://dx.doi.org/10.1016/j.softx.2015.06.001>`_)
+* Páll, et al. (2015) Proc. of EASC 2015 LNCS, 8759 3-27. (`DOI:10.1007/978-3-319-15976-8_1 <https://doi.org/10.1007/978-3-319-15976-8_1>`_)
+* Pronk, et al. (2013) Bioinformatics 29 845-854. (`DOI:10.1093/bioinformatics/btt055 <http://dx.doi.org/10.1093/bioinformatics/btt055>`_)
+* Hess, et al. (2008) J. Chem. Theory Comput. 4: 435-447. (`DOI:10.1021/ct700301q <http://dx.doi.org/10.1021/ct700301q>`_)
+* van der Spoel, et al. (2005) J. Comput. Chem. 26: 1701-1718. (`DOI:10.1002/jcc.20291 <http://dx.doi.org/10.1002/jcc.20291>`_ )
+* Lindahl, et al. (2001) J. Mol. Model. 7: 306-317. (`DOI:10.1007/s008940100045 <http://link.springer.com/article/10.1007/s008940100045>`_)
+* Berendsen, et al. (1995) Comp. Phys. Comm. 91: 43-56. (`DOI:10.1016/0010-4655(95)00042-E <http://dx.doi.org/10.1016/0010-4655(95)00042-E>`_)
+  
+   
+Other papers   
+-------------   
+On Lennard-Jones PME:
+
+* Wennberg et al. (2015) J. Chem. Theory Comput., 12 5737–5746 (`DOI:10.1021/acs.jctc.5b00726 <http://dx.doi.org/10.1021/acs.jctc.5b00726>`_)
+* Wennberg et al. (2013) J. Chem. Theory Comput., 9 3527–3537 (`DOI:doi.org/10.1021/ct400140n <http://dx.doi.org/10.1021/ct400140n>`_)
+
+On Verlet scheme:
+
+* Páll & Hess (2013), Comp. Phys. Comm.,184 2641-2650 (`DOI:10.1016/j.cpc.2013.06.003 <http://dx.doi.org/10.1016/j.cpc.2013.06.003>`_)
+
+On GROMACS benchmarking:
+
+* Kutzner, et al. J. Comput. Chem. 2019, 00, 1– 14. (`DOI:10.1002/jcc.24030 <http://dx.doi.org/10.1002/jcc.24030>`_)
+* Kutzner, et al. J. Comput. Chem., 2015, 36 1990-2008. (`DOI:10.1002/jcc.26011 <https://dx.doi.org/10.1002/jcc.26011>`_)
+
+        

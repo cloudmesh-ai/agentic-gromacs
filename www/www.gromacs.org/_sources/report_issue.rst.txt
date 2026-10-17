@@ -1,0 +1,20 @@
+Report an issue
+==================
+
+GROMACS has a completely open policy concerning bugs and issues. All open and closed issues can be found on `GitLab <https://gitlab.com/gromacs/gromacs/-/issues?scope=all&state=all>`_.
+
+When you (think you) have found an issue, follow the following steps:
+
+* Check if you are using the latest version. If not, check the release notes of all later versions to see if your issue has already been fixed. The information is available at `https://manual.gromacs.org/ <https://manual.gromacs.org/>`_.
+* Check if your issues has been reported in one of the open or closed issues. You can search GROMACS issues on `GitLab <https://gitlab.com/gromacs/gromacs/-/issues?scope=all&state=all>`_.
+* You can search the `user discussion section of the GROMACS forum <https://gromacs.bioexcel.eu/c/gromacs-user-forum>`_ to see if your issue is already being discussed.
+* If you are not using the latest (minor) GROMACS release, download it `here <https://manual.gromacs.org>`_ and try it to see if the issue has already been fixed, but has not been reported or has been reported with different symptoms.
+* If you issue has not been reported yet and it is in a still supported
+  release (or is a critical correctness issue in an older release), please
+  `report it on GitLab
+  <https://gitlab.com/gromacs/gromacs/-/issues/new?issue%5Bmilestone_id%5D=>`_. Please
+  carefully follow the instructions provided there, so others now which
+  versions are affected and developers can find and fix the issue.
+* If it appropriates, label your issue with `user bug report` or `user feature request`
+
+  

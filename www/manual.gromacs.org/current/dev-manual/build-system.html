@@ -1,0 +1,1491 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Change Management" href="change-management.html" /><link rel="prev" title="Codebase overview" href="overview.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Build system overview - GROMACS 2026.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css%3Fv=354aac6f.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css%3Fv=fd3f3429.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css%3Fv=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css%3Fv=4c969af8.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css%3Fv=302659d7.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="build-system.html#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">GROMACS 2026.4 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/gmx_logo_blue.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Downloads</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../release-notes/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Release notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/2026.4.html">GROMACS 2026.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/2026.3.html">GROMACS 2026.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/2026.2.html">GROMACS 2026.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/2026.1.html">GROMACS 2026.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/2025.5.html">GROMACS 2025.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/2025.4.html">GROMACS 2025.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/2025.3.html">GROMACS 2025.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/2025.2.html">GROMACS 2025.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/2025.1.html">GROMACS 2025.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.7.html">GROMACS 2024.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.6.html">GROMACS 2024.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.5.html">GROMACS 2024.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.4.html">GROMACS 2024.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.3.html">GROMACS 2024.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.2.html">GROMACS 2024.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.1.html">GROMACS 2024.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/2023.5.html">GROMACS 2023.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/2023.4.html">GROMACS 2023.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/2023.3.html">GROMACS 2023.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/2023.2.html">GROMACS 2023.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/2023.1.html">GROMACS 2023.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.6.html">GROMACS 2022.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.5.html">GROMACS 2022.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.4.html">GROMACS 2022.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.3.html">GROMACS 2022.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.2.html">GROMACS 2022.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.1.html">GROMACS 2022.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.7.html">GROMACS 2021.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.6.html">GROMACS 2021.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.5.html">GROMACS 2021.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.4.html">GROMACS 2021.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.3.html">GROMACS 2021.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.2.html">GROMACS 2021.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.1.html">GROMACS 2021.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.7.html">GROMACS 2020.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.6.html">GROMACS 2020.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.5.html">GROMACS 2020.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.4.html">GROMACS 2020.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.3.html">GROMACS 2020.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.2.html">GROMACS 2020.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.1.html">GROMACS 2020.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.6.html">GROMACS 2019.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.5.html">GROMACS 2019.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.4.html">GROMACS 2019.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.3.html">GROMACS 2019.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.2.html">GROMACS 2019.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.1.html">GROMACS 2019.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.7.html">GROMACS 2018.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.6.html">GROMACS 2018.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.5.html">GROMACS 2018.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.4.html">GROMACS 2018.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.3.html">GROMACS 2018.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.2.html">GROMACS 2018.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.1.html">GROMACS 2018.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/2016.5.html">GROMACS 2016.5 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/2016.4.html">GROMACS 2016.4 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/2016.3.html">GROMACS 2016.3 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/2016.2.html">GROMACS 2016.2 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/2016.1.html">GROMACS 2016.1 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/new-features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/performance.html#gpu-improvements">GPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/performance.html#cpu-improvements">CPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/performance.html#threading-improvements">Threading improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/performance.html#other-improvements">Other improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/bugs-fixed.html#fixes-for-bugs-introduced-during-development">Fixes for bugs introduced during development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/removed-features.html">Removed mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/older/index.html">Release notes for older GROMACS versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../install-guide/index.html">Installation guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Installation guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install-guide/exotic.html">Installation guide for exotic configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user-guide/index.html">User guide</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of User guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/known-issues.html">Known issues affecting users of GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../user-guide/getting-started.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/flow.html">Flow Chart</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../user-guide/system-preparation.html">System preparation</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of System preparation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/managing-simulations.html">Managing long simulations</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../user-guide/faq.html">Answers to frequently asked questions (FAQs)</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Answers to frequently asked questions (FAQs)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/force-fields.html">Force fields in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/mdp-options.html">Molecular dynamics parameters (.mdp options)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/mdrun-features.html">Useful mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/mdrun-performance.html">Getting good performance from <span class="xref std std-ref">mdrun</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/run-time-errors.html">Common errors when using GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../user-guide/cmdline.html">Command-line reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of Command-line reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx.html">molecular dynamics simulation suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-anaeig.html">gmx anaeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-analyze.html">gmx analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-angle.html">gmx angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-awh.html">gmx awh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-bar.html">gmx bar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-bundle.html">gmx bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-check.html">gmx check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-chi.html">gmx chi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-cluster.html">gmx cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-clustsize.html">gmx clustsize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-confrms.html">gmx confrms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-convert-tpr.html">gmx convert-tpr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-convert-trj.html">gmx convert-trj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-covar.html">gmx covar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-current.html">gmx current</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-density.html">gmx density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-densmap.html">gmx densmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-densorder.html">gmx densorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dielectric.html">gmx dielectric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dipoles.html">gmx dipoles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-disre.html">gmx disre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-distance.html">gmx distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dos.html">gmx dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dssp.html">gmx dssp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dump.html">gmx dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dyecoupl.html">gmx dyecoupl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-editconf.html">gmx editconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-eneconv.html">gmx eneconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-enemat.html">gmx enemat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-energy.html">gmx energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-extract-cluster.html">gmx extract-cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-filter.html">gmx filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-freevolume.html">gmx freevolume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-gangle.html">gmx gangle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-genconf.html">gmx genconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-genion.html">gmx genion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-genrestr.html">gmx genrestr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-grompp.html">gmx grompp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-gyrate.html">gmx gyrate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-gyrate-legacy.html">gmx gyrate-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-h2order.html">gmx h2order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-hbond.html">gmx hbond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-hbond-legacy.html">gmx hbond-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-helix.html">gmx helix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-helixorient.html">gmx helixorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-help.html">gmx help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-hydorder.html">gmx hydorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-insert-molecules.html">gmx insert-molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-lie.html">gmx lie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-make_edi.html">gmx make_edi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-make_ndx.html">gmx make_ndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-mdmat.html">gmx mdmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-mdrun.html">gmx mdrun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-mindist.html">gmx mindist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-mk_angndx.html">gmx mk_angndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-msd.html">gmx msd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-nmeig.html">gmx nmeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-nmens.html">gmx nmens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-nmr.html">gmx nmr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-nmtraj.html">gmx nmtraj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-nonbonded-benchmark.html">gmx nonbonded-benchmark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-order.html">gmx order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-pairdist.html">gmx pairdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-pdb2gmx.html">gmx pdb2gmx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-pme_error.html">gmx pme_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-polystat.html">gmx polystat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-potential.html">gmx potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-principal.html">gmx principal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rama.html">gmx rama</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rdf.html">gmx rdf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-report-methods.html">gmx report-methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rms.html">gmx rms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rmsdist.html">gmx rmsdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rmsf.html">gmx rmsf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rotacf.html">gmx rotacf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rotmat.html">gmx rotmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-saltbr.html">gmx saltbr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-sans-legacy.html">gmx sans-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-sasa.html">gmx sasa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-saxs-legacy.html">gmx saxs-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-scattering.html">gmx scattering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-select.html">gmx select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-sham.html">gmx sham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-sigeps.html">gmx sigeps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-solvate.html">gmx solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-sorient.html">gmx sorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-spatial.html">gmx spatial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-spol.html">gmx spol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-tcaf.html">gmx tcaf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-traj.html">gmx traj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-trajectory.html">gmx trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-trjcat.html">gmx trjcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-trjconv.html">gmx trjconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-trjorder.html">gmx trjorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-tune_pme.html">gmx tune_pme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-vanhove.html">gmx vanhove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-velacc.html">gmx velacc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-wham.html">gmx wham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-wheel.html">gmx wheel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-x2top.html">gmx x2top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-xpm2ps.html">gmx xpm2ps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/selections.html">Selection syntax and usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/terminology.html">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/validation.html">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/environment-variables.html">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/floating-point.html">Floating point arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/security.html">Security when using GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/deprecation-policy.html">Policy for deprecating GROMACS functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../how-to/index.html">Short How-To guides</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Short How-To guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/beginners.html">Beginners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/topology.html">Adding a Residue to a Force Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/topology.html#water-solvation">Water solvation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/topology.html#non-water-solvent">Non water solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/topology.html#mixed-solvent">Mixed solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/topology.html#making-disulfide-bonds">Making Disulfide Bonds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/special.html">Running membrane simulations in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/special.html#parameterization-of-novel-molecules">Parameterization of novel molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/special.html#potential-of-mean-force">Potential of Mean Force</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/special.html#single-point-energy">Single-Point Energy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/special.html#carbon-nanotube">Carbon Nanotube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/visualize.html">Visualization Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/visualize.html#extracting-trajectory-information">Extracting Trajectory Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/visualize.html#external-tools-to-perform-trajectory-analysis">External tools to perform trajectory analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/visualize.html#plotting-data">Plotting Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/visualize.html#micelle-clustering">Micelle Clustering</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference-manual/index.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Reference Manual</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/preface.html">Preface and Disclaimer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/definitions.html">Definitions and Units</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference-manual/algorithms/algorithms.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Algorithms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/periodic-boundary-conditions.html">Periodic boundary conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/group-concept.html">The group concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/molecular-dynamics.html">Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/shell-molecular-dynamics.html">Shell molecular dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/constraint-algorithms.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/simulated-annealing.html">Simulated Annealing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/stochastic-dynamics.html">Stochastic Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/brownian-dynamics.html">Brownian Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/energy-minimization.html">Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/normal-mode-analysis.html">Normal-Mode Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/free-energy-calculations.html">Free energy calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/replica-exchange.html">Replica exchange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/essential-dynamics.html">Essential Dynamics sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/expanded-ensemble.html">Expanded Ensemble</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/parallelization-domain-decomp.html">Parallelization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/parallelization-domain-decomp.html#domain-decomposition">Domain decomposition</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference-manual/functions/functions.html">Interaction function and force fields</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Interaction function and force fields</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/nonbonded-interactions.html">Non-bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/bonded-interactions.html">Bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/restraints.html">Restraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/polarization.html">Polarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/free-energy-interactions.html">Free energy interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/interaction-methods.html">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/interaction-methods.html#virtual-interaction-sites">Virtual interaction sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/long-range-electrostatics.html">Long Range Electrostatics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/long-range-vdw.html">Long Range Van der Waals interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/force-field.html">Force field</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference-manual/topologies/topologies.html">Topologies</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Topologies</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/particle-type.html">Particle type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/parameter-files.html">Parameter files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/molecule-definition.html">Molecule definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/constraint-algorithm-section.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/pdb2gmx-input-files.html"><span class="xref std std-ref">pdb2gmx</span> input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/topology-file-formats.html">File formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/force-field-organization.html">Force field organization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/file-formats.html">File formats</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference-manual/special/special.html">Special Topics</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of Special Topics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/free-energy-implementation.html">Free energy implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/free-energy-implementation.html#potential-of-mean-force">Potential of mean force</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/pulling.html">Non-equilibrium pulling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/pulling.html#collective-variables-the-pull-code">Collective variables: the pull code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/awh.html">Adaptive biasing with AWH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/enforced-rotation.html">Enforced Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/electric-fields.html">Electric fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/comp-electrophys.html">Computational Electrophysiology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/free-energy-pmf.html">Calculating a PMF using the free-energy code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/remove-fast-dgf.html">Removing fastest degrees of freedom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/viscosity-calculation.html">Viscosity calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/shearing.html">Shear simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/tabulated-interaction-functions.html">Tabulated interaction functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/qmmm.html">Hybrid Quantum-Classical simulations (QM/MM) with CP2K interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/mimic-qmmm.html">MiMiC Hybrid Quantum Mechanical/Molecular Mechanical simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/vmd-imd.html">Using VMD plug-ins for trajectory file I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/vmd-imd.html#interactive-molecular-dynamics">Interactive Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/membrane-embedding.html">Embedding proteins into the membranes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/density-guided-simulation.html">Applying forces from three-dimensional densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/colvars.html">Collective Variable simulations with the Colvars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/plumed.html">Using PLUMED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/nnpot.html">Neural Network Potentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/fmm.html">Fast Multipole Method (FMM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/run-parameters.html">Run parameters and Programs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference-manual/analysis/analysis.html">Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Analysis</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/using-groups.html">Using Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/looking-at-trajectory.html">Looking at your trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/general-properties.html">General properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/radial-distribution-function.html">Radial distribution functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/correlation-function.html">Correlation functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/curve-fitting.html">Curve fitting in GROMACS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/mean-square-displacement.html">Mean Square Displacement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/bond-angle-dihedral.html">Bonds/distances, angles and dihedrals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/radius-of-gyration.html">Radius of gyration and distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/rmsd.html">Root mean square deviations in structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/covariance-analysis.html">Covariance analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/dihedral-pca.html">Dihedral principal component analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/hydrogen-bonds.html">Hydrogen bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/protein-related.html">Protein-related items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/interface-related.html">Interface-related items</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/details.html">Some implementation details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/averages.html">Averages and fluctuations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/references.html">Bibliography</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../gmxapi/index.html">gmxapi Python package</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of gmxapi Python package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../gmxapi/userguide/install.html">Full installation instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gmxapi/userguide/usage.html">Using the Python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gmxapi/userguide/pythonreference.html">gmxapi Python module reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../nblib/index.html">(Non-)Bonded LIBrary (NB-LIB) API</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of (Non-)Bonded LIBrary (NB-LIB) API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nblib/guide-to-writing-MD-programs.html">Guide to Writing MD Programs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api/index.html">C++ API</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of C++ API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/gmxlibs.html">Public C++ API</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Developer Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of Developer Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="contribute.html">Contribute to GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html">Codebase overview</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="build-system.html#">Build system overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-management.html">Change Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relocatable-binaries.html">Relocatable binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation-generation.html">Documentation generation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="style.html">Style guidelines</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of Style guidelines</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="formatting.html">Guidelines for code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="includestyle.html">Guidelines for #include directives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="naming.html">Naming conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="language-features.html">Allowed language features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reportstyle.html">Guidelines for creating meaningful issue reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commitstyle.html">Guidelines for formatting of git commits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="error-handling.html">Error handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tools.html">Development-time tools</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of Development-time tools</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="doxygen.html">Using Doxygen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change-management.html">Change Management</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="infrastructure.html">Automation and Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of Automation and Infrastructure</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="gitlab-ci.html">GitLab CI Pipeline Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gmxtree.html">Source tree checker scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="code-formatting.html">Automatic source code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testutils.html">Unit testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="physical_validation.html">Physical validation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="known-issues.html">Known issues relevant for developers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#doxygen-documentation">Doxygen documentation</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="build-system.html#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/blob/main/docs/dev-manual/build-system.rst" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/-/edit/main/docs/dev-manual/build-system.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="build-system-overview">
+<h1>Build system overview<a class="headerlink" href="build-system.html#build-system-overview" title="Link to this heading">¶</a></h1>
+<p>The GROMACS build system uses CMake (version
+3.28 or newer is required) to generate the
+actual build system for the build tool chosen by the user.  See CMake
+documentation for general introduction to CMake and how to use it.  This
+documentation focuses on how the GROMACS build system is organized and
+implemented, and what features it provides to developers (some of which may be
+of interest to advanced users).</p>
+<p>Most developers use <code class="docutils literal notranslate"><span class="pre">make</span></code> or <code class="docutils literal notranslate"><span class="pre">ninja</span></code> as the underlying build system, so
+there can be parts of the build system that are specifically designed for
+command-line consumption with these tools, and may not work ideally with other
+environments, but basic building should be possible with all the environments
+supported by CMake.</p>
+<p>Also, the build system and version control is designed for out-of-source
+builds.  In-source builds mostly work (there are a few custom targets that do
+not), but no particular effort has been put to, e.g., having <code class="file docutils literal notranslate"><span class="pre">.gitignore</span></code>
+files that exclude all the build outputs, or to have the <code class="docutils literal notranslate"><span class="pre">clean</span></code> target
+remove all possible build outputs.</p>
+<section id="build-types">
+<h2>Build types<a class="headerlink" href="build-system.html#build-types" title="Link to this heading">¶</a></h2>
+<p>Build types is a CMake concept that provides overall control of how
+the build tools are used on the given platform to produce executable
+code. These can be set in CMake in various ways, including on a
+command line such as <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-DCMAKE_BUILD_TYPE=Debug</span></code>. GROMACS
+supports the following standard CMake build types:</p>
+<dl class="simple">
+<dt><strong>Release</strong></dt><dd><p>Fully optimized code intended for use in production simulation. This is the
+default.</p>
+</dd>
+<dt><strong>Debug</strong></dt><dd><p>Compiled code intended for use with debugging tools, with low optimization levels
+and debug information for symbols.</p>
+</dd>
+<dt><strong>RelWithDebInfo</strong></dt><dd><p>As Release, but with debug information for symbol names, which can help debugging
+issues that only emerge in optimized code.</p>
+</dd>
+<dt><strong>MinSizeRel</strong></dt><dd><p>As Release, but optimized to minimize the size of the resulting executable. This
+is never a concern for GROMACS installations, so should not be used, but
+probably works.</p>
+</dd>
+</dl>
+<p>Additionally, GROMACS provides the following build types for development and
+testing. Their implementations can be found in <code class="docutils literal notranslate"><span class="pre">cmake/gmxBuildTypeXXX.cmake</span></code>.</p>
+<dl class="simple">
+<dt><strong>Reference</strong></dt><dd><p>This build type compiles a version of GROMACS aimed solely at correctness. All
+parallelization and optimization possibilities are disabled. This build type is
+compiled with GCC 11 to generate the regression test reference values, against
+which all other GROMACS builds are tested.</p>
+</dd>
+<dt><strong>RelWithAssert</strong></dt><dd><p>As Release, but removes <code class="docutils literal notranslate"><span class="pre">-DNDEBUG</span></code> from compiler command lines, which makes
+all assertion statements active (and can have other safety-related side effects
+in GROMACS and code upon which it depends).</p>
+</dd>
+<dt><strong>Profile</strong></dt><dd><p>As Release, but adds <code class="docutils literal notranslate"><span class="pre">-pg</span></code> for use with profiling tools. This is not
+likely to be effective for profiling the performance of <a class="reference internal" href="../onlinehelp/gmx-mdrun.html#gmx-mdrun"><span class="std std-ref">gmx mdrun</span></a>, but can
+be useful for the tools.</p>
+</dd>
+<dt><strong>TSAN</strong></dt><dd><p>Builds GROMACS for use with
+<a class="reference external" href="https://clang.llvm.org/docs/ThreadSanitizer.html">ThreadSanitizer</a>
+in GCC and Clang to detect
+data races. This disables the use of atomics in ThreadMPI,
+preferring the mutex-based implementation.</p>
+</dd>
+<dt><strong>ASAN</strong></dt><dd><p>Builds GROMACS for use with
+<a class="reference external" href="https://clang.llvm.org/docs/AddressSanitizer.html">AddressSanitizer</a>
+in GCC and Clang to
+detect many kinds of memory mis-use. By default, AddressSanitizer
+includes LeakSanitizer (LSAN) but in many cases GROMACS suppresses
+leak detection either from particular functions known to leak, or in bulk.</p>
+</dd>
+<dt><strong>MSAN</strong></dt><dd><p>Builds GROMACS for use with
+<a class="reference external" href="https://clang.llvm.org/docs/MemorySanitizer.html">MemorySanitizer</a>
+in Clang to detect
+reads of uninitialized memory. This functionality requires that
+dependencies of the GROMACS build have been built in a compatible
+way (roughly, static libraries with <code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">-fsanitize=memory</span>
+<span class="pre">-fno-omit-frame-pointer</span></code>), which generally requires at least the C++
+standard library to have been built specially. The path where the
+includes and libraries for dependencies should be found for this
+build type is set in the CMake cache variable
+<code class="docutils literal notranslate"><span class="pre">GMX_MSAN_PATH</span></code>. Only internal XDR and internal fftpack are
+supported at this time.</p>
+</dd>
+<dt><strong>UBSAN</strong></dt><dd><p>Builds GROMACS for use with
+<a class="reference external" href="https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html">UndefinedBehaviorSanitizer</a>
+in GCC and Clang  to detect undefined behavior during execution. The
+checks performed during execution have a small cost and do not impact
+address space layout and application binary interface.</p>
+</dd>
+</dl>
+<p>For all of the sanitizer builds, to get readable stack traces, you may
+need to ensure that the <code class="docutils literal notranslate"><span class="pre">ASAN_SYMBOLIZER_PATH</span></code> environment variable
+(or your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>) includes that of the <code class="docutils literal notranslate"><span class="pre">llvm-symbolizer</span></code> binary.</p>
+<p>With some generators, CMake generates the build system for more than a
+single <code class="docutils literal notranslate"><span class="pre">CMAKE_BUILD_TYPE</span></code> from one pass over the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>
+files, so any code that uses <code class="docutils literal notranslate"><span class="pre">CMAKE_BUILD_TYPE</span></code> in
+<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> directly will break. GROMACS does use such CMake
+code, so we do not fully support all these build types in such
+generators (which includes Visual Studio).</p>
+</section>
+<section id="cmake-cache-variables">
+<h2>CMake cache variables<a class="headerlink" href="build-system.html#cmake-cache-variables" title="Link to this heading">¶</a></h2>
+<p>This section provides a (currently incomplete) list of cache variables that
+developers or advanced users can set to affect what CMake generates and/or what
+will get built.</p>
+<section id="compiler-flags">
+<h3>Compiler flags<a class="headerlink" href="build-system.html#compiler-flags" title="Link to this heading">¶</a></h3>
+<p>Standard CMake mechanism for specifying the compiler flags is to use
+<code class="docutils literal notranslate"><span class="pre">CMAKE_C_FLAGS</span></code>/<code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_FLAGS</span></code> for flags that affect all build types,
+and <code class="samp docutils literal notranslate"><span class="pre">CMAKE_C_FLAGS_</span><em><span class="pre">buildtype</span></em></code>/<code class="samp docutils literal notranslate"><span class="pre">CMAKE_CXX_FLAGS_</span><em><span class="pre">buildtype</span></em></code> for
+flags that only affect a specific build type.  CMake provides some default flags.</p>
+<p>GROMACS determines its own set of default flags, grouped into two categories:</p>
+<ul class="simple">
+<li><p>Generic flags that are appended to the above default CMake flag variables
+(possibly for multiple build types), generally specifying optimization flags
+to use and controlling compiler warnings.</p></li>
+<li><p>Specific flags for certain features that the build system determines to be
+necessary for successful compilation.  One example is flags that determine
+what SIMD instruction set the compiler is allowed to use/needs to support.</p></li>
+</ul>
+<p>All of the above flags are only added after testing that they work with the
+provided compiler.</p>
+<p>There is one cache variable to control the behavior of automatic compiler flags:</p>
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_SKIP_DEFAULT_CFLAGS">
+<span class="sig-name descname"><span class="pre">GMX_SKIP_DEFAULT_CFLAGS</span></span><a class="headerlink" href="build-system.html#cmake-GMX_SKIP_DEFAULT_CFLAGS" title="Link to this definition">¶</a></dt>
+<dd><p>If set <code class="docutils literal notranslate"><span class="pre">ON</span></code>, the build system will not add any compiler flags
+automatically (neither generic nor specific as defined above), and will skip
+most linker flags as well.
+The default flags that would have been added are instead printed out when
+<strong class="command">cmake</strong> is run, and the user can set the flags themselves using the
+CMake variables.
+If <code class="docutils literal notranslate"><span class="pre">OFF</span></code> (the default), the flags are added as described above.</p>
+</dd></dl>
+
+<p>The code the determine the default generic flags is in
+<code class="file docutils literal notranslate"><span class="pre">cmake/gmxCFlags.cmake</span></code>.
+Code that sets the specific flags (e.g., SIMD flags) is in the main
+<code class="file docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>; search for <a class="reference internal" href="build-system.html#cmake-GMX_SKIP_DEFAULT_CFLAGS"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">GMX_SKIP_DEFAULT_CFLAGS</span></code></a>.
+The variables used there can be traced back to the locations where the actual
+flags to use are determined.</p>
+</section>
+<section id="variables-affecting-compilation-linking">
+<h3>Variables affecting compilation/linking<a class="headerlink" href="build-system.html#variables-affecting-compilation-linking" title="Link to this heading">¶</a></h3>
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_BROKEN_CALLOC">
+<span class="sig-name descname"><span class="pre">GMX_BROKEN_CALLOC</span></span><a class="headerlink" href="build-system.html#cmake-GMX_BROKEN_CALLOC" title="Link to this definition">¶</a></dt>
+<dd><p>Enable emulation of <code class="docutils literal notranslate"><span class="pre">calloc</span></code> via <code class="docutils literal notranslate"><span class="pre">malloc</span></code>/<code class="docutils literal notranslate"><span class="pre">memset</span></code>.
+Only needed on machines with a broken <code class="docutils literal notranslate"><span class="pre">calloc(3)</span></code>, e.g. in <code class="docutils literal notranslate"><span class="pre">-lgmalloc</span></code>
+on Cray XT3.
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, and there should not be any need to change this unless
+you are sure it is required.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_BUILD_FOR_COVERAGE">
+<span class="sig-name descname"><span class="pre">GMX_BUILD_FOR_COVERAGE</span></span><a class="headerlink" href="build-system.html#cmake-GMX_BUILD_FOR_COVERAGE" title="Link to this definition">¶</a></dt>
+<dd><p>Special variable set <code class="docutils literal notranslate"><span class="pre">ON</span></code> by CI when doing a build for the coverage
+job.  Allows the build system to set options to produce as useful coverage
+metrics as possible.  Currently, it disables all asserts to avoid them
+showing up as poor conditional coverage.
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, and there should not be any need to change this in a
+manual build.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_BUILD_OWN_FFTW">
+<span class="sig-name descname"><span class="pre">GMX_BUILD_OWN_FFTW</span></span><a class="headerlink" href="build-system.html#cmake-GMX_BUILD_OWN_FFTW" title="Link to this definition">¶</a></dt>
+<dd><p>If set <code class="docutils literal notranslate"><span class="pre">ON</span></code>, GROMACS build system will download and build FFTW from source
+automatically. Not supported on Windows or with <code class="docutils literal notranslate"><span class="pre">ninja</span></code> build system.
+In complicated scenarios (e.g., when cross-compiling or using a toolchain
+file), we recommend not relying on this feature and building FFTW manually.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_BUILD_SHARED_EXE">
+<span class="sig-name descname"><span class="pre">GMX_BUILD_SHARED_EXE</span></span><a class="headerlink" href="build-system.html#cmake-GMX_BUILD_SHARED_EXE" title="Link to this definition">¶</a></dt>
+<dd><p>Build executables as shared binaries. If not set, this disables <code class="docutils literal notranslate"><span class="pre">-rpath</span></code> and dynamic
+linker flags in an attempt to build a static binary, but this may require setting up
+the toolchain properly and making appropriate libraries available. Defaults to <code class="docutils literal notranslate"><span class="pre">ON</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_COMPILER_WARNINGS">
+<span class="sig-name descname"><span class="pre">GMX_COMPILER_WARNINGS</span></span><a class="headerlink" href="build-system.html#cmake-GMX_COMPILER_WARNINGS" title="Link to this definition">¶</a></dt>
+<dd><p>If set <code class="docutils literal notranslate"><span class="pre">ON</span></code>, various compiler warnings are enabled for compilers that
+CI uses for verification.
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code> when building from a source tarball so that users
+compiling with versions not tested in CI are not exposed to our rather
+aggressive warning flags that can trigger a lot of warnings with, e.g., new
+versions of the compilers we use.
+When building from a git repository, defaults to <code class="docutils literal notranslate"><span class="pre">ON</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_CYCLE_SUBCOUNTERS">
+<span class="sig-name descname"><span class="pre">GMX_CYCLE_SUBCOUNTERS</span></span><a class="headerlink" href="build-system.html#cmake-GMX_CYCLE_SUBCOUNTERS" title="Link to this definition">¶</a></dt>
+<dd><p>If set to <code class="docutils literal notranslate"><span class="pre">ON</span></code>, enables performance subcounters that offer more
+fine-grained mdrun performance measurement and evaluation than the default
+counters. See <a class="reference internal" href="../user-guide/mdrun-performance.html"><span class="doc">Getting good performance from mdrun</span></a> for the description of
+subcounters which are available.
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_ENABLE_CCACHE">
+<span class="sig-name descname"><span class="pre">GMX_ENABLE_CCACHE</span></span><a class="headerlink" href="build-system.html#cmake-GMX_ENABLE_CCACHE" title="Link to this definition">¶</a></dt>
+<dd><p>If set to <code class="docutils literal notranslate"><span class="pre">ON</span></code>, attempts to set up the <a class="reference external" href="https://ccache.dev/">ccache</a>
+caching compiler wrapper to speed up repeated builds.
+The <code class="docutils literal notranslate"><span class="pre">ccache</span></code> executable is searched for with <code class="docutils literal notranslate"><span class="pre">find_package()</span></code> if CMake
+is being run with a compatible build type.
+If the executable is found and a compatible compiler is configured,
+CMake launch wrapper scripts are set.
+If enabled, the <code class="docutils literal notranslate"><span class="pre">ccache</span></code> executable location discovered by CMake must be
+accessible during build, as well.
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code> to minimize build system complexity.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_INSTALL_DATASUBDIR">
+<span class="sig-name descname"><span class="pre">GMX_INSTALL_DATASUBDIR</span></span><a class="headerlink" href="build-system.html#cmake-GMX_INSTALL_DATASUBDIR" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the subdirectory under CMAKE_INSTALL_DATADIR where GROMACS-specific
+read-only architecture-independent data files are installed. The default
+is <code class="docutils literal notranslate"><span class="pre">gromacs</span></code>, which means the files will go under <code class="docutils literal notranslate"><span class="pre">share/gromacs</span></code>.
+To alter the <code class="docutils literal notranslate"><span class="pre">share</span></code> part, change CMAKE_INSTALL_DATADIR.
+See <a class="reference internal" href="relocatable-binaries.html"><span class="doc">Relocatable binaries</span></a> for how this influences the build.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_DOUBLE">
+<span class="sig-name descname"><span class="pre">GMX_DOUBLE</span></span><a class="headerlink" href="build-system.html#cmake-GMX_DOUBLE" title="Link to this definition">¶</a></dt>
+<dd><p>Many part of GROMACS are implemented in terms of “real” precision,
+which is actually either a single- or double-precision type,
+according to the value of this flag. Some parts of the code
+deliberately use single- or double-precision types, and these are
+unaffected by this setting. See
+<a class="reference internal" href="../reference-manual/definitions.html"><span class="doc">Mixed or Double precision</span></a>
+for further information.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_EXTERNAL_BLAS">
+<span class="sig-name descname"><span class="pre">GMX_EXTERNAL_BLAS</span></span><a class="headerlink" href="build-system.html#cmake-GMX_EXTERNAL_BLAS" title="Link to this definition">¶</a></dt>
+<dd><p>If not set (the default), CMake will first try to use an external BLAS library,
+and, if unsuccessful, fall back to using the one bundled with GROMACS.
+If set to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, CMake will use the bundled one immediately.
+If set to <code class="docutils literal notranslate"><span class="pre">ON</span></code>, CMake will use the external one, and raise an error if it is not found.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_EXTERNAL_LAPACK">
+<span class="sig-name descname"><span class="pre">GMX_EXTERNAL_LAPACK</span></span><a class="headerlink" href="build-system.html#cmake-GMX_EXTERNAL_LAPACK" title="Link to this definition">¶</a></dt>
+<dd><p>See <code class="docutils literal notranslate"><span class="pre">GMX_EXTERNAL_BLAS</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_EXTERNAL_TNG">
+<span class="sig-name descname"><span class="pre">GMX_EXTERNAL_TNG</span></span><a class="headerlink" href="build-system.html#cmake-GMX_EXTERNAL_TNG" title="Link to this definition">¶</a></dt>
+<dd><p>Use external TNG library for trajectory-file handling. Default: <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_FFT_LIBRARY">
+<span class="sig-name descname"><span class="pre">GMX_FFT_LIBRARY</span></span><a class="headerlink" href="build-system.html#cmake-GMX_FFT_LIBRARY" title="Link to this definition">¶</a></dt>
+<dd><p>Choose the CPU FFT library to use. Possible values: <code class="docutils literal notranslate"><span class="pre">fftw</span></code>, <code class="docutils literal notranslate"><span class="pre">mkl</span></code>, <code class="docutils literal notranslate"><span class="pre">fftpack</span></code>.
+The default selection depends on the compiler and build type.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_GIT_VERSION_INFO">
+<span class="sig-name descname"><span class="pre">GMX_GIT_VERSION_INFO</span></span><a class="headerlink" href="build-system.html#cmake-GMX_GIT_VERSION_INFO" title="Link to this definition">¶</a></dt>
+<dd><p>Whether to generate version information dynamically from git for each build
+(e.g., HEAD commit hash).
+Defaults to <code class="docutils literal notranslate"><span class="pre">ON</span></code> if the build is from a git repository and <strong class="command">git</strong>
+is found, otherwise <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, static version information from
+<code class="file docutils literal notranslate"><span class="pre">cmake/gmxVersionInfo.cmake</span></code> is used.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_GPU">
+<span class="sig-name descname"><span class="pre">GMX_GPU</span></span><a class="headerlink" href="build-system.html#cmake-GMX_GPU" title="Link to this definition">¶</a></dt>
+<dd><p>Choose the backend for GPU offload. Possible values: <code class="docutils literal notranslate"><span class="pre">CUDA</span></code>, <code class="docutils literal notranslate"><span class="pre">OpenCL</span></code>, <code class="docutils literal notranslate"><span class="pre">SYCL</span></code>.
+Please see the <a class="reference internal" href="../install-guide/index.html#gmx-gpu-support"><span class="std std-ref">Installation guide</span></a> for more information.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_CLANG_CUDA">
+<span class="sig-name descname"><span class="pre">GMX_CLANG_CUDA</span></span><a class="headerlink" href="build-system.html#cmake-GMX_CLANG_CUDA" title="Link to this definition">¶</a></dt>
+<dd><p>Use clang for compiling CUDA GPU code, both host and device.
+Please see the <a class="reference internal" href="../install-guide/index.html#gmx-gpu-support"><span class="std std-ref">Installation guide</span></a> for more information.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_CUDA_CLANG_FLAGS">
+<span class="sig-name descname"><span class="pre">GMX_CUDA_CLANG_FLAGS</span></span><a class="headerlink" href="build-system.html#cmake-GMX_CUDA_CLANG_FLAGS" title="Link to this definition">¶</a></dt>
+<dd><p>Pass additional CUDA-only compiler flags to clang using this variable.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-CMAKE_INSTALL_LIBDIR">
+<span class="sig-name descname"><span class="pre">CMAKE_INSTALL_LIBDIR</span></span><a class="headerlink" href="build-system.html#cmake-CMAKE_INSTALL_LIBDIR" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the installation directory for libraries (default is determined by
+standard CMake package <code class="docutils literal notranslate"><span class="pre">GNUInstallDirs</span></code>).
+See <a class="reference internal" href="relocatable-binaries.html"><span class="doc">Relocatable binaries</span></a> for how this influences the build.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_USE_PLUGINS">
+<span class="sig-name descname"><span class="pre">GMX_USE_PLUGINS</span></span><a class="headerlink" href="build-system.html#cmake-GMX_USE_PLUGINS" title="Link to this definition">¶</a></dt>
+<dd><p>Enable support for dynamic plugins (e.g. VMD-supported file formats).
+Default: <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_MPI">
+<span class="sig-name descname"><span class="pre">GMX_MPI</span></span><a class="headerlink" href="build-system.html#cmake-GMX_MPI" title="Link to this definition">¶</a></dt>
+<dd><p>Enable MPI (not thread-MPI) support for inter-node parallelism. Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.
+Please see the <a class="reference internal" href="../install-guide/index.html#mpi-support"><span class="std std-ref">Installation guide</span></a> for more information.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_OPENMP">
+<span class="sig-name descname"><span class="pre">GMX_OPENMP</span></span><a class="headerlink" href="build-system.html#cmake-GMX_OPENMP" title="Link to this definition">¶</a></dt>
+<dd><p>Enable OpenMP support. Default is <code class="docutils literal notranslate"><span class="pre">ON</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_PREFER_STATIC_LIBS">
+<span class="sig-name descname"><span class="pre">GMX_PREFER_STATIC_LIBS</span></span><a class="headerlink" href="build-system.html#cmake-GMX_PREFER_STATIC_LIBS" title="Link to this definition">¶</a></dt>
+<dd><p>Prefer statically linking to external libraries. Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, unless
+<code class="docutils literal notranslate"><span class="pre">GMX_BUILD_SHARED_EXE</span></code> is disabled.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_SIMD">
+<span class="sig-name descname"><span class="pre">GMX_SIMD</span></span><a class="headerlink" href="build-system.html#cmake-GMX_SIMD" title="Link to this definition">¶</a></dt>
+<dd><p>Choose SIMD instruction set to use. Default is: <code class="docutils literal notranslate"><span class="pre">Auto</span></code> (best one for the current CPU).
+Please see the <a class="reference internal" href="../install-guide/index.html#gmx-simd-support"><span class="std std-ref">Installation guide</span></a> for more information.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_THREAD_MPI">
+<span class="sig-name descname"><span class="pre">GMX_THREAD_MPI</span></span><a class="headerlink" href="build-system.html#cmake-GMX_THREAD_MPI" title="Link to this definition">¶</a></dt>
+<dd><p>Enable thread-MPI support for intra-node parallelism. Defaults to <code class="docutils literal notranslate"><span class="pre">ON</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_USE_RDTSCP">
+<span class="sig-name descname"><span class="pre">GMX_USE_RDTSCP</span></span><a class="headerlink" href="build-system.html#cmake-GMX_USE_RDTSCP" title="Link to this definition">¶</a></dt>
+<dd><p>Use low-latency <code class="docutils literal notranslate"><span class="pre">RDTSCP</span></code> instruction for x86 CPU-based timers for mdrun execution.
+Ignored on non-x86 machines. Might need to be set to <code class="docutils literal notranslate"><span class="pre">OFF</span></code> when compiling for
+for heterogeneous environments or a very old x86 CPU.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_USE_TNG">
+<span class="sig-name descname"><span class="pre">GMX_USE_TNG</span></span><a class="headerlink" href="build-system.html#cmake-GMX_USE_TNG" title="Link to this definition">¶</a></dt>
+<dd><p>Use the TNG library for trajectory I/O. Defaults to <code class="docutils literal notranslate"><span class="pre">ON</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_USE_ITT">
+<span class="sig-name descname"><span class="pre">GMX_USE_ITT</span></span><a class="headerlink" href="build-system.html#cmake-GMX_USE_ITT" title="Link to this definition">¶</a></dt>
+<dd><p>Use the Intel ITT library for annotating GROMACS tasks in the Intel tracing tools.
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.
+Relies on the <code class="docutils literal notranslate"><span class="pre">VTUNE_PROFILER_DIR</span></code> environment variable set when loading
+the oneAPI toolkit to find the library.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_USE_NVTX">
+<span class="sig-name descname"><span class="pre">GMX_USE_NVTX</span></span><a class="headerlink" href="build-system.html#cmake-GMX_USE_NVTX" title="Link to this definition">¶</a></dt>
+<dd><p>Use the NVTX library for annotating GROMACS tasks in the NVIDIA tracing tools.
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.
+Relies on the <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code> environment variable to find the library.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_USE_ROCTX">
+<span class="sig-name descname"><span class="pre">GMX_USE_ROCTX</span></span><a class="headerlink" href="build-system.html#cmake-GMX_USE_ROCTX" title="Link to this definition">¶</a></dt>
+<dd><p>Use the ROC-TX library for annotating GROMACS tasks in the AMD ROCm tracing tools.
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.
+Relies on the <code class="docutils literal notranslate"><span class="pre">ROCM_HOME</span></code> environment variable to find the library.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_VMD_PLUGIN_PATH">
+<span class="sig-name descname"><span class="pre">GMX_VMD_PLUGIN_PATH</span></span><a class="headerlink" href="build-system.html#cmake-GMX_VMD_PLUGIN_PATH" title="Link to this definition">¶</a></dt>
+<dd><p>Path to VMD plugins for molfile I/O. Only used when <code class="docutils literal notranslate"><span class="pre">GMX_USE_PLUGINS</span></code> is enabled.</p>
+</dd></dl>
+
+</section>
+<section id="variables-affecting-the-all-target">
+<h3>Variables affecting the <code class="docutils literal notranslate"><span class="pre">all</span></code> target<a class="headerlink" href="build-system.html#variables-affecting-the-all-target" title="Link to this heading">¶</a></h3>
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-BUILD_TESTING">
+<span class="sig-name descname"><span class="pre">BUILD_TESTING</span></span><a class="headerlink" href="build-system.html#cmake-BUILD_TESTING" title="Link to this definition">¶</a></dt>
+<dd><p>Standard variable created by CTest that enables/disables all tests.
+Defaults to <code class="docutils literal notranslate"><span class="pre">ON</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_BUILD_HELP">
+<span class="sig-name descname"><span class="pre">GMX_BUILD_HELP</span></span><a class="headerlink" href="build-system.html#cmake-GMX_BUILD_HELP" title="Link to this definition">¶</a></dt>
+<dd><p>Controls handling of man pages and shell completions.  Possible values:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">OFF</span></code> (default for builds from release source distribution)</dt><dd><p>Man pages and shell completions are not generated as part of the <code class="docutils literal notranslate"><span class="pre">all</span></code>
+target, and only installed if compiling from a source package.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">AUTO</span></code> (default for builds from development version)</dt><dd><p>Shell completions are generated by executing the <code class="file docutils literal notranslate"><span class="pre">gmx</span></code> binary as
+part of the <code class="docutils literal notranslate"><span class="pre">all</span></code> target.  If it fails, a message is printed, but the
+build succeeds.
+Man pages need to be generated manually by invoking the <code class="docutils literal notranslate"><span class="pre">man</span></code> target.
+Man pages and shell completions are installed if they have been
+successfully generated.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ON</span></code></dt><dd><p>Works the same as <code class="docutils literal notranslate"><span class="pre">AUTO</span></code>, except that if invoking the <code class="file docutils literal notranslate"><span class="pre">gmx</span></code> binary
+fails, the build fails as well.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_DEVELOPER_BUILD">
+<span class="sig-name descname"><span class="pre">GMX_DEVELOPER_BUILD</span></span><a class="headerlink" href="build-system.html#cmake-GMX_DEVELOPER_BUILD" title="Link to this definition">¶</a></dt>
+<dd><p>If set <code class="docutils literal notranslate"><span class="pre">ON</span></code>, the <code class="docutils literal notranslate"><span class="pre">all</span></code> target will include also the test binaries using
+Google Test (if <a class="reference internal" href="build-system.html#cmake-GMX_BUILD_UNITTESTS"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">GMX_BUILD_UNITTESTS</span></code></a> is <code class="docutils literal notranslate"><span class="pre">ON</span></code>), while <code class="docutils literal notranslate"><span class="pre">webpage</span></code>
+target will also include Reference manual in PDF format.
+Also, <a class="reference internal" href="build-system.html#cmake-GMX_COMPILER_WARNINGS"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">GMX_COMPILER_WARNINGS</span></code></a> and
+<a class="reference external" href="https://cmake.org/cmake/help/latest/variable/CMAKE_EXPORT_COMPILE_COMMANDS.html">CMAKE_EXPORT_COMPILE_COMMANDS</a>
+are always enabled.
+In the future, other developer convenience features (as well as features
+inconvenient for a general user) can be added to the set controlled by this
+variable.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_CLANG_TIDY">
+<span class="sig-name descname"><span class="pre">GMX_CLANG_TIDY</span></span><a class="headerlink" href="build-system.html#cmake-GMX_CLANG_TIDY" title="Link to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://releases.llvm.org/18.0.0/tools/clang/tools/extra/docs/clang-tidy/index.html">clang-tidy</a>
+is used for static code analysis and (some) automated fixing of issues detected. clang-tidy is easy to install.
+It is contained in
+the llvm binary <a class="reference external" href="http://releases.llvm.org/download.html#18.0.0">package</a>. Only
+version 18.0.* is supported. Others might miss tests or give false positives.
+It is run automatically in GitLab CI for each commit. Many checks have fixes which can automatically be
+applied. To run it, the build has to be configured with
+<code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-DGMX_CLANG_TIDY=ON</span> <span class="pre">-DCMAKE_BUILD_TYPE=Debug</span></code>.
+Any <code class="docutils literal notranslate"><span class="pre">CMAKE_BUILD_TYPE</span></code> which enables asserts (e.g. ASAN) works. Such a configured build will
+run both the compiler as well as clang-tidy when building. The name of the clang-tidy executable is set with
+<code class="docutils literal notranslate"><span class="pre">-DCLANG_TIDY=...</span></code>, and the full path to it can be set with <code class="docutils literal notranslate"><span class="pre">-DCLANG_TIDY_EXE=...</span></code>.
+To apply the automatic fixes to the issues identified, clang-tidy should be run separately (running clang-tidy
+with <code class="docutils literal notranslate"><span class="pre">-fix-errors</span></code> as part of the build can corrupt header files). To fix a specific file run
+<code class="docutils literal notranslate"><span class="pre">clang-tidy</span> <span class="pre">-fix-errors</span> <span class="pre">-header-filter</span> <span class="pre">'.*'</span> <span class="pre">{file}</span></code>, to fix all files in parallel
+<code class="docutils literal notranslate"><span class="pre">run-clang-tidy.py</span> <span class="pre">-fix</span> <span class="pre">-header-filter</span> <span class="pre">'.*'</span> <span class="pre">'(?&lt;!/selection/parser\.cpp|selection/scanner\.cpp)$'</span></code>,
+and to fix all modified files <code class="docutils literal notranslate"><span class="pre">run-clang-tidy.py</span> <span class="pre">-fix</span> <span class="pre">-header-filter</span> <span class="pre">'.*'</span> <span class="pre">$(git</span> <span class="pre">diff</span> <span class="pre">HEAD</span> <span class="pre">--name-only)</span></code>.
+The <code class="file docutils literal notranslate"><span class="pre">run-clang-tidy.py</span></code> script is in the
+<code class="docutils literal notranslate"><span class="pre">share/clang/</span></code> subfolder of the llvm distribution. <code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code> has to be able to find the
+<code class="docutils literal notranslate"><span class="pre">compile_commands.json</span></code> file. Either run from the build folder or add a symlink to the source folder.
+<a class="reference internal" href="build-system.html#cmake-GMX_ENABLE_CCACHE"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">GMX_ENABLE_CCACHE</span></code></a> does not work with clang-tidy.</p>
+</dd></dl>
+
+</section>
+<section id="variables-affecting-special-targets">
+<h3>Variables affecting special targets<a class="headerlink" href="build-system.html#variables-affecting-special-targets" title="Link to this heading">¶</a></h3>
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_INSTALL_LEGACY_API">
+<span class="sig-name descname"><span class="pre">GMX_INSTALL_LEGACY_API</span></span><a class="headerlink" href="build-system.html#cmake-GMX_INSTALL_LEGACY_API" title="Link to this definition">¶</a></dt>
+<dd><p>Default <code class="docutils literal notranslate"><span class="pre">OFF</span></code>. If set to <code class="docutils literal notranslate"><span class="pre">ON</span></code>, headers will be installed to <code class="docutils literal notranslate"><span class="pre">gromacs/</span></code>
+in the CMake header destination folder to allow use of the <code class="docutils literal notranslate"><span class="pre">::gmx</span></code> C++
+namespace, supported by the <code class="file docutils literal notranslate"><span class="pre">libgromacs</span></code> library.
+See <a class="reference external" href="../doxygen/html-user/index.xhtml.html">Legacy API</a>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_INSTALL_NBLIB_API">
+<span class="sig-name descname"><span class="pre">GMX_INSTALL_NBLIB_API</span></span><a class="headerlink" href="build-system.html#cmake-GMX_INSTALL_NBLIB_API" title="Link to this definition">¶</a></dt>
+<dd><p>If set to <code class="docutils literal notranslate"><span class="pre">ON</span></code> (default, when <code class="xref std std-cmake docutils literal notranslate"><span class="pre">BUILD_SHARED_LIBS</span></code> on non-Windows platforms),
+build and install the <code class="file docutils literal notranslate"><span class="pre">libnb_gmx</span></code> and <code class="file docutils literal notranslate"><span class="pre">nblib/</span></code> headers.
+See <a class="reference internal" href="../nblib/index.html#nblib"><span class="std std-ref">(Non-)Bonded LIBrary (NB-LIB) API</span></a>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMXAPI">
+<span class="sig-name descname"><span class="pre">GMXAPI</span></span><a class="headerlink" href="build-system.html#cmake-GMXAPI" title="Link to this definition">¶</a></dt>
+<dd><p>If set <code class="docutils literal notranslate"><span class="pre">ON</span></code> (default, when <code class="xref std std-cmake docutils literal notranslate"><span class="pre">BUILD_SHARED_LIBS</span></code> on non-Windows platforms),
+the additional <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> C++ library is configured and the
+<code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> headers will be installed. Provides the additional build tree
+targets <code class="docutils literal notranslate"><span class="pre">gmxapi-cppdocs</span></code> and <code class="docutils literal notranslate"><span class="pre">gmxapi-cppdocs-dev</span></code> when Doxygen is
+available. Also exports CMake configuration files for <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> that allow
+<code class="docutils literal notranslate"><span class="pre">find_package(gmxapi)</span></code> to import the <code class="docutils literal notranslate"><span class="pre">Gromacs::gmxapi</span></code> CMake target in
+client projects that search the GROMACS installation root.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_BUILD_MANUAL">
+<span class="sig-name descname"><span class="pre">GMX_BUILD_MANUAL</span></span><a class="headerlink" href="build-system.html#cmake-GMX_BUILD_MANUAL" title="Link to this definition">¶</a></dt>
+<dd><p>If set <code class="docutils literal notranslate"><span class="pre">ON</span></code>, CMake detection for LaTeX and other prerequisites for the
+reference PDF manual is done, and the <code class="docutils literal notranslate"><span class="pre">manual</span></code> target for building the
+manual is generated.
+If <code class="docutils literal notranslate"><span class="pre">OFF</span></code> (the default), all detection is skipped and the manual cannot be
+built.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_BUILD_TARBALL">
+<span class="sig-name descname"><span class="pre">GMX_BUILD_TARBALL</span></span><a class="headerlink" href="build-system.html#cmake-GMX_BUILD_TARBALL" title="Link to this definition">¶</a></dt>
+<dd><p>If set <code class="docutils literal notranslate"><span class="pre">ON</span></code>, <code class="docutils literal notranslate"><span class="pre">-dev</span></code> suffix is stripped off from version strings and some
+other version info logic is adjusted such that the man pages and other
+documentation generated from this build is suitable for releasing (on the
+web page and/or in the source distribution package).
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_BUILD_UNITTESTS">
+<span class="sig-name descname"><span class="pre">GMX_BUILD_UNITTESTS</span></span><a class="headerlink" href="build-system.html#cmake-GMX_BUILD_UNITTESTS" title="Link to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">ON</span></code>, test binaries using Google Test are built (either as the separate
+<code class="docutils literal notranslate"><span class="pre">tests</span></code> target, or also as part of the <code class="docutils literal notranslate"><span class="pre">all</span></code> target, depending on
+<a class="reference internal" href="build-system.html#cmake-GMX_DEVELOPER_BUILD"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">GMX_DEVELOPER_BUILD</span></code></a>).  All dependencies required for building the
+tests (Google Test and Google Mock frameworks, and tinyxml2) are
+included in <code class="file docutils literal notranslate"><span class="pre">src/external/</span></code>.
+Defaults to <code class="docutils literal notranslate"><span class="pre">ON</span></code> if <a class="reference internal" href="build-system.html#cmake-BUILD_TESTING"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">BUILD_TESTING</span></code></a> is <code class="docutils literal notranslate"><span class="pre">ON</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-GMX_COMPACT_DOXYGEN">
+<span class="sig-name descname"><span class="pre">GMX_COMPACT_DOXYGEN</span></span><a class="headerlink" href="build-system.html#cmake-GMX_COMPACT_DOXYGEN" title="Link to this definition">¶</a></dt>
+<dd><p>If set <code class="docutils literal notranslate"><span class="pre">ON</span></code>, Doxygen configuration is changed to avoid generating large
+dependency graphs, which makes it significantly faster to run Doxygen and
+reduces disk usage.  This is typically useful when developing the
+documentation to reduce the build times.
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-REGRESSIONTEST_DOWNLOAD">
+<span class="sig-name descname"><span class="pre">REGRESSIONTEST_DOWNLOAD</span></span><a class="headerlink" href="build-system.html#cmake-REGRESSIONTEST_DOWNLOAD" title="Link to this definition">¶</a></dt>
+<dd><p>If set <code class="docutils literal notranslate"><span class="pre">ON</span></code>, CMake will download the regression tests and extract them to
+a local directory.  <a class="reference internal" href="build-system.html#cmake-REGRESSIONTEST_PATH"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">REGRESSIONTEST_PATH</span></code></a> is set to the extracted
+tests.  Note that this happens during the configure phase, not during the
+build.
+After the download is done, the variable is automatically reset to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>
+again to avoid repeated downloads.  Can be set to <code class="docutils literal notranslate"><span class="pre">ON</span></code> to download again.
+Defaults to <code class="docutils literal notranslate"><span class="pre">OFF</span></code>.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-REGRESSIONTEST_PATH">
+<span class="sig-name descname"><span class="pre">REGRESSIONTEST_PATH</span></span><a class="headerlink" href="build-system.html#cmake-REGRESSIONTEST_PATH" title="Link to this definition">¶</a></dt>
+<dd><p>Path to extracted regression test suite matching the source tree (the
+directory containing <code class="file docutils literal notranslate"><span class="pre">gmxtest.pl</span></code>)
+If set, CTest tests are generated to run the regression tests.
+Defaults to empty.</p>
+</dd></dl>
+
+<dl class="std cmake">
+<dt class="sig sig-object std" id="cmake-SOURCE_MD5SUM">
+<span class="sig-name descname"><span class="pre">SOURCE_MD5SUM</span></span><a class="headerlink" href="build-system.html#cmake-SOURCE_MD5SUM" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the MD5 sum of the release tarball when generating the HTML
+documentation.  It gets inserted into the download section of the HTML
+pages.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="external-libraries">
+<h2>External libraries<a class="headerlink" href="build-system.html#external-libraries" title="Link to this heading">¶</a></h2>
+</section>
+<section id="special-targets">
+<h2>Special targets<a class="headerlink" href="build-system.html#special-targets" title="Link to this heading">¶</a></h2>
+<p>In addition to the default <code class="docutils literal notranslate"><span class="pre">all</span></code> target, the generated build system has
+several custom targets that are intended to be explicitly built to perform
+various tasks (some of these may also run automatically).  There are various
+other targets as well used internally by these, but those are typically not
+intended to be invoked directly.</p>
+<dl class="simple">
+<dt>check</dt><dd><p>Builds all the binaries needed by the tests and runs the tests.  If some
+types of tests are not available, shows a note to the user.
+This is the main target intended for normal users to run the tests.
+See <a class="reference internal" href="testutils.html"><span class="doc">Unit testing</span></a>.</p>
+</dd>
+<dt>check-source</dt><dd><p>Runs a custom Python checker script to check for various source-level
+issues.  Uses Doxygen XML documentation as well as rudimentary parsing of
+some parts of the source files.
+This target is used as part of the CI.
+All CMake code is currently in <code class="file docutils literal notranslate"><span class="pre">docs/doxygen/</span></code>.
+See <a class="reference internal" href="gmxtree.html"><span class="doc">Source tree checker scripts</span></a>.</p>
+</dd>
+<dt>completion</dt><dd><p>Runs the compiled <code class="file docutils literal notranslate"><span class="pre">gmx</span></code> executable to generate shell command-line
+completion definitions.  This target is only added if
+<a class="reference internal" href="build-system.html#cmake-GMX_BUILD_HELP"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">GMX_BUILD_HELP</span></code></a> is not <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, and it is run automatically as part
+of the default <code class="docutils literal notranslate"><span class="pre">all</span></code> target.  See <a class="reference internal" href="build-system.html#cmake-GMX_BUILD_HELP"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">GMX_BUILD_HELP</span></code></a>.
+All CMake code is in <code class="file docutils literal notranslate"><span class="pre">src/programs/</span></code>.</p>
+</dd>
+<dt>dep-graphs*</dt><dd><p>Builds include dependency graphs for the source files using <strong class="command">dot</strong>
+from graphviz.
+All CMake code is in <code class="file docutils literal notranslate"><span class="pre">docs/doxygen/</span></code>.
+See <a class="reference internal" href="gmxtree.html"><span class="doc">Source tree checker scripts</span></a>.</p>
+</dd>
+<dt>doxygen-*</dt><dd><p>Targets that run Doxygen to generate the documentation.
+The <code class="docutils literal notranslate"><span class="pre">doxygen-all</span></code> target runs as part of the <code class="docutils literal notranslate"><span class="pre">webpage</span></code> target, which in
+turn runs as part of the CI.
+All CMake code is in <code class="file docutils literal notranslate"><span class="pre">docs/doxygen/</span></code>.
+See <a class="reference internal" href="doxygen.html"><span class="doc">Using Doxygen</span></a>.</p>
+</dd>
+<dt>gmxapi-cppdocs</dt><dd><p>Builds API documentation for gmxapi. Useful to authors of client software.
+Documentation is generated in <code class="file docutils literal notranslate"><span class="pre">docs/api-user</span></code> in the build directory.</p>
+</dd>
+<dt>gmxapi-cppdocs-dev</dt><dd><p>Extract documentation for gmxapi and GROMACS developers to
+<code class="file docutils literal notranslate"><span class="pre">docs/api-dev</span></code>.</p>
+</dd>
+<dt>install-guide</dt><dd><p>Runs Sphinx to generate a plain-text INSTALL file for the source package.
+The files is generated at <code class="file docutils literal notranslate"><span class="pre">docs/install-guide/text/</span></code>, from where it
+gets put at the root of the source package by CPack.
+All CMake code is in <code class="file docutils literal notranslate"><span class="pre">docs/</span></code>.</p>
+</dd>
+<dt>man</dt><dd><p>Runs Sphinx to generate man pages for the programs.
+Internally, also runs the compiled <code class="file docutils literal notranslate"><span class="pre">gmx</span></code> executable to generate the
+input files for Sphinx.
+All CMake code is in <code class="file docutils literal notranslate"><span class="pre">docs/</span></code>.
+See <a class="reference internal" href="build-system.html#cmake-GMX_BUILD_HELP"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">GMX_BUILD_HELP</span></code></a> for information on when the man pages are
+installed.</p>
+</dd>
+<dt>manual</dt><dd><p>Runs LaTeX to generate the reference PDF manual.
+All CMake code is in <code class="file docutils literal notranslate"><span class="pre">docs/manual/</span></code>.
+See <a class="reference internal" href="build-system.html#cmake-GMX_BUILD_MANUAL"><code class="xref std std-cmake docutils literal notranslate"><span class="pre">GMX_BUILD_MANUAL</span></code></a>.</p>
+</dd>
+<dt>package_source</dt><dd><p>Standard target created by CPack that builds a source package.
+This target is used to generate the released source packages.</p>
+</dd>
+<dt>test</dt><dd><p>Standard target created by CTest that runs all the registered tests.
+Note that this does not build the test binaries, only runs them, so you need
+to first ensure that they are up-to-date.
+See <a class="reference internal" href="testutils.html"><span class="doc">Unit testing</span></a>.</p>
+</dd>
+<dt>tests</dt><dd><p>Builds all the binaries needed by the tests (but not <code class="docutils literal notranslate"><span class="pre">gmx</span></code>).
+See <a class="reference internal" href="testutils.html"><span class="doc">Unit testing</span></a>.</p>
+</dd>
+<dt>webpage</dt><dd><p>Collection target that runs the other documentation targets to generate the
+full set of HTML (and linked) documentation.
+This target is used as part of the CI.
+All CMake code is in <code class="file docutils literal notranslate"><span class="pre">docs/</span></code>.</p>
+</dd>
+<dt>webpage-sphinx</dt><dd><p>Runs Sphinx to generate most content for the HTML documentation (the set of
+web pages this developer guide is also part of).
+Internally, also runs the compiled <code class="file docutils literal notranslate"><span class="pre">gmx</span></code> executable to generate some
+input files for Sphinx.
+All CMake code is in <code class="file docutils literal notranslate"><span class="pre">docs/</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="passing-information-to-source-code">
+<h2>Passing information to source code<a class="headerlink" href="build-system.html#passing-information-to-source-code" title="Link to this heading">¶</a></h2>
+<p>The build system uses a few different mechanisms to influence the compilation:</p>
+<ul>
+<li><p>On the highest level, some CMake options select what files will be compiled.</p></li>
+<li><p>Some options are passed on the compiler command line using <code class="docutils literal notranslate"><span class="pre">-D</span></code> or
+equivalent, such that they are available in every compilation unit.  This
+should be used with care to keep the compiler command lines manageable.
+You can find the current set of such defines with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>grep<span class="w"> </span>add_definitions
+</pre></div>
+</div>
+</li>
+<li><p>A few header files are generated using CMake <code class="docutils literal notranslate"><span class="pre">configure_file()</span></code> and
+included in the desired source files.  These files must exist for the
+compilation to pass.  Only a few files use an <code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">HAVE_CONFIG_H</span></code> to
+protect against inclusion in case the define is not set; this is used in
+files that may get compiled outside the main build system.</p>
+<dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">buildinfo.h</span></code></dt><dd><p>Contains various strings about the build environment, used mainly for
+outputting version information to log files and when requested.</p>
+</dd>
+<dt><code class="file docutils literal notranslate"><span class="pre">config.h</span></code></dt><dd><p>Contains defines for conditional compilation within source files.</p>
+</dd>
+<dt><code class="file docutils literal notranslate"><span class="pre">gmxpre-config.h</span></code></dt><dd><p>Included by <code class="file docutils literal notranslate"><span class="pre">gmxpre.h</span></code> as the first thing in every source file.
+Should only contain defines that are required before any other header for
+correct operation.  For example, defines that affect the behavior of system
+headers fall in this category.  See Doxygen documentation for
+<code class="file docutils literal notranslate"><span class="pre">gmxpre.h</span></code>.</p>
+</dd>
+</dl>
+<p>The above files are available through the INTERFACE_INCLUDE_DIR of
+the <code class="docutils literal notranslate"><span class="pre">common</span></code> CMake target. I.e. to <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&quot;config.h&quot;</span></code>, be sure to
+<code class="docutils literal notranslate"><span class="pre">target_link_libraries(mymodule</span> <span class="pre">PRIVATE</span> <span class="pre">common)</span></code></p>
+<p>Additionally, the following file is generated by the build system:</p>
+<dl class="simple">
+<dt><code class="file docutils literal notranslate"><span class="pre">baseversion-gen.cpp</span></code></dt><dd><p>Provides definitions for declarations in <code class="file docutils literal notranslate"><span class="pre">baseversion_gen.h</span></code> for
+version info output.  The contents are generated either from Git version
+info, or from static version info if not building from a git repository.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="change-management.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Change Management</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="overview.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Codebase overview</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, GROMACS development team
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="build-system.html#">Build system overview</a><ul>
+<li><a class="reference internal" href="build-system.html#build-types">Build types</a></li>
+<li><a class="reference internal" href="build-system.html#cmake-cache-variables">CMake cache variables</a><ul>
+<li><a class="reference internal" href="build-system.html#compiler-flags">Compiler flags</a></li>
+<li><a class="reference internal" href="build-system.html#variables-affecting-compilation-linking">Variables affecting compilation/linking</a></li>
+<li><a class="reference internal" href="build-system.html#variables-affecting-the-all-target">Variables affecting the <code class="docutils literal notranslate"><span class="pre">all</span></code> target</a></li>
+<li><a class="reference internal" href="build-system.html#variables-affecting-special-targets">Variables affecting special targets</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="build-system.html#external-libraries">External libraries</a></li>
+<li><a class="reference internal" href="build-system.html#special-targets">Special targets</a></li>
+<li><a class="reference internal" href="build-system.html#passing-information-to-source-code">Passing information to source code</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js%3Fv=602b4562"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/scripts/furo.js%3Fv=5fa4622c"></script>
+    <script src="../_static/clipboard.min.js%3Fv=a7894cd8"></script>
+    <script src="../_static/copybutton.js%3Fv=f281be69"></script>
+    <script src="../_static/tabs.js%3Fv=3ee01567"></script>
+    </body>
+</html>

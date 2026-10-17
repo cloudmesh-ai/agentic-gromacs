@@ -1,0 +1,1204 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="gmxapi Python module reference" href="pythonreference.html" /><link rel="prev" title="Full installation instructions" href="install.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Using the Python package - GROMACS 2026.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css%3Fv=354aac6f.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css%3Fv=fd3f3429.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css%3Fv=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css%3Fv=4c969af8.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css%3Fv=302659d7.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="usage.html#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">GROMACS 2026.4 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/gmx_logo_blue.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../download.html">Downloads</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../release-notes/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Release notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.4.html">GROMACS 2026.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.3.html">GROMACS 2026.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.2.html">GROMACS 2026.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.1.html">GROMACS 2026.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.5.html">GROMACS 2025.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.4.html">GROMACS 2025.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.3.html">GROMACS 2025.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.2.html">GROMACS 2025.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.1.html">GROMACS 2025.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.7.html">GROMACS 2024.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.6.html">GROMACS 2024.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.5.html">GROMACS 2024.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.4.html">GROMACS 2024.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.3.html">GROMACS 2024.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.2.html">GROMACS 2024.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.1.html">GROMACS 2024.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.5.html">GROMACS 2023.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.4.html">GROMACS 2023.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.3.html">GROMACS 2023.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.2.html">GROMACS 2023.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.1.html">GROMACS 2023.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.6.html">GROMACS 2022.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.5.html">GROMACS 2022.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.4.html">GROMACS 2022.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.3.html">GROMACS 2022.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.2.html">GROMACS 2022.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.1.html">GROMACS 2022.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.7.html">GROMACS 2021.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.6.html">GROMACS 2021.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.5.html">GROMACS 2021.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.4.html">GROMACS 2021.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.3.html">GROMACS 2021.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.2.html">GROMACS 2021.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.1.html">GROMACS 2021.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.7.html">GROMACS 2020.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.6.html">GROMACS 2020.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.5.html">GROMACS 2020.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.4.html">GROMACS 2020.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.3.html">GROMACS 2020.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.2.html">GROMACS 2020.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.1.html">GROMACS 2020.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.6.html">GROMACS 2019.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.5.html">GROMACS 2019.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.4.html">GROMACS 2019.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.3.html">GROMACS 2019.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.2.html">GROMACS 2019.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.1.html">GROMACS 2019.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.7.html">GROMACS 2018.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.6.html">GROMACS 2018.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.5.html">GROMACS 2018.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.4.html">GROMACS 2018.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.3.html">GROMACS 2018.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.2.html">GROMACS 2018.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.1.html">GROMACS 2018.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.5.html">GROMACS 2016.5 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.4.html">GROMACS 2016.4 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.3.html">GROMACS 2016.3 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.2.html">GROMACS 2016.2 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.1.html">GROMACS 2016.1 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/new-features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#gpu-improvements">GPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#cpu-improvements">CPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#threading-improvements">Threading improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#other-improvements">Other improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/bugs-fixed.html#fixes-for-bugs-introduced-during-development">Fixes for bugs introduced during development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/removed-features.html">Removed mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/older/index.html">Release notes for older GROMACS versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../install-guide/index.html">Installation guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Installation guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../install-guide/exotic.html">Installation guide for exotic configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../user-guide/index.html">User guide</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of User guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/known-issues.html">Known issues affecting users of GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/getting-started.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user-guide/flow.html">Flow Chart</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/system-preparation.html">System preparation</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of System preparation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/managing-simulations.html">Managing long simulations</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/faq.html">Answers to frequently asked questions (FAQs)</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Answers to frequently asked questions (FAQs)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/force-fields.html">Force fields in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdp-options.html">Molecular dynamics parameters (.mdp options)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdrun-features.html">Useful mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdrun-performance.html">Getting good performance from <span class="xref std std-ref">mdrun</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/run-time-errors.html">Common errors when using GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/cmdline.html">Command-line reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of Command-line reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx.html">molecular dynamics simulation suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-anaeig.html">gmx anaeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-analyze.html">gmx analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-angle.html">gmx angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-awh.html">gmx awh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-bar.html">gmx bar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-bundle.html">gmx bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-check.html">gmx check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-chi.html">gmx chi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-cluster.html">gmx cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-clustsize.html">gmx clustsize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-confrms.html">gmx confrms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-convert-tpr.html">gmx convert-tpr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-convert-trj.html">gmx convert-trj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-covar.html">gmx covar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-current.html">gmx current</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-density.html">gmx density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-densmap.html">gmx densmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-densorder.html">gmx densorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dielectric.html">gmx dielectric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dipoles.html">gmx dipoles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-disre.html">gmx disre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-distance.html">gmx distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dos.html">gmx dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dssp.html">gmx dssp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dump.html">gmx dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dyecoupl.html">gmx dyecoupl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-editconf.html">gmx editconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-eneconv.html">gmx eneconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-enemat.html">gmx enemat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-energy.html">gmx energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-extract-cluster.html">gmx extract-cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-filter.html">gmx filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-freevolume.html">gmx freevolume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gangle.html">gmx gangle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genconf.html">gmx genconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genion.html">gmx genion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genrestr.html">gmx genrestr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-grompp.html">gmx grompp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gyrate.html">gmx gyrate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gyrate-legacy.html">gmx gyrate-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-h2order.html">gmx h2order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hbond.html">gmx hbond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hbond-legacy.html">gmx hbond-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-helix.html">gmx helix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-helixorient.html">gmx helixorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-help.html">gmx help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hydorder.html">gmx hydorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-insert-molecules.html">gmx insert-molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-lie.html">gmx lie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-make_edi.html">gmx make_edi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-make_ndx.html">gmx make_ndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mdmat.html">gmx mdmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mdrun.html">gmx mdrun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mindist.html">gmx mindist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mk_angndx.html">gmx mk_angndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-msd.html">gmx msd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmeig.html">gmx nmeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmens.html">gmx nmens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmr.html">gmx nmr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmtraj.html">gmx nmtraj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nonbonded-benchmark.html">gmx nonbonded-benchmark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-order.html">gmx order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pairdist.html">gmx pairdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pdb2gmx.html">gmx pdb2gmx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pme_error.html">gmx pme_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-polystat.html">gmx polystat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-potential.html">gmx potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-principal.html">gmx principal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rama.html">gmx rama</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rdf.html">gmx rdf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-report-methods.html">gmx report-methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rms.html">gmx rms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rmsdist.html">gmx rmsdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rmsf.html">gmx rmsf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rotacf.html">gmx rotacf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rotmat.html">gmx rotmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-saltbr.html">gmx saltbr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sans-legacy.html">gmx sans-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sasa.html">gmx sasa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-saxs-legacy.html">gmx saxs-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-scattering.html">gmx scattering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-select.html">gmx select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sham.html">gmx sham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sigeps.html">gmx sigeps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-solvate.html">gmx solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sorient.html">gmx sorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-spatial.html">gmx spatial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-spol.html">gmx spol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-tcaf.html">gmx tcaf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-traj.html">gmx traj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trajectory.html">gmx trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjcat.html">gmx trjcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjconv.html">gmx trjconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjorder.html">gmx trjorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-tune_pme.html">gmx tune_pme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-vanhove.html">gmx vanhove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-velacc.html">gmx velacc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-wham.html">gmx wham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-wheel.html">gmx wheel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-x2top.html">gmx x2top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-xpm2ps.html">gmx xpm2ps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/selections.html">Selection syntax and usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/terminology.html">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/validation.html">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/environment-variables.html">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/floating-point.html">Floating point arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/security.html">Security when using GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/deprecation-policy.html">Policy for deprecating GROMACS functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to/index.html">Short How-To guides</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Short How-To guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/beginners.html">Beginners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html">Adding a Residue to a Force Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#water-solvation">Water solvation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#non-water-solvent">Non water solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#mixed-solvent">Mixed solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#making-disulfide-bonds">Making Disulfide Bonds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html">Running membrane simulations in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#parameterization-of-novel-molecules">Parameterization of novel molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#potential-of-mean-force">Potential of Mean Force</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#single-point-energy">Single-Point Energy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#carbon-nanotube">Carbon Nanotube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html">Visualization Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#extracting-trajectory-information">Extracting Trajectory Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#external-tools-to-perform-trajectory-analysis">External tools to perform trajectory analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#plotting-data">Plotting Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#micelle-clustering">Micelle Clustering</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference-manual/index.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Reference Manual</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/preface.html">Preface and Disclaimer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/definitions.html">Definitions and Units</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference-manual/algorithms/algorithms.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Algorithms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/periodic-boundary-conditions.html">Periodic boundary conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/group-concept.html">The group concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/molecular-dynamics.html">Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/shell-molecular-dynamics.html">Shell molecular dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/constraint-algorithms.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/simulated-annealing.html">Simulated Annealing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/stochastic-dynamics.html">Stochastic Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/brownian-dynamics.html">Brownian Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/energy-minimization.html">Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/normal-mode-analysis.html">Normal-Mode Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/free-energy-calculations.html">Free energy calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/replica-exchange.html">Replica exchange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/essential-dynamics.html">Essential Dynamics sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/expanded-ensemble.html">Expanded Ensemble</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/parallelization-domain-decomp.html">Parallelization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/parallelization-domain-decomp.html#domain-decomposition">Domain decomposition</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference-manual/functions/functions.html">Interaction function and force fields</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Interaction function and force fields</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/nonbonded-interactions.html">Non-bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/bonded-interactions.html">Bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/restraints.html">Restraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/polarization.html">Polarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/free-energy-interactions.html">Free energy interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/interaction-methods.html">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/interaction-methods.html#virtual-interaction-sites">Virtual interaction sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/long-range-electrostatics.html">Long Range Electrostatics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/long-range-vdw.html">Long Range Van der Waals interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/force-field.html">Force field</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference-manual/topologies/topologies.html">Topologies</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Topologies</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/particle-type.html">Particle type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/parameter-files.html">Parameter files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/molecule-definition.html">Molecule definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/constraint-algorithm-section.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/pdb2gmx-input-files.html"><span class="xref std std-ref">pdb2gmx</span> input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/topology-file-formats.html">File formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/force-field-organization.html">Force field organization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/file-formats.html">File formats</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference-manual/special/special.html">Special Topics</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of Special Topics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/free-energy-implementation.html">Free energy implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/free-energy-implementation.html#potential-of-mean-force">Potential of mean force</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/pulling.html">Non-equilibrium pulling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/pulling.html#collective-variables-the-pull-code">Collective variables: the pull code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/awh.html">Adaptive biasing with AWH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/enforced-rotation.html">Enforced Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/electric-fields.html">Electric fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/comp-electrophys.html">Computational Electrophysiology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/free-energy-pmf.html">Calculating a PMF using the free-energy code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/remove-fast-dgf.html">Removing fastest degrees of freedom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/viscosity-calculation.html">Viscosity calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/shearing.html">Shear simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/tabulated-interaction-functions.html">Tabulated interaction functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/qmmm.html">Hybrid Quantum-Classical simulations (QM/MM) with CP2K interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/mimic-qmmm.html">MiMiC Hybrid Quantum Mechanical/Molecular Mechanical simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/vmd-imd.html">Using VMD plug-ins for trajectory file I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/vmd-imd.html#interactive-molecular-dynamics">Interactive Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/membrane-embedding.html">Embedding proteins into the membranes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/density-guided-simulation.html">Applying forces from three-dimensional densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/colvars.html">Collective Variable simulations with the Colvars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/plumed.html">Using PLUMED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/nnpot.html">Neural Network Potentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/fmm.html">Fast Multipole Method (FMM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/run-parameters.html">Run parameters and Programs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference-manual/analysis/analysis.html">Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Analysis</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/using-groups.html">Using Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/looking-at-trajectory.html">Looking at your trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/general-properties.html">General properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/radial-distribution-function.html">Radial distribution functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/correlation-function.html">Correlation functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/curve-fitting.html">Curve fitting in GROMACS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/mean-square-displacement.html">Mean Square Displacement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/bond-angle-dihedral.html">Bonds/distances, angles and dihedrals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/radius-of-gyration.html">Radius of gyration and distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/rmsd.html">Root mean square deviations in structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/covariance-analysis.html">Covariance analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/dihedral-pca.html">Dihedral principal component analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/hydrogen-bonds.html">Hydrogen bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/protein-related.html">Protein-related items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/interface-related.html">Interface-related items</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/details.html">Some implementation details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/averages.html">Averages and fluctuations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/references.html">Bibliography</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">gmxapi Python package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of gmxapi Python package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="install.html">Full installation instructions</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="usage.html#">Using the Python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pythonreference.html">gmxapi Python module reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../nblib/index.html">(Non-)Bonded LIBrary (NB-LIB) API</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of (Non-)Bonded LIBrary (NB-LIB) API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nblib/guide-to-writing-MD-programs.html">Guide to Writing MD Programs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/index.html">C++ API</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of C++ API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/gmxlibs.html">Public C++ API</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../dev-manual/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of Developer Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/contribute.html">Contribute to GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/overview.html">Codebase overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/build-system.html">Build system overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/change-management.html">Change Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/relocatable-binaries.html">Relocatable binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/documentation-generation.html">Documentation generation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../dev-manual/style.html">Style guidelines</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of Style guidelines</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/formatting.html">Guidelines for code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/includestyle.html">Guidelines for #include directives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/naming.html">Naming conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/language-features.html">Allowed language features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/reportstyle.html">Guidelines for creating meaningful issue reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/commitstyle.html">Guidelines for formatting of git commits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/error-handling.html">Error handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../dev-manual/tools.html">Development-time tools</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of Development-time tools</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/doxygen.html">Using Doxygen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/change-management.html">Change Management</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../dev-manual/infrastructure.html">Automation and Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of Automation and Infrastructure</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dev-manual/gitlab-ci.html">GitLab CI Pipeline Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/gmxtree.html">Source tree checker scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/code-formatting.html">Automatic source code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/testutils.html">Unit testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/physical_validation.html">Physical validation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/known-issues.html">Known issues relevant for developers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev-manual/index.html#doxygen-documentation">Doxygen documentation</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="usage.html#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/blob/main/docs/gmxapi/userguide/usage.rst" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/-/edit/main/docs/gmxapi/userguide/usage.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="using-the-python-package">
+<h1>Using the Python package<a class="headerlink" href="usage.html#using-the-python-package" title="Link to this heading">¶</a></h1>
+<p>After installing GROMACS, sourcing the “GMXRC” (see GROMACS docs), and installing
+the gmxapi Python package (see <a class="reference internal" href="install.html"><span class="doc">Full installation instructions</span></a>), import the package in a Python
+script or interactive interpreter. This documentation assumes a convenient alias
+of <code class="docutils literal notranslate"><span class="pre">gmx</span></code> to refer to the <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> Python package.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gmxapi</span> <span class="k">as</span> <span class="nn">gmx</span>
+</pre></div>
+</div>
+<p>For full documentation of the Python-level interface and API, use the <code class="docutils literal notranslate"><span class="pre">pydoc</span></code>
+command line tool or the <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#help" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">help()</span></code></a> interactive Python function, or refer to
+the <a class="reference internal" href="pythonreference.html"><span class="doc">gmxapi Python module reference</span></a>.</p>
+<p>Any Python <em>exception</em> raised by gmxapi
+should be descended from (and catchable as) <a class="reference internal" href="pythonreference.html#gmxapi.exceptions.Error" title="gmxapi.exceptions.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">gmxapi.exceptions.Error</span></code></a>.
+Additional status messages can be acquired through the <a class="reference internal" href="usage.html#gmxapi-logging"><span class="std std-ref">Logging</span></a>
+facility.
+Unfortunately, some errors occurring in the GROMACS library are not yet
+recoverable at the Python level, and much of the standard GROMACS terminal
+output is not yet accessible through Python.
+If you find a particularly problematic scenario, please file a GROMACS bug report.</p>
+<p>During installation, the <em>gmxapi</em> Python package becomes tied to a specific
+GROMACS installation.
+If you would like to access multiple GROMACS installations
+from Python, build and install <em>gmxapi</em> in separate
+<a class="reference internal" href="install.html#gmxapi-venv"><span class="std std-ref">virtual environments</span></a>.</p>
+<section id="notes-on-parallelism-and-mpi">
+<span id="parallelism"></span><h2>Notes on parallelism and MPI<a class="headerlink" href="usage.html#notes-on-parallelism-and-mpi" title="Link to this heading">¶</a></h2>
+<p>The GROMACS library can be built for parallel computation using various
+strategies.
+If GROMACS was configured with <code class="docutils literal notranslate"><span class="pre">-DGMX_MPI=ON</span></code>,
+the same MPI library and compiler tool chain must be used for <em>gmxapi</em>
+and <a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/mpi4py.html#module-mpi4py" title="(in MPI for Python v4.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py</span></code></a>.
+In any case, the Python package must be built with <a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/mpi4py.html#module-mpi4py" title="(in MPI for Python v4.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py</span></code></a> installed.
+See <a class="reference internal" href="install.html#mpi-requirements"><span class="std std-ref">MPI requirements</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section uses “mpiexec” generically to refer to the MPI program launcher.
+Depending on your MPI implementation and system details,
+your environment may use “mpirun”, or some other command instead.</p>
+</div>
+<p><em>gmxapi</em> scripts manage batches of simulations (as “ensembles”) using
+MPI and <a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/mpi4py.html#module-mpi4py" title="(in MPI for Python v4.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py</span></code></a>.
+To check whether your installed <em>gmxapi</em> package was built with MPI bindings,
+you can check for the <code class="docutils literal notranslate"><span class="pre">mpi_bindings</span></code> feature using
+<a class="reference internal" href="pythonreference.html#gmxapi.version.has_feature" title="gmxapi.version.has_feature"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.version.has_feature()</span></code></a>. The following command will produce an
+error if the feature is not available.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;import gmxapi; assert gmxapi.version.has_feature(&quot;mpi_bindings&quot;)&#39;</span>
+</pre></div>
+</div>
+<p>Assuming you use <strong class="command">mpiexec</strong> to launch MPI jobs in your environment,
+run a <em>gmxapi</em> script on two ranks with something like the following.
+Note that it can be helpful to provide <strong class="command">mpiexec</strong> with the full path to
+the intended Python interpreter since new process environments are being created.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mpiexec -n 2 `which python` -m mpi4py myscript.py
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">-m</span> <span class="pre">mpi4py</span></code> ensures that the <a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/mpi4py.html#module-mpi4py" title="(in MPI for Python v4.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py</span></code></a> package is available and
+allows for proper clean-up of resources.
+(See <a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/mpi4py.run.html#module-mpi4py.run" title="(in MPI for Python v4.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py.run</span></code></a> for details.)</p>
+<section id="mapping-ranks-to-ensemble-members">
+<h3>Mapping ranks to ensemble members<a class="headerlink" href="usage.html#mapping-ranks-to-ensemble-members" title="Link to this heading">¶</a></h3>
+<p><em>gmxapi</em> divides the root communicator into separate sub-communicators for
+each simulator in an ensemble simulation task.
+Consider a root communicator of size <em>S</em> being allocated to <em>N</em> simulators.
+Each rank <em>R</em> in the root communicator is assigned to ensemble member <em>M(R)</em>
+as follows.</p>
+<p>When GROMACS is built with MPI library support, <em>gmxapi</em> allocates available
+MPI ranks to simulators in (approximately) equal size consecutive chunks.</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[M(R) = \text{trunc}(R * N / S)\]</div>
+</div>
+<p>For thread-MPI (or no-MPI) GROMACS builds,
+each simulator is assigned one process (with an attempt at even distribution).
+Based on the preceding formula,
+thread-MPI ensemble member assignment looks like the following.</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}M_T(R) =
+\begin{cases}
+M(R) &amp;,\; M(R) \neq M(R-1) \\
+\textrm{null} &amp;,\; \textrm{otherwise}
+\end{cases}\end{split}\]</div>
+</div>
+<p>In other words, without an MPI library,
+only the root rank from <em>M(R)</em> is assigned.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.0: </span>In earlier releases, ranks were assigned to thread-MPI simulators
+contiguously, such that high-numbered ranks <em>R&gt;N</em> were unused.
+MPI simulators were not supported for ensemble simulation tasks.</p>
+</div>
+</section>
+<section id="caveats-for-mpi-jobs">
+<h3>Caveats for MPI jobs<a class="headerlink" href="usage.html#caveats-for-mpi-jobs" title="Link to this heading">¶</a></h3>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.3.0: </span>By default, most commands outside <a class="reference internal" href="pythonreference.html#module-gmxapi.simulation" title="gmxapi.simulation"><code class="xref any py py-mod docutils literal notranslate"><span class="pre">gmxapi.simulation</span></code></a>
+launch only on the root rank. (Results are synchronized to all ranks.)
+<a class="reference internal" href="pythonreference.html#gmxapi.function_wrapper" title="gmxapi.function_wrapper"><code class="xref any py py-func docutils literal notranslate"><span class="pre">gmxapi.function_wrapper</span></code></a> allows you to set <em>allow_duplicate=True</em>,
+if your script logic or data transfer overhead require tasks to be
+executed on all ranks (computation is duplicated).</p>
+</div>
+<p>If <a class="reference internal" href="pythonreference.html#gmxapi.commandline_operation" title="gmxapi.commandline_operation"><code class="xref any py py-func docutils literal notranslate"><span class="pre">gmxapi.commandline_operation</span></code></a> is used to wrap an MPI-enabled executable,
+the executable could behave unpredictably when the script is run in an MPI context.
+By default, <em>commandline_operation</em> subprocesses get a copy of the environment
+from the Python interpreter from which they are launched, and an executable
+may think it was launched directly by <strong class="command">mpiexec</strong>, causing MPI errors when
+it tries to assert ownership of the MPI resources.</p>
+<p>When a gmxapi script is launched in an MPI context, it may be necessary to hide
+the MPI context from MPI-aware commands run in subprocesses, since <a class="reference internal" href="pythonreference.html#gmxapi.commandline_operation" title="gmxapi.commandline_operation"><code class="xref any py py-func docutils literal notranslate"><span class="pre">gmxapi.commandline_operation</span></code></a>
+executables are generally only launched on a single process.
+<a class="reference internal" href="pythonreference.html#gmxapi.runtime.filtered_mpi_environ" title="gmxapi.runtime.filtered_mpi_environ"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.runtime.filtered_mpi_environ()</span></code></a> is available to provide a copy
+of the <a class="reference external" href="https://docs.python.org/3/library/os.html#os.environ" title="(in Python v3.14)"><code class="xref any docutils literal notranslate"><span class="pre">os.environ</span></code></a> dictionary with known MPI-related environment variables filtered out.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.3.1: </span>You can use the <em>env</em> key word argument to <a class="reference internal" href="pythonreference.html#gmxapi.commandline_operation" title="gmxapi.commandline_operation"><code class="xref any py py-func docutils literal notranslate"><span class="pre">gmxapi.commandline_operation</span></code></a>
+to replace the default map of environment variables. By pruning out
+the environment variables set by the MPI launcher, you can prevent the
+executable from automatically detecting an MPI context that it shouldn’t use.
+See also <a class="extlink-issue reference external" href="https://gitlab.com/gromacs/gromacs/-/issues/4421">Issue 4421</a></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4.1: </span>Added <a class="reference internal" href="pythonreference.html#gmxapi.runtime.filtered_mpi_environ" title="gmxapi.runtime.filtered_mpi_environ"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.runtime.filtered_mpi_environ()</span></code></a>.</p>
+</div>
+<p>gmxapi does not currently have an abstraction for subprocess launch methods.
+While such a feature is under investigation, <em>allow_duplicate</em> (<a class="reference internal" href="pythonreference.html#gmxapi.function_wrapper" title="gmxapi.function_wrapper"><code class="xref py py-func docutils literal notranslate"><span class="pre">function_wrapper()</span></code></a>)
+and <em>env</em> (<a class="reference internal" href="pythonreference.html#gmxapi.commandline_operation" title="gmxapi.commandline_operation"><code class="xref py py-func docutils literal notranslate"><span class="pre">commandline_operation()</span></code></a>)
+should allow users to wrap tools in custom launchers. Discussion welcome
+on <a class="reference external" href="https://gromacs.bioexcel.eu/tag/gmxapi">the forum</a>!</p>
+</section>
+</section>
+<section id="running-simple-simulations">
+<h2>Running simple simulations<a class="headerlink" href="usage.html#running-simple-simulations" title="Link to this heading">¶</a></h2>
+<p>Once the <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> package is installed, running simulations is easy with
+<a class="reference internal" href="pythonreference.html#gmxapi.read_tpr" title="gmxapi.read_tpr"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.read_tpr()</span></code></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gmxapi</span> <span class="k">as</span> <span class="nn">gmx</span>
+<span class="n">simulation_input</span> <span class="o">=</span> <span class="n">gmx</span><span class="o">.</span><span class="n">read_tpr</span><span class="p">(</span><span class="n">tpr_filename</span><span class="p">)</span>
+<span class="n">md</span> <span class="o">=</span> <span class="n">gmx</span><span class="o">.</span><span class="n">mdrun</span><span class="p">(</span><span class="n">simulation_input</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that this sets up the work you want to perform, but does not immediately
+trigger execution. You can explicitly trigger execution with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">md</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>or you can let gmxapi automatically launch work in response to the data you
+request (by calling <a class="reference internal" href="pythonreference.html#gmxapi.abc.Future.result" title="gmxapi.abc.Future.result"><code class="xref py py-func docutils literal notranslate"><span class="pre">result()</span></code></a> on a named <em>output</em> member).</p>
+<p>The <a class="reference internal" href="pythonreference.html#gmxapi.mdrun" title="gmxapi.mdrun"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.mdrun()</span></code></a> operation produces a simulation trajectory output.
+You can use <code class="docutils literal notranslate"><span class="pre">md.output.trajectory</span></code> as input to other operations,
+or you can get the output directly by calling <code class="docutils literal notranslate"><span class="pre">md.output.trajectory.result()</span></code>.
+If the simulation has not been run yet when <code class="docutils literal notranslate"><span class="pre">result()</span></code> is called,
+the simulation will be run before the function returns.</p>
+</section>
+<section id="running-ensemble-simulations">
+<h2>Running ensemble simulations<a class="headerlink" href="usage.html#running-ensemble-simulations" title="Link to this heading">¶</a></h2>
+<p>To run a batch of simulations, just pass an array of inputs.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">md</span> <span class="o">=</span> <span class="n">gmx</span><span class="o">.</span><span class="n">read_tpr</span><span class="p">([</span><span class="n">tpr_filename1</span><span class="p">,</span> <span class="n">tpr_filename2</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
+<span class="n">md</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Make sure to launch the script in an MPI environment with a sufficient number
+of ranks to allow one rank per simulation.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="usage.html#parallelism"><span class="std std-ref">Notes on parallelism and MPI</span></a></p>
+</div>
+</section>
+<section id="input-arguments-and-ensemble-syntax">
+<span id="gmxapi-ensemble"></span><h2>Input arguments and “ensemble” syntax<a class="headerlink" href="usage.html#input-arguments-and-ensemble-syntax" title="Link to this heading">¶</a></h2>
+<p>When a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of input is provided to a command argument that expects
+some other type, <em>gmxapi</em> generates an <em>ensemble</em> operation.
+The command is applied to each element of input,
+and the <code class="xref py py-func docutils literal notranslate"><span class="pre">result()</span></code> will be a list.
+When an <em>output</em> member of an ensemble operation is provided as input to another command,
+the consuming command will also be an ensemble operation.</p>
+<p><em>gmxapi</em> uses MPI to manage ensemble members across available resources.
+It is important that the same <em>gmxapi</em> commands are called on all processes
+so that underlying collective MPI calls are made as expected.
+In other words, if you are using <a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/mpi4py.html#module-mpi4py" title="(in MPI for Python v4.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py</span></code></a> in your script,
+be careful with conditional execution like the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">mpi4py</span><span class="o">.</span><span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># don&#39;t put any gmxapi commands here, including method calls</span>
+    <span class="c1"># like `obj.result()`, unless you have an `else`</span>
+    <span class="c1"># to make sure the same gmxapi command runs on every rank.</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>For commands that already integrate well with <em>gmxapi’s</em> MPI-based ensemble management
+(like <a class="reference internal" href="pythonreference.html#gmxapi.mdrun" title="gmxapi.mdrun"><code class="xref py py-func docutils literal notranslate"><span class="pre">mdrun()</span></code></a>), available resources can be split up automatically,
+and applied to run the ensemble members concurrently.
+Other operations may require further development of Resource Management
+API features for the <em>gmxapi</em> framework to most effectively apply multi-core computing resources.
+See <a class="extlink-issue reference external" href="https://gitlab.com/gromacs/gromacs/-/issues/3718">Issue 3718</a> and <a class="reference external" href="https://gitlab.com/gromacs/gromacs/-/wikis/subprojects/Resource-Management-2023">the wiki</a>
+for more information.</p>
+<p>See also <a class="reference internal" href="usage.html#parallelism"><span class="std std-ref">Notes on parallelism and MPI</span></a>.</p>
+</section>
+<section id="accessing-command-line-tools">
+<span id="commandline"></span><h2>Accessing command line tools<a class="headerlink" href="usage.html#accessing-command-line-tools" title="Link to this heading">¶</a></h2>
+<p>In <em>gmxapi</em> 0.1, most GROMACS tools are not yet exposed as <em>gmxapi</em> Python operations.
+<a class="reference internal" href="pythonreference.html#gmxapi.commandline_operation" title="gmxapi.commandline_operation"><code class="xref py py-class docutils literal notranslate"><span class="pre">gmxapi.commandline_operation</span></code></a> provides a way to convert a <strong class="command">gmx</strong>
+(or other) command line tool into an operation that can be used in a <em>gmxapi</em>
+script.</p>
+<p>In order to establish data dependencies, input and output files need to be
+indicated with the <code class="docutils literal notranslate"><span class="pre">input_files</span></code> and <code class="docutils literal notranslate"><span class="pre">output_files</span></code> parameters.
+<code class="docutils literal notranslate"><span class="pre">input_files</span></code> and <code class="docutils literal notranslate"><span class="pre">output_files</span></code> key word arguments are dictionaries
+consisting of files keyed by command line flags.</p>
+<p>For example, you might create a <strong class="command">gmx solvate</strong> operation as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">solvate</span> <span class="o">=</span> <span class="n">gmx</span><span class="o">.</span><span class="n">commandline_operation</span><span class="p">(</span><span class="s1">&#39;gmx&#39;</span><span class="p">,</span>
+                                    <span class="n">arguments</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;solvate&#39;</span><span class="p">,</span> <span class="s1">&#39;-box&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">],</span>
+                                    <span class="n">input_files</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;-cs&#39;</span><span class="p">:</span> <span class="n">structurefile</span><span class="p">},</span>
+                                    <span class="n">output_files</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;-p&#39;</span><span class="p">:</span> <span class="n">topfile</span><span class="p">,</span>
+                                                  <span class="s1">&#39;-o&#39;</span><span class="p">:</span> <span class="n">structurefile</span><span class="p">,</span>
+                                                  <span class="p">}</span>
+</pre></div>
+</div>
+<p>To check the status or error output of a command line operation, refer to the
+<code class="docutils literal notranslate"><span class="pre">returncode</span></code> and <code class="docutils literal notranslate"><span class="pre">stderr</span></code> outputs.
+To access the results from the output file arguments, use the command line flags
+as keys in the <code class="docutils literal notranslate"><span class="pre">file</span></code> dictionary output.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">structurefile</span> <span class="o">=</span> <span class="n">solvate</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">file</span><span class="p">[</span><span class="s1">&#39;-o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">solvate</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">returncode</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">solvate</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">erroroutput</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+<section id="preparing-simulations">
+<span id="gmxapi-simulation-preparation"></span><h2>Preparing simulations<a class="headerlink" href="usage.html#preparing-simulations" title="Link to this heading">¶</a></h2>
+<p>Continuing the previous example, the output of <code class="docutils literal notranslate"><span class="pre">solvate</span></code> may be used as the
+input for <code class="docutils literal notranslate"><span class="pre">grompp</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grompp</span> <span class="o">=</span> <span class="n">gmx</span><span class="o">.</span><span class="n">commandline_operation</span><span class="p">(</span><span class="s1">&#39;gmx&#39;</span><span class="p">,</span> <span class="s1">&#39;grompp&#39;</span><span class="p">,</span>
+                                   <span class="n">input_files</span><span class="o">=</span><span class="p">{</span>
+                                       <span class="s1">&#39;-f&#39;</span><span class="p">:</span> <span class="n">mdpfile</span><span class="p">,</span>
+                                       <span class="s1">&#39;-p&#39;</span><span class="p">:</span> <span class="n">solvate</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">file</span><span class="p">[</span><span class="s1">&#39;-p&#39;</span><span class="p">],</span>
+                                       <span class="s1">&#39;-c&#39;</span><span class="p">:</span> <span class="n">solvate</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">file</span><span class="p">[</span><span class="s1">&#39;-o&#39;</span><span class="p">],</span>
+                                       <span class="s1">&#39;-po&#39;</span><span class="p">:</span> <span class="n">mdout_mdp</span><span class="p">,</span>
+                                   <span class="p">},</span>
+                                   <span class="n">output_files</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;-o&#39;</span><span class="p">:</span> <span class="n">tprfile</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Then, <code class="docutils literal notranslate"><span class="pre">grompp.output.file['-o']</span></code> can be used as the input for <a class="reference internal" href="pythonreference.html#gmxapi.read_tpr" title="gmxapi.read_tpr"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.read_tpr()</span></code></a>.</p>
+<p>Simulation input can be modified with the <a class="reference internal" href="pythonreference.html#gmxapi.modify_input" title="gmxapi.modify_input"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.modify_input()</span></code></a> operation
+before being passed to <a class="reference internal" href="pythonreference.html#gmxapi.mdrun" title="gmxapi.mdrun"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.mdrun()</span></code></a>.
+For <em>gmxapi</em> 0.1, a subset of MDP parameters may be overridden using the
+dictionary passed with the <code class="docutils literal notranslate"><span class="pre">parameters</span></code> key word argument.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">simulation_input</span> <span class="o">=</span> <span class="n">gmx</span><span class="o">.</span><span class="n">read_tpr</span><span class="p">(</span><span class="n">grompp</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">file</span><span class="p">[</span><span class="s1">&#39;-o&#39;</span><span class="p">])</span>
+<span class="n">modified_input</span> <span class="o">=</span> <span class="n">gmx</span><span class="o">.</span><span class="n">modify_input</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">simulation_input</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;nsteps&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">})</span>
+<span class="n">md</span> <span class="o">=</span> <span class="n">gmx</span><span class="o">.</span><span class="n">mdrun</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">modified_input</span><span class="p">)</span>
+<span class="n">md</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="using-arbitrary-python-functions">
+<h2>Using arbitrary Python functions<a class="headerlink" href="usage.html#using-arbitrary-python-functions" title="Link to this heading">¶</a></h2>
+<p>Generally, a function in the <em>gmxapi</em> package returns an object that references
+a node in a work graph,
+representing an operation that will be run when the graph executes.
+The object has an <code class="docutils literal notranslate"><span class="pre">output</span></code> attribute providing access to data Futures that
+can be provided as inputs to other operations before computation has actually
+been performed.</p>
+<p>You can also provide native Python data as input to operations,
+or you can operate on native results retrieved from a Future’s <code class="docutils literal notranslate"><span class="pre">result()</span></code>
+method.
+However, it is trivial to convert most Python functions into <em>gmxapi</em> compatible
+operations with <a class="reference internal" href="pythonreference.html#gmxapi.function_wrapper" title="gmxapi.function_wrapper"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.function_wrapper()</span></code></a>.
+All function inputs and outputs must have a name and type.
+Additionally, functions should be stateless and importable
+(e.g. via Python <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">some.module</span> <span class="pre">import</span> <span class="pre">myfunction</span></code>)
+for future compatibility.</p>
+<p>Simple functions can just use <code class="xref py py-func docutils literal notranslate"><span class="pre">return()</span></code> to publish their output,
+as long as they are defined with a return value type annotation.
+Functions with multiple outputs can accept an <code class="docutils literal notranslate"><span class="pre">output</span></code> key word argument and
+assign values to named attributes on the received argument.</p>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gmxapi</span> <span class="kn">import</span> <span class="n">function_wrapper</span>
+
+<span class="nd">@function_wrapper</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">})</span>
+<span class="k">def</span> <span class="nf">add_float</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+
+<span class="nd">@function_wrapper</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">})</span>
+<span class="k">def</span> <span class="nf">less_than</span><span class="p">(</span><span class="n">lhs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">rhs</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">lhs</span> <span class="o">&lt;</span> <span class="n">rhs</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For more on Python type hinting with function annotations,
+check out <span class="target" id="index-0"></span><a class="pep reference external" href="https://peps.python.org/pep-3107/"><strong>PEP 3107</strong></a>.</p>
+</div>
+</section>
+<section id="subgraphs">
+<h2>Subgraphs<a class="headerlink" href="usage.html#subgraphs" title="Link to this heading">¶</a></h2>
+<p>Basic <em>gmxapi</em> work consists of a flow of data from operation outputs to
+operation inputs, forming a directed acyclic graph (DAG).
+In many cases, it can be useful to repeat execution of a subgraph with updated
+inputs.
+You may want a data reference that is not tied to the immutable result
+of a single node in the work graph, but which instead refers to the most recent
+result of a repeated operation.</p>
+<p>One or more operations can be staged in a <code class="xref py py-class docutils literal notranslate"><span class="pre">gmxapi.operation.Subgraph</span></code>,
+a sort of meta-operation factory that can store input binding behavior so that
+instances can be created without providing input arguments.</p>
+<p>The subgraph <em>variables</em> serve as input, output, and mutable internal data
+references which can be updated by operations in the subgraph.
+Variables also allow state to be propagated between iterations when a subgraph
+is used in a <em>while</em> loop.</p>
+<p>Use <a class="reference internal" href="pythonreference.html#gmxapi.subgraph" title="gmxapi.subgraph"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.subgraph()</span></code></a> to create a new empty subgraph.
+The <code class="docutils literal notranslate"><span class="pre">variables</span></code> argument declares data handles that define the state of the
+subgraph when it is run.
+To initialize input to the subgraph, give each variable a name and a value.</p>
+<p>To populate a subgraph, enter a SubgraphContext by using a <code class="xref py py-func docutils literal notranslate"><span class="pre">with()</span></code> statement.
+Operations created in the <em>with</em> block will be captued by the SubgraphContext.
+Define the subgraph outputs by assigning operation outputs to subgraph variables
+within the <em>with</em> block.</p>
+<p>After exiting the <em>with</em> block, the subgraph may be used to create operation
+instances or may be executed repeatedly in a <em>while</em> loop.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The object returned by <a class="reference internal" href="pythonreference.html#gmxapi.subgraph" title="gmxapi.subgraph"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.subgraph()</span></code></a> is atypical of <em>gmxapi</em>
+operations, and has some special behaviors. When used as a Python
+<a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#context-managers">context manager</a>,
+it enters a “builder” state that changes the behavior of its attribute
+variables and of operaton instantiation. After exiting the <code class="xref py py-func docutils literal notranslate"><span class="pre">with()</span></code>
+block, the subgraph variables are no longer assignable, and operation
+references obtained within the block are no longer valid.</p>
+</div>
+</section>
+<section id="looping">
+<h2>Looping<a class="headerlink" href="usage.html#looping" title="Link to this heading">¶</a></h2>
+<p>An operation can be executed an arbitrary number of times with a
+<a class="reference internal" href="pythonreference.html#gmxapi.while_loop" title="gmxapi.while_loop"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.while_loop()</span></code></a> by providing a factory function as the
+<em>operation</em> argument.
+When the loop operation is run, the <em>operation</em> is instantiated and run repeatedly
+until <em>condition</em> evaluates <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p><a class="reference internal" href="pythonreference.html#gmxapi.while_loop" title="gmxapi.while_loop"><code class="xref py py-func docutils literal notranslate"><span class="pre">gmxapi.while_loop()</span></code></a> does not provide a direct way to provide <em>operation</em>
+arguments. Use a <em>subgraph</em> to define the data flow for iterative operations.</p>
+<p>When a <em>condition</em> is a subgraph variable, the variable is evaluated in the
+running subgraph instance at the beginning of an iteration.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subgraph</span> <span class="o">=</span> <span class="n">gmx</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">variables</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;float_with_default&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;bool_data&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<span class="k">with</span> <span class="n">subgraph</span><span class="p">:</span>
+    <span class="c1"># Define the update for float_with_default to come from an add_float operation.</span>
+    <span class="n">subgraph</span><span class="o">.</span><span class="n">float_with_default</span> <span class="o">=</span> <span class="n">add_float</span><span class="p">(</span><span class="n">subgraph</span><span class="o">.</span><span class="n">float_with_default</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">subgraph</span><span class="o">.</span><span class="n">bool_data</span> <span class="o">=</span> <span class="n">less_than</span><span class="p">(</span><span class="n">lhs</span><span class="o">=</span><span class="n">subgraph</span><span class="o">.</span><span class="n">float_with_default</span><span class="p">,</span> <span class="n">rhs</span><span class="o">=</span><span class="mf">6.</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">data</span>
+<span class="n">operation_instance</span> <span class="o">=</span> <span class="n">subgraph</span><span class="p">()</span>
+<span class="n">operation_instance</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">operation_instance</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;float_with_default&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">2.</span>
+
+<span class="n">loop</span> <span class="o">=</span> <span class="n">gmx</span><span class="o">.</span><span class="n">while_loop</span><span class="p">(</span><span class="n">operation</span><span class="o">=</span><span class="n">subgraph</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="n">subgraph</span><span class="o">.</span><span class="n">bool_data</span><span class="p">)</span>
+<span class="n">handle</span> <span class="o">=</span> <span class="n">loop</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">handle</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">float_with_default</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="o">==</span> <span class="mi">6</span>
+</pre></div>
+</div>
+</section>
+<section id="logging">
+<span id="gmxapi-logging"></span><h2>Logging<a class="headerlink" href="usage.html#logging" title="Link to this heading">¶</a></h2>
+<p><em>gmxapi</em> uses the Python <a class="reference external" href="https://docs.python.org/3/library/logging.html#module-logging" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logging</span></code></a> module to provide hierarchical
+logging, organized by submodule.
+You can access the logger at <code class="docutils literal notranslate"><span class="pre">gmxapi.logger</span></code> or
+through the Python logging framework:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gmxapi</span> <span class="k">as</span> <span class="nn">gmx</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1"># Get the root gmxapi logger.</span>
+<span class="n">gmx_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;gmxapi&#39;</span><span class="p">)</span>
+<span class="c1"># Set a low default logging level</span>
+<span class="n">gmx_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+<span class="c1"># Make some tools very verbose</span>
+<span class="c1">#  by descending the hierarchy</span>
+<span class="n">gmx_logger</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;commandline&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="c1">#  or by direct reference</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;gmxapi.mdrun&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You may prefer to adjust the log format or manipulate the log handlers.
+For example, tag the log output with MPI rank:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+    <span class="n">rank_number</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">rank_number</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">rank_tag</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">MPI</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">rank_tag</span> <span class="o">=</span> <span class="s1">&#39;rank</span><span class="si">{}</span><span class="s1">:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rank_number</span><span class="p">)</span>
+
+<span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">rank_tag</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">%(name)s</span><span class="s1">:</span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># For additional console logging, create and attach a stream handler.</span>
+<span class="n">ch</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+<span class="n">ch</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For more information, refer to the Python <a class="reference external" href="https://docs.python.org/3/library/logging.html">logging documentation</a>.</p>
+</section>
+<section id="more">
+<h2>More<a class="headerlink" href="usage.html#more" title="Link to this heading">¶</a></h2>
+<p>Refer to the <a class="reference internal" href="pythonreference.html"><span class="doc">gmxapi Python module reference</span></a> for complete and granular documentation.</p>
+<p>For more information on writing or using pluggable simulation extension code,
+refer to <a class="reference external" href="https://gitlab.com/gromacs/gromacs/-/issues/3133">https://gitlab.com/gromacs/gromacs/-/issues/3133</a>.
+(For gmxapi 0.0.7 and GROMACS 2019, see <a class="reference external" href="https://github.com/kassonlab/sample_restraint">https://github.com/kassonlab/sample_restraint</a>)</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="pythonreference.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">gmxapi Python module reference</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="install.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Full installation instructions</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, GROMACS development team
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="usage.html#">Using the Python package</a><ul>
+<li><a class="reference internal" href="usage.html#notes-on-parallelism-and-mpi">Notes on parallelism and MPI</a><ul>
+<li><a class="reference internal" href="usage.html#mapping-ranks-to-ensemble-members">Mapping ranks to ensemble members</a></li>
+<li><a class="reference internal" href="usage.html#caveats-for-mpi-jobs">Caveats for MPI jobs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="usage.html#running-simple-simulations">Running simple simulations</a></li>
+<li><a class="reference internal" href="usage.html#running-ensemble-simulations">Running ensemble simulations</a></li>
+<li><a class="reference internal" href="usage.html#input-arguments-and-ensemble-syntax">Input arguments and “ensemble” syntax</a></li>
+<li><a class="reference internal" href="usage.html#accessing-command-line-tools">Accessing command line tools</a></li>
+<li><a class="reference internal" href="usage.html#preparing-simulations">Preparing simulations</a></li>
+<li><a class="reference internal" href="usage.html#using-arbitrary-python-functions">Using arbitrary Python functions</a></li>
+<li><a class="reference internal" href="usage.html#subgraphs">Subgraphs</a></li>
+<li><a class="reference internal" href="usage.html#looping">Looping</a></li>
+<li><a class="reference internal" href="usage.html#logging">Logging</a></li>
+<li><a class="reference internal" href="usage.html#more">More</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js%3Fv=602b4562"></script>
+    <script src="../../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js%3Fv=5fa4622c"></script>
+    <script src="../../_static/clipboard.min.js%3Fv=a7894cd8"></script>
+    <script src="../../_static/copybutton.js%3Fv=f281be69"></script>
+    <script src="../../_static/tabs.js%3Fv=3ee01567"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

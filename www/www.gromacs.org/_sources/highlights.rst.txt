@@ -1,0 +1,32 @@
+Highlights
+===========
+
+.. topic:: :doc:`topic/heterogeneous_parallelization`
+
+  .. image:: images/heterogeneous_parallelization_small.png
+             :width: 400px
+		     
+.. topic:: :doc:`topic/qmmm`
+
+  .. image:: images/qmmm_2.png
+           :width: 400px
+			    
+.. topic:: :doc:`topic/awh-pmf`
+
+  .. image:: images/awh_pmf.jpg
+             :width: 400px
+		      
+.. topic:: :doc:`topic/awh-fep`
+      
+  .. image:: images/awh_fep.jpg
+               :width: 400px
+	      
+.. topic:: :doc:`topic/gmxapi-python`
+             
+  .. image:: images/gmxapi-python.png
+                 :width: 400px  
+			 		   
+.. topic:: :doc:`topic/compEl`
+
+  .. image:: images/compEl.jpg
+                   :width: 400px

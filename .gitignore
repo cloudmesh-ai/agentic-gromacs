@@ -1,0 +1,46 @@
+# Git Ignore for Agentic GROMACS
+
+# Build and Binary artifacts
+build/
+bin/
+obj/
+*.o
+*.a
+*.so
+*.exe
+
+# GROMACS Data Files (Too large for Git)
+*.tpr
+*.xtc
+*.trr
+*.edr
+*.gro
+*.pdb
+*.log
+*.xvg
+*.energy
+
+# Profiling data
+perf.data
+callgrind.out.*
+profile.perf
+profile_test.log
+performance_report.html
+
+# Python & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+.env
+
+# MCP & Local Configs
+mcp/config_snippet.json
+.claude/
+.envrc
+
+# System files
+.DS_Store
+Thumbs.db

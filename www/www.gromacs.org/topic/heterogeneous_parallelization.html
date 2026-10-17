@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Heterogeneous parallelization and GPU acceleration &#8212; GROMACS webpage https://www.gromacs.org documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="heterogeneous-parallelization-and-gpu-acceleration">
+<h1>Heterogeneous parallelization and GPU acceleration<a class="headerlink" href="heterogeneous_parallelization.html#heterogeneous-parallelization-and-gpu-acceleration" title="Permalink to this heading">¶</a></h1>
+<img alt="../_images/md-tasks-offload-sketch_v4.png" src="../_images/md-tasks-offload-sketch_v4.png" />
+<p>From laptops to the largest supercomputers, modern computer hardware increasingly relies
+on graphics processing units (GPU) along CPUs for computation.
+GPUs have revolutionized the field of MD and made high simulation performance both
+accessible as well as cost-effective.
+GROMACS has supported GPU acceleration since version 4.5 (2010), and natively since version 4.6 (2013).
+Reformulated fundamental MD algorithms for modern architectures (like pair interaction calculation),
+combined with a heterogeneous parallelization scheme which uses both multicore CPUs and GPUs accelerators
+in parallel are the two key ingredients of the GROMACS native GPU support.
+This not only allows harnessing each compute unit for the tasks they are best at
+enabling greater simulation performance, but also provides a solid foundation for
+extensibility and for maintaining broad feature support.</p>
+<p>The GROMACS simulation engine is designed with the goal to allow flexible
+assigning tasks either to CPU or GPU.
+Typically the most computationally intensive tasks,
+like the short-range nonbonded and long-range PME electrostatics are offloaded to the GPU,
+while the CPU can compute other tasks like bonded interactions in parallel,
+as well as doing complex tasks like domain decomposition and neighbor search.
+This scheme ensures that regardless of the features used, nearly all GROMACS simulations
+can  make use of GPU acceleration, without having the entire feature set of the
+MD engine ported to GPUs.
+Features not ported to GPUs can run on the CPU in parallel with GPU execution
+and since GROMACS has highly optimized CPU code, most features can be seamlessly
+supported without significant performance loss.</p>
+<p>The initial version of the GROMACS heterogeneous engine were programmed using CUDA,
+at the time the dominant programming API for the most widely used NVIDIA GPUs.
+However, portability has been a central goal for the project and follow-up efforts focused on adding a portable
+multi-vendor backend. This portable backend used OpenCL, a standards-based portable GPU API, which
+after a few generations gained broad support for all major vendors’ GPUs, including, since 2023, Apple Silicon GPUs.
+In 2021, the GROMACS project shifted focus to SYCL, a modern C++-based API, as a portable GPU backend.
+SYCL became the preferred backend to support AMD and Intel GPUs since 2022.
+In GROMACS 2023, SYCL has near-full feature parity with the CUDA backend and can be used with all recent
+AMD and Intel GPUs. While the SYCL backend does support NVIDIA GPUs, CUDA remains the recommended
+choice on that platform.</p>
+<p>The GROMACS heterogeneous engine was first designed around a force-offload mode
+which relies on offloading the computation of various types of forces to the GPU,
+and transferring back the computed forces for integration on the CPU.
+This force-offload mode served well on the initial few generations of GPU compute platforms.
+However, the majority of computational performance was increasingly provided by GPUs,
+and the cost of moving data between CPU and GPU was becoming a performance limiter.
+For that reason, GROMACS 2020 introduced a GPU-resident parallelization mode which, by moving integration
+and constraints to the GPU, can avoid the frequent CPU–GPU data movement and synchronization
+and with that prioritizes keeping the GPU busy.
+Unlike the force-offload mode, the GPU-resident mode can keep the simulation
+state on the GPU and avoid CPU–GPU transfers for up to tens or hundreds of MD steps.
+This allows maintaining a high GPU utilization while still retaining the core heterogeneous capability
+to do computation in parallel on the CPU supporting features like AWH and free energy calculations.
+GPU-resident mode was supported by the CUDA backend since 2020 and by the SYCL backend since 2022;
+since 2023, GROMACS uses GPU-resident mode by default when possible.</p>
+<p>Modern high-performance GPU servers come with specialized interconnects
+which allow faster data movement between GPUs within a compute node as well as
+across multiple servers.
+To make use of these faster interconnects for improved scalability and absolute performance
+of multi-GPU simulations, direct GPU communication was designed and developed.
+First made available in the 2020 release with the CUDA backend, it offers major performance
+benefits over the traditional CPU-staged communication.
+This was later extended to support generic GPU-aware MPI and SYCL in the 2023 release,
+allowing to scale simulations across multiple AMD or Intel GPUs.
+GROMACS 2023 also brings significant improvements in multi-GPU strong scaling thanks to
+algorithmic and implementation work that lifted the limitation of a simulation being able to
+use only a single GPU for PME work. The GPU PME decomposition allows also distributing the PME computation
+across multiple GPUs including fast Fourier transforms thanks to the integration with distributed
+FFT libraries.</p>
+<dl>
+<dt><strong>References</strong></dt><dd><p>Szilárd Páll and Berk Hess, “A Flexible Algorithm for Calculating Pair Interactions on SIMD Architectures”, Computer Physics Communications 184, no. 12 (December 2013): 2641–50. <a class="reference external" href="https://doi.org/10.1016/j.cpc.2013.06.003">doi:10.1016/j.cpc.2013.06.003</a>.</p>
+<p>Szilárd Páll, Artem Zhmurov, Paul Bauer, Mark Abraham, Magnus Lundborg, Alan Gray, Berk Hess, and Erik Lindahl, “Heterogeneous parallelization and acceleration of molecular dynamics simulations in GROMACS”, J. Chem. Phys. 153, 134110 (2020) <a class="reference external" href="https://doi.org/10.1063/5.0018516">doi:10.1063/5.0018516</a></p>
+<p>Andrey Alekseenko, Szilárd Páll and Erik Lindahl, “GROMACS on AMD GPU-Based HPC Platforms: Using SYCL for Performance and Portability”, CUG ‘24: Proceedings of the Cray User Group (August 2025): 71-84. <a class="reference external" href="https://doi.org/10.1145/3725789.3725797">doi:10.1145/3725789.3725797</a></p>
+<p>Mashesh Doijade, Andrey Alekseenko, Ania Brown, Alan Gray and Szilárd Páll, “Redesigning GROMACS Halo Exchange: Improving Strong Scaling with GPU-initiated NVSHMEM”, Proceedings of 2025 Workshops of the International Conference on High Performance Computing, Network, Storage, and Analysis (2025), 1314-29 <a class="reference external" href="https://doi.org/10.1145/3731599.3767508">doi:10.1145/3731599.3767508</a></p>
+</dd>
+</dl>
+<p><strong>Webinars</strong>
+<a class="reference external" href="https://youtu.be/f2Ohpqb8GWw">Peeking into the black box of GROMACS performance (March 2026)</a>
+<a class="reference external" href="https://youtu.be/rTUz28f8p6g">Improvements in the GROMACS heterogeneous parallelization (April 2021)</a></p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/gmx_logo_blue.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About GROMACS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../highlights.html">Highlights</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://manual.gromacs.org/current/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../articles.html">Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial_webinar.html">Tutorials and Webinars</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://manual.gromacs.org">Downloads</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://forum.gromacs.org">GROMACS forum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../report_issue.html">Report an issue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_contributions.html">User contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_survey.html">User Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workshop.html">GROMACS workshop</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022-2024, GROMACS development team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/topic/heterogeneous_parallelization.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>About GROMACS &#8212; GROMACS webpage https://www.gromacs.org documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="author" title="About these documents" href="about.html#" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Highlights" href="highlights.html" />
+    <link rel="prev" title="Welcome to GROMACS" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="about-gromacs">
+<h1>About GROMACS<a class="headerlink" href="about.html#about-gromacs" title="Permalink to this heading">¶</a></h1>
+<p>GROMACS is a <strong>versatile package to perform molecular dynamics</strong>, i.e. simulate
+the Newtonian equations of motion for systems with hundreds to millions of
+particles and is a <strong>community-driven project</strong>. Contributions are welcome in many forms, including improvements to
+documentation, patches to fix bugs, advice on the forums, bug reports that let us reproduce the issue, and new functionality. See <a class="reference internal" href="development.html"><span class="doc">Development</span></a> page and <a class="reference internal" href="report_issue.html"><span class="doc">Report an issue</span></a>.</p>
+<p>It is primarily designed for biochemical molecules like proteins, lipids and
+nucleic acids that have a lot of complicated bonded interactions, but since
+GROMACS is extremely fast at calculating the nonbonded interactions (that
+usually dominate simulations) many groups are also using it for research on
+non-biological systems, e.g. polymers and fluid dynamics.</p>
+<p>GROMACS supports all the usual algorithms you expect from a modern molecular dynamics implementation, (check the online reference or manual for details), but there are also quite a few features that make it stand out from the competition:</p>
+<ul class="simple">
+<li><p>GROMACS provides extremely high performance compared to all other
+programs. A lot of algorithmic optimizations have been introduced in the
+code; we have for instance extracted the calculation of the virial from the
+innermost loops over pairwise interactions, and we use our own software
+routines to calculate the inverse square root. The compute kernels are
+written using SIMD intrinsics for CPUs and CUDA, OpenCL, and SYCL for GPUs.
+Thus the full potential of all modern CPU and GPUs can be exploited.</p></li>
+<li><p>GROMACS can make simultaneous use of both CPU and GPU available in a system.
+There are options to statically and dynamically balance the load between the
+different resources.</p></li>
+<li><p>GROMACS is user-friendly, with topologies and parameter files written in clear text format. There is a lot of consistency checking, and clear error messages are issued when something is wrong. Since a C-preprocessor is used, you can have conditional parts in your topologies and include other files. You can even compress most files and GROMACS will automatically pipe them through gzip upon reading.</p></li>
+<li><p>There is no scripting required - all programs use a simple interface with
+command line options for input and output files. You can always get help on
+the options by using the -h option, or use the extensive manuals provided
+free of charge in electronic or paper format. There is ongoing work on a
+Python API which enables scripting of simulation setup, running and analysis.</p></li>
+<li><p>Both run input files and trajectories are independent of hardware endian-ness, and can thus be read by any version GROMACS, even if it was compiled using a different floating-point precision.</p></li>
+<li><p>GROMACS can write coordinates using lossy compression, which provides a very compact way of storing trajectory data. The accuracy can be selected by the user.</p></li>
+<li><p>GROMACS comes with a large selection of flexible tools for trajectory
+analysis and the output formats are also supported by all major analysis
+and visualisation packages.</p></li>
+<li><p>GROMACS can be run in parallel, using either the standard MPI communication protocol, or via our own “Thread MPI” library for single-node workstations.</p></li>
+<li><p>GROMACS contains several state-of-the-art algorithms that make it possible to extend the time steps is simulations significantly, and thereby further enhance performance without sacrificing accuracy or detail.</p></li>
+<li><p>The package includes a fully automated topology builder for proteins, even multimeric structures. Building blocks are available for the 20 standard aminoacid residues as well as some modified ones, the 4 nucleotide and 4 deoxinucleotide resides, several sugars and lipids, and some special groups like hemes and several small molecules.</p></li>
+<li><p>GROMACS is extensible through with modules through the so-called MDModules
+interface. This currently provides a way for added extra forces and it
+continuously being extended with new functionality.</p></li>
+<li><p>GROMACS is a proper name. It is not an acronym for anything.</p></li>
+</ul>
+<section id="license">
+<h2>License<a class="headerlink" href="about.html#license" title="Permalink to this heading">¶</a></h2>
+<p>GROMACS is Free Software, available under the GNU Lesser General Public
+License (LGPL), version 2.1. You can redistribute it and/or modify it
+under the terms of the LGPL as published by the Free Software
+Foundation; either version 2.1 of the License, or (at your option) any
+later version.</p>
+<img alt="_images/gmx_logo_blue.png" src="_images/gmx_logo_blue.png" />
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/gmx_logo_blue.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="about.html#">About GROMACS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="highlights.html">Highlights</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://manual.gromacs.org/current/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles.html">Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_webinar.html">Tutorials and Webinars</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://manual.gromacs.org">Downloads</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://forum.gromacs.org">GROMACS forum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="report_issue.html">Report an issue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_contributions.html">User contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_survey.html">User Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workshop.html">GROMACS workshop</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to GROMACS</a></li>
+      <li>Next: <a href="highlights.html" title="next chapter">Highlights</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022-2024, GROMACS development team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/about.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

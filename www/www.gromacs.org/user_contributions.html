@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>User contributions &#8212; GROMACS webpage https://www.gromacs.org documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Survey" href="user_survey.html" />
+    <link rel="prev" title="Development" href="development.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="user-contributions">
+<h1>User contributions<a class="headerlink" href="user_contributions.html#user-contributions" title="Permalink to this heading">¶</a></h1>
+<p>You can find tools, force fields and topology files recently provided from
+GROMACS user in the <a class="reference external" href="https://gromacs.bioexcel.eu/c/third-party-tools-and-files/8">third-party tools category</a> of <a class="reference external" href="https://forums.gromacs.org/">GROMACS forums</a>.</p>
+<section id="old-user-contributions">
+<h2>Old User contributions<a class="headerlink" href="user_contributions.html#old-user-contributions" title="Permalink to this heading">¶</a></h2>
+<p>This page lists force field files and molecular topologies provided from
+GROMACS users before May 2020.
+Note the following contributions have not been verified or tested by the GROMACS developers.</p>
+<section id="force-fields">
+<h3>Force fields<a class="headerlink" href="user_contributions.html#force-fields" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/43A1-S3.tar.gz">43A1-S3.tar.gz</a></p></li>
+</ul>
+<p>The 43A1-S3 forcefield is an improved forcefield suited for molecular dynamics
+simulations of lipid bilayers systems. The forcefield has been parameterized
+in a progressive way, based on the reproduction of molecular volumes and heats
+of vaporization of small chemical species modelled for the fragments of
+lipids. This parameter set is validated by MD simulations that replicate
+experimental structures of bilayers including X-ray form factors, order
+parameters (J. Phys. Chem. B, 2009, 113, 2748–2763). 4 June 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/53a5.tar.gz">53a5.tar.gz</a></p></li>
+</ul>
+<p>The GROMOS 53a5 force field (see J. Comput. Chem. 2004 vol 25 pag 1656) in
+gromacs format. These files were used to calculate the solvation free-energy
+for amino-acid side chains and in protein simulations. Please check them
+before using them in particular if you simulate not-protein systems. Uploaded
+13:18 August 30, 2004 by Alessandra Villa. 23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/53a6.tar.gz">53a6.tar.gz</a></p></li>
+</ul>
+<p>The GROMOS 53a6 force field (see J. Comput. Chem. 2004 vol 25 pag 1656) in gromacs format. These files were used to calculate the solvation free-energy for amino-acid side chains and in protein simulations. Please check them before using them in particular if you simulate not-protein systems. Uploaded 13:19 August 30, 2004 by Alessandra Villa.  23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/56a_CARBO4GROMACS.rar">56a_CARBO4GROMACS.rar</a></p></li>
+</ul>
+<p>The GROMOS 56a_Carbo [J Comput Chem. 2011; 32 (6): 998-1032] force field in
+GROMACS format. The files correspond to four types of building blocks based on
+the beta-D-glucose molecule. 7 May 2013</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/amber12sb.ff.tar.gz">amber12sb.ff.tar.gz</a></p></li>
+</ul>
+<p>ff99SB + new backbone and side chain torsion for protein; ff99bsc0 for DNA;
+ff99bsc0_chiOL3 for RNA (see ambertools13) 23 Dec 2015</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/amber14sb.ff.tar.gz">amber14sb.ff.tar.gz</a></p></li>
+</ul>
+<p>For protein: improving the accuracy of the backbone and side chain parameters from ff99SB; ff99bsc0 for DNA; ff99bsc0_chiOL3 for RNA (more detail, please see amber manual 15). 23 Dec 2015</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/amber14sb_OL15.ff_corrected-Na-cation-params.tar.gz">amber14sb_OL15.ff_corrected-Na-cation-params.tar.gz</a></p></li>
+</ul>
+<p>Amber OL15 force field for DNA and OL3 (chiOL3) force field for RNA, combined
+with ff14SB protein force field. More details on ffol.upol.cz. Note that in
+the previous version (present on this web site before 30 August 2019, file
+name amber14sb_OL15.ff.tar.gz) there was an error in Na+ Joung-Cheatham
+parameters (epsilon incorrectly 3.65846e-02 instead of the correct value
+3.65846e-01 in ffnonbonded.itp file), which is now corrected. Contributed by
+Petr Jurecka. 30 Aug 2019</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/amber14sb_OL15.ff.tar.gz">amber14sb_OL15.ff.tar.gz</a></p></li>
+</ul>
+<p>Amber OL15 force field for DNA and OL3 (chiOL3) force field for RNA, combined
+with ff14SB protein force field. Contributed by Jurecka Petr. More details on
+ffol.upol.cz. 30 May 2019</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/amber14sb_parmbsc1.ff.tar.gz">amber14sb_parmbsc1.ff.tar.gz</a></p></li>
+</ul>
+<p>ff14SB for protein + parmbsc1 for DNA. 5 Dec 2017</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/amber99bsc1.ff.tgz">amber99bsc1.ff.tgz</a></p></li>
+</ul>
+<p>Amber99 force field Parmbsc1 for DNA (Ivani et al. Nature methods, 13(1),
+pp.55-58.) This force field has been verified against Amber and gives relative
+differences on each bonded energy term of 1-2 x 10^-6 by Viveca Lindahl
+. Please cite: <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005463">https://doi.org/10.1371/journal.pcbi.1005463.</a>. 5 Mar 2018</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/amber99sb-ildnp.tgz">amber99sb-ildnp.tgz</a></p></li>
+</ul>
+<p>In addition to AMBER99SB-ILDN, this force field includes improved Pro and Hyp
+parameters, which were derived from fittings of experimental correlation times
+and NMR J-couplings. The motional frequency of the Pro ring interconverson
+predicted by standard AMBER99SB is ~6 times faster than the experimental
+value, while the current force field reproduces experiment accurately. See
+Proteins 2014 82 195 for further details. 23 Jul 2015</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/amber99sb-star-ildnp.tgz">amber99sb-star-ildnp.tgz</a></p></li>
+</ul>
+<p>In addition to AMBER99SB*-ILDN, this force field includes improved Pro and Hyp
+parameters, which were derived from fittings of experimental correlation times
+and NMR J-couplings. The motional frequency of the Pro ring interconverson
+predicted by standard AMBER99SB is ~6 times faster than the experimental
+value, while the current force field reproduces experiment accurately. See
+Proteins 2014 82 195 for further details.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/amber99sb_parmbsc0.ff.tgz">amber99sb_parmbsc0.ff.tgz</a></p></li>
+</ul>
+<p>Amber99sb force field with the ParmBSC0 nucleic acid parameters added (GROMACS
+4.5.x format). If you use these files please cite:
+<a class="reference external" href="http://dx.doi.org/10.1016/j.bpj.2012.08.012">http://dx.doi.org/10.1016/j.bpj.2012.08.012</a> in addition to the original force
+field publications by Tom Piggot. 5 Sep 2012</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/CGenffRevB.tar.gz">CGenffRevB.tar.gz</a></p></li>
+</ul>
+<p>These are CGenFF Drug Forcefield Parameter files that can be used in
+Gromacs. Cgenff.ff is the general forcefield document with the default
+options. Cgenffbon.itp contains the bonded parameters, such as bonds, angles,
+dihedrals. Cgenffnb.itp contains nonbonded parameters. Users can use these
+files to construct molecules using the Cgenff parameters. Added sample solvent .itp files that can be used with sample.top by Fabian
+Casteblanco.  1 Nov 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/charmm22star.ff.tgz">charmm22star.ff.tgz</a></p></li>
+</ul>
+<p>CHARMM22-star force field. Backbone CMAP correction replaced with new torsions
+(excluding G, P), new partial charges for R, D, and E side chains, and new
+side chain torsions for D. Adapted from CHARMM27 parameters included with
+Gromacs 4.5.3. From Piana, S., et al. Biophys J. 2001. 100. L47-L49. 9 Jul
+2012</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/charmm36.ff_4.5.7_ref.tgz">charmm36.ff_4.5.7_ref.tgz</a></p></li>
+</ul>
+<p>GROMACS 4.5.7 version of the CHARMM36 lipid force field with the CHARMM22+CMAP
+protein force field. These updated CHARMM lipids allow the all-atom
+simulations of membrane and membrane-protein systems without the use of
+surface tension. Check out the forcefield.doc for more information regarding
+these files by Tom Piggot.  30 Nov 2015</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/chcl3_box.tgz.tgz">chcl3_box.tgz.tgz</a></p></li>
+</ul>
+<p>atom types are named opls_X, where X is the OPLS number by Anonymous. 23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ff03-star.tgz">ff03-star.tgz</a></p></li>
+</ul>
+<p>ff03-star force field, JPCB v113, p9004, 2009. Modification of amber ff03 to match helix-coil data. 8 Feb 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ff03w.tgz">ff03w.tgz</a></p></li>
+</ul>
+<p>ff03w force field (Amber03 adapted for use with Tip4p/2005 water model). 18 Aug 2012</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ff03ws.tgz">ff03ws.tgz</a></p></li>
+</ul>
+<p>Amber ff03ws force field with scaled protein-water interactions (JCTC 10:5113,
+2014). 11 Sep 2015</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/FF12SB_FF14SB_GROMACS_TEST.tar.bz2">FF12SB_FF14SB_GROMACS_TEST.tar.bz2</a></p></li>
+</ul>
+<p>test data set of the force fields, ff99SB, ff12SB and ff15SB , implemented
+into gromacs. 24 Dec 2015</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ff99sb-star-ildn-q.tgz">ff99sb-star-ildn-q.tgz</a></p></li>
+</ul>
+<p>Amber ff99sb with backbone (*), side-chain dihedral (ILDN) and backbone charge (q) modifications (Biophys J,102:1462-1467, 2012). 11 Sep 2015</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ff99sb-star-ildn.tgz">ff99sb-star-ildn.tgz</a></p></li>
+</ul>
+<p>Combination of DE-shaw ILDN modifications with ff99SB* force field [JPCB v113, p9004, 2009. Modification of amber ff99SB to match helix-coil data]. 8 Feb 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ff99sb-star.tgz">ff99sb-star.tgz</a></p></li>
+</ul>
+<p>ff99SB* force field, JPCB v113, p9004, 2009. Modification of amber ff99SB to match helix-coil data. 8 Feb 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ffA2G_test.pdf">ff99sbws.tgz</a></p></li>
+</ul>
+<p>Amber ff99SBws force field with scaled protein-water interactions (JCTC 10:5113, 2014). 11 Sep 2015</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ffA2G_test.pdf">ffA2G_test.pdf</a></p></li>
+</ul>
+<p>amber force fields, ff99, ff99SB, ff12SB and ff14SB tested for gromacs
+implementation 27 Dec 2015</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ffamber_v1.0-doc.tar.gz">ffamber_v1.0-doc.tar.gz</a></p></li>
+</ul>
+<p>Several AMBER protein and nucleic acid force fields are available with complete documentation. Please see the ffamber website at <a class="reference external" href="http://folding.stanford.edu/ffamber/">http://folding.stanford.edu/ffamber/</a> for details, as our ports and accompanying documentation will be updated there until integration into future GROMACS distributions by Eric J. Sorin (esorin at stanford.edu) 30 June 2005</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ffG43a1p.tar.gz">ffG43a1p.tar.gz</a></p></li>
+</ul>
+<p>G43a1 modified to contain SEP (phosphoserine), TPO (phosphothreonine), and PTR
+(phosphotyrosine) (all PO4^{2-} forms), and SEPH, TPOH, PTRH (PO4H^{-}
+forms). The charges and vdw parameters come from Hansson, Nordlund and Aqvist
+jmb 265 118-27 1997. They worked mostly with gromos 87 but I generally use
+gromos 96 so I have made the files in that format (there seem to be no
+differences in the amino acid charges between 87 and 96). Hansson et al do not
+report bond angle or dihedral parameters, and I don not know how to do QM
+calculations, so I have used the standard forms from the <a href="user_contributions.html#id1"><span class="problematic" id="id2">*</span></a>bon.itp file. For the
+dihedrals, I have used the 3-fold gd_11. Because of their symmetry, the
+PO4^{2-} forms at least cannot have the 2-fold + 3-fold symmetry used in the
+gmx DNA bases. The OP-X LJ-14 parameters are the same as for OA. I have checked
+that I can build simple 1-molecule topologies and tprs for the PO4H forms, and
+for the PO4 forms have done 100 ps solvated MD of the isolated am acs and the
+am acs in proteins (1f1w, 1fu0, 1qmz). I have checked water-phosphate rdfs and
+parameters in gmxdumped tprs by Graham Smith
+(smithgr at cancer.org.uk). 15 May 2002</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ffG43a2x.tgz">ffG43a2x.tgz</a></p></li>
+</ul>
+<p>The normal version of the GROMOS96 force field results in bad area/lipid and
+volume/lipid for most lipid membranes. This version of the force field has
+been extended with new LCH2 and LCH2 united atom types which reproduce the
+experimental properties of both long hydrocarbons and membranes by Erik Lindahl.  08 June 2008</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ffG45a3.tar.gz">ffG45a3.tar.gz</a></p></li>
+</ul>
+<p>This force field was created using GROMOS96 43a1 as base and the parameters given by the article An improved GROMOS96 force field for aliphatic hydrocarbons in the condensed phase. Journal of Computational Chemistry 22 (11), August 2001,1205-1218 by Lukas D. Schuler, Xavier Daura, Wilfred F. van Gunsteren. The initial work was performed by christoph riplinger and was later corrected and completed by myself and alessandra villa (villa at theochem.uni-frankfurt.de) who kindly provided the original gromos format file of this force field by Jaime arce (arce at ibsm.cnrs-mrs.fr). 19 July 2004</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ffgmx_lipids.tar.gz">ffgmx_lipids.tar.gz</a></p></li>
+</ul>
+<p>These are the params from lipid.itp incorporated into the ffgmx*.itp files, as the newer gromacs versions require it. Copy these modified files into the …/gmx/share/top directory or in your current working dir. Uploaded 10:02 January 14, 2003 by Bert de Groot. 23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/ffoplsaanr.tar.gz">ffoplsaanr.tar.gz</a></p></li>
+</ul>
+<p>We added DNA/RNA records to OPLS forcefield. Here you can download version
+with RESP charges (from Amber). We tested this one more or less. Results you
+can found at: <a class="reference external" href="http://rnp-group.genebee.msu.su/3d/oplsa_ff.html">http://rnp-group.genebee.msu.su/3d/oplsa_ff.html</a>. At that page
+you can find forcefield with another charges, but this one is not
+tested. Recently we added 3` and 5` end residues. Scripts that fix pdb to make
+them compatible with pdb2gmx are here: fixpdb_dna and fixpdb_rna This scripts
+also works with NA-protein complexes. Uploaded 19:09 March 08, 2005 by Andrey
+Golovin and Nikita Polyakov (golovin at genebee.msu.su). 23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/gromos43a1p-4.5.1.tgz">gromos43a1p-4.5.1.tgz</a></p></li>
+</ul>
+<p>Force field files for Gromos96 43a1p, re-formatted to be compatible with newer versions of Gromacs (4.0 and beyond). This particular archive organizes the files such that they are compatible with version 4.5.x. Please note that the parameters are unmodified relative to what was contributed by Graham Smith. I take no credit for these parameters; I just made the files compatible with the current version of Gromacs. This version includes files that were missing in the previous tarball. 18 Nov 2014</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/gromos56a6_withAZE_support.zip">gromos56a6_withAZE_support.zip</a></p></li>
+</ul>
+<p>This is a modified GROMOS 53a6 forcefield that supports non-natural Aze (azetidine-2-carboxylic acid) amino acid that is similar to Proline, except that it has a 4-atom instead of a 5-atom ring. Aze occurs naturally in plants and was shown to have toxic effects in mammalian cells possibly due to its hability to be misincorporated into growing polypeptide chains instead of Proline. We found that Aze has greater propensity to adopt a cis-peptide bond conformation compared to Proline . To install this modified Gromos56a6 forcefield simply unzip the archive in the forcefield folder. Reference: Bessonov K, Vassall KA, Harauz G. Parameterization of the proline analogue Aze (azetidine-2-carboxylic acid) for molecular dynamics simulations and evaluation of its effect on homo-pentapeptide conformations. J Mol Graph Model. 2013 Feb; 39:118-25. 24 Feb 2013</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/GROMOS_56a6_CARBO_R.zip">GROMOS_56a6_CARBO_R.zip</a></p></li>
+</ul>
+<p>GROMOS 56A6_CARBO_R force field for carbohydrates [Plazinski et al. J. Comp. Chem. 2016, DOI: 10.1002/jcc.24229]. The zip file contains GROMACS .rtp entries and python script allowing to construct the topology for arbitrary linear glucose chains (any linkage/anomery). Sample topologies are included as well. 4 Jan 2016</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/lipid_forcefield.ff.tar.gz">lipid_forcefield.ff.tar.gz</a></p></li>
+</ul>
+<p>All-atomisic force field for phosphatidylcholine lipids. Contains parameters
+for fully saturated chains, soon unsaturated chains and other head groups will
+be included. Compatible with the AMBER force fields for proteins. This set of
+parameters reproduces a lot of experimental data such as area per lipid and
+thickness(es) but most importantly scattering form factors con order
+parameters are reproduced. Ref: J. Phys. Chem. B, DOI: 10.1021/jp212503e. 4
+Mar 2012</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/forcefields/gromacs_nb.pdf">gromacs_nb.pdf</a></p></li>
+</ul>
+<p>How-to information for tabulated potentials, by Gareth Tribello 8 Apr 2010.</p>
+</section>
+<section id="molecular-topologies">
+<h3>Molecular topologies<a class="headerlink" href="user_contributions.html#molecular-topologies" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/1-1_CHOL-DPPC.zip">1-1_CHOL-DPPC.zip</a></p></li>
+</ul>
+<p>The zip file contains 43A1-S3 topology for 1:1 cholesterol-DPPC bilayer with an equilibrated box of 256 cholesterols and 256 DPPC lipids as well as 15499 SPCE waters. 4 Jan 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/AA_DMPC.tar.gz">AA_DMPC.tar.gz</a></p></li>
+</ul>
+<p>All-atomistic topology for DMPC. Includes a equilibrated bilayer with 128 lipids and 3840 water molecules. Needs lipids_forcefield.ff.tar.gz. Ref: J. Phys. Chem. B, DOI: 10.1021/jp212503e. 7 Mar 2012</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/AA_DPPC.tar.gz">AA_DPPC.tar.gz</a></p></li>
+</ul>
+<p>All-atomistic topology for DPPC. Includes a equilibrated bilayer with 128 lipids and 3840 water molecules. Needs lipids_forcefield.ff.tar.gz. Ref: J. Phys. Chem. B, DOI: 10.1021/jp212503e. 7 Mar 2012</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/argon_1000.zip">argon_1000.zip</a></p></li>
+</ul>
+<p>Liquid argon (1000 atoms) with an experimental density equilibrated at 80K (NVT). 23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/azucyt23.pdb.gz">azucyt23.pdb.gz</a></p></li>
+</ul>
+<p>Azurin is a small blu copper protein consisting of 128 residue and whit a redox center, a copper ion, that is coordinated by three equatirials ligands: ND HIS 117 , ND HIS 46, SG CYS 112 Uploaded 09:26 September 14, 2004 by Brunori (brunori at unitus.it). 23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/C2mimNTf2_GROW.tgz">C2mimNTf2_GROW.tgz</a></p></li>
+</ul>
+<p>Force field for the ionic liquid C2MIM NTf2 as it is published in ChemPhyChem, 2013, 14, 3368-3374; DOI: 10.1002/cphc.201300486. 18 Jan 2016</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/C4mimNTf2.tgz">C4mimNTf2.tgz</a></p></li>
+</ul>
+<p>Force field for the ionic liquid C4MIM NTf2 as it is published in ChemPysChem 2007, 8, 2464-2470; DOI: 10.1002/cphc.200700552. 18 Jan 2016</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/ccl4_box.tgz">ccl4_box.tgz</a></p></li>
+</ul>
+<p>The package contains a topology for opls rigid model CCl4 along with an
+equilibrated box of 512 molecules and a run input file by PeiQuan Chen
+(gromacs at 163.com.  20 May 2003</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/ch2cl2_box.tgz">ch2cl2_box.tgz</a></p></li>
+</ul>
+<p>The package contains a topology for opls rigid model CH2Cl2 along with an
+equilibrated box of 512 molecules and a run input file by PeiQuan Chen
+(gromacs at 163.com). 20 May 2003</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/chcl3_box.tgz">chcl3_box.tgz</a></p></li>
+</ul>
+<p>The package contains a topology for opls rigid model CHCl3 along with an
+equilibrated box of 512 molecules and a run input file by PeiQuan Chen (gromacs at 163.com) 20 May 2003</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/cholesterol.tgz">cholesterol.tgz</a></p></li>
+</ul>
+<p>This united-atom topology of cholesterol [ C17H22(CH3)2OHC6H11(CH3)2 ] is
+intended to be used with the normal ffgmx force field by Monika Hoeltje (hense at pharm.uni-duesseldorf.de). 12 April 1999</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/DLPC.zip">DLPC.zip</a></p></li>
+</ul>
+<p>This package consists of 43A1-S3 force field topology for DLPC lipid molecule and an equilibrated box of fluid-phase DLPC bilayers (100 DLPC + 3205 SPCE waters). 4 Jan 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/DMPC.zip">DMPC.zip</a></p></li>
+</ul>
+<p>This package consists of 43A1-S3 force field topology for DMPC lipid molecule and an equilibrated box of fluid-phase DMPC bilayers (100 DMPC + 3205 SPCE waters). 4 Jan 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/dmso_AL.tgz">dmso_AL.tgz</a></p></li>
+</ul>
+<p>The package contains a topology for DMSO along with an equilibrated box of 250
+molecules and a run input file. Uploaded 13:52 March 13, 2003 by Christoph
+Freudenberger (christoph.freudenberger at chemie.uni-ulm.de). 23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/DOPC.zip">DOPC.zip</a></p></li>
+</ul>
+<p>This package consists of 43A1-S3 force field topology for DOPC lipid molecule and an equilibrated box of fluid-phase DOPC bilayers (128 DOPC + 4825 SPCE waters). 4 Jan 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/DPPC.zip">DPPC.zip</a></p></li>
+</ul>
+<p>This package consists of 43A1-S3 force field topology for DPPC lipid molecule and an equilibrated box of fluid-phase DPPC bilayers (100 DPPC + 3205 SPCE waters). 4 Jan 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/Fe4S4.tar.gz">Fe4S4.tar.gz</a></p></li>
+</ul>
+<p>Aps Reductase cofactor Uploaded 14:27 June 13, 2005 by Eliass Silva dos Santos (elias at fis.ufba.br)</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/GDP.tgz">GDP.tgz</a></p></li>
+</ul>
+<p>This is the GROMOS96(ffG43a1) topology of GDP. No hydrogen is added to the beta-phosphate. Net charge is +3. And the charge are calculated in MMFF94(Sybyl&gt;&gt;Calculte&gt;&gt;Charge&gt;&gt;MMFF94). Note that charge calculated by Gaussian is too large(compared with the GUA in ffG43a1.rtp) and will make the structure deform during MD simulation. The initial topology file is generated by PRODRG. Uploaded 02:58 November 23, 2004 by Zhenting Gao (zhentg at 163.com)</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/GUANIDINE-L.zip">GUANIDINE-L.zip</a></p></li>
+</ul>
+<p>This the topology for guanidinium chloride and two boxes with 3M and 5M of gnd
+in water. The topology is described in C. Camilloni, A. Guerini
+Rocco, I. Eberini, E. Gianazza, R. A. Broglia, and G. Tiana, Urea and
+guanidinium chloride denature Protein L in different ways in molecular
+dynamics simulations, Biophys. J., 98 (2008), DOI:
+10.1529/biophysj.107.125799. 23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/heptane_box.tar.gz">heptane_box.tar.gz</a></p></li>
+</ul>
+<p>A heptane solvent box with 20 molecules (using -nbox 5 2 2 in
+genconf). Uploaded 18:10 June 09, 2003 by Aswin Sai Narain. S (aswin_biogenie
+at yahoo.co.uk)</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/LipidsForGro96_53a6.zip">LipidsForGro96_53a6.zip</a></p></li>
+</ul>
+<p>Lipid topologies and equilibrated bilayers of DPPC, DMPC, POPC and POPG for the GROMOS96 53a6 force field. The details are published in: Kukol, A (2009), Lipid Models for United-Atom Molecular Dynamics Simulations of Proteins, J Chem Theo Comput, available from <a class="reference external" href="http://pubs.acs.org/journal/jctcce">http://pubs.acs.org/journal/jctcce</a>, DOI: 10.1021/ct8003468 23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/Mar278940.tgz">Mar278940.tgz</a></p></li>
+</ul>
+<p>Steelink Structure: GROMOS96 43a or 43b Uploaded 18:46 March 27, 2002 by Tiona
+Todoruk (trtodoru at ucalgary.ca)</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/mecn_box.tgz">mecn_box.tgz</a></p></li>
+</ul>
+<p>The package contains a topology for MeCN along with an equilibrated box of 300
+molecules and a run input file. Uploaded 08:41 March 12, 2003 by Christoph
+Freudenberger (christoph.freudenberger at chemie.uni-ulm.de)</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/methanol216.gro.gz">methanol216.gro.gz</a></p></li>
+</ul>
+<p>equilibrated methanol box at 300K and 1 bar. Uploaded 11:57 December 09, 2002
+by Bert de Groot (bgroot at gwdg.de)</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/methanol_opls.tar.gz">methanol_opls.tar.gz</a></p></li>
+</ul>
+<p>equilibrated methanol box (1728 molecules, approx. 5x5x5nm^3) at 298K, 1bar,
+PME, rlist=1,rcoulomb=1, rvdw=1.4, DispCorr=EnerPres, average density ~770
+Uploaded 10:24 January 19, 2004 by Rainer Böckmann (rainer at bioc.unizh.ch)</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/methanol_WFG.tgz">methanol_WFG.tgz</a></p></li>
+</ul>
+<p>The package contains a topology for MeOH along with an equilibrated box of 400
+molecules and a run input file. Uploaded 13:56 March 13, 2003 by Christoph
+Freudenberger (christoph.freudenberger at chemie.uni-ulm.de)</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/octanol.tar.gz">octanol.tar.gz</a></p></li>
+</ul>
+<p>The package contains a topology for octanol(oplsaa model) along with an
+equilibrated box of 512 molecules and a run input file. Uploaded 06:53
+February 05, 2004 by PeiQuan Chen (gromacs at 163.com)</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/PGO.tar.gz">PGO.tar.gz</a></p></li>
+</ul>
+<p>Propylene glycol molecule developed with ff43a2x (GROMOS96) from 3.1.4 Contains topology file, non-bonding parameters file and coordinate file of 2ns equilibrated box with 1800 molecules DHvap (exp/calc) = 58.0 / 56.7 kJ mol-1 Density (exp/calc) = 1036 / 1035 kg m-3 Uploaded 03:56 October 08, 2003 by Dallas Warren</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/POPC.zip">POPC.zip</a></p></li>
+</ul>
+<p>This package consists of 43A1-S3 force field topology for POPC lipid molecule and an equilibrated box of fluid-phase POPC bilayers (128 POPC + 3552 SPCE waters). 4 Jan 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/SM.zip">SM.zip</a></p></li>
+</ul>
+<p>This package consists of 43A1-S3 force field topology for SM lipid molecule
+and an equilibrated box of fluid-phase sphingomyelin bilayers (100 SM + 3162
+SPCE waters). 4 Jan 2011</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/swcnt+dmso.zip">wcnt+dmso.zip</a></p></li>
+</ul>
+<p>Single-walled carbon nanotube (SWCNT) with a few layers of DMSO molecules inside and outside: SWCNT(15x15), dCNT=2nm, LCNT=6 nm + 1415 DMSO. Simulated box=(5.0; 5.0; 9.0). The system was additionally equilibrated for 200ps at 300K (md). 23 May 2009</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gromacs.org/contrib/topologies/U10.tar.gz">U10.tar.gz</a></p></li>
+</ul>
+<p>Ubiquinone 10 is a crucial electron acceptor in the Cytochrome B complex. This
+molecule has originally 10 isoprene units as a tail, but these have not been
+included in this model. Uploaded 12:13 September 18, 2001 by Sergio Manzetti
+(s.manzetti at student.qut.edu.au) 23 May 2009</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/gmx_logo_blue.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About GROMACS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="highlights.html">Highlights</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://manual.gromacs.org/current/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="articles.html">Articles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_webinar.html">Tutorials and Webinars</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://manual.gromacs.org">Downloads</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://forum.gromacs.org">GROMACS forum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="report_issue.html">Report an issue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="user_contributions.html#">User contributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_survey.html">User Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workshop.html">GROMACS workshop</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="development.html" title="previous chapter">Development</a></li>
+      <li>Next: <a href="user_survey.html" title="next chapter">User Survey</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022-2024, GROMACS development team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/user_contributions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

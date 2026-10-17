@@ -1,0 +1,118 @@
+GROMACS workshop 
+=================
+
+Learn to code in GROMACS 
+-------------------------
+
+..
+ UPDATE: thank you for all the registrations. Now registration is close. We will notify acceptance in mid of August 
+
+The aim of the workshop is to provide attendees with the basis for coding in
+GROMACS and contributing to the GROMACS developer community. The workshop
+consists of lectures with Q&A sessions and hands-on sessions with
+mentoring and covers the following topics:
+
+ * software structure and interface 
+ * GROMACS GitLab and version control
+ * CI and testing 
+ * best practice in the GMX developer community
+
+All the trainers and mentors belong to the GROMACS team.
+  
+**Audience**: This workshop is aimed at people interested in coding in GROMACS
+and having previous coding experience
+
+**Pre-requisites**: a background in molecular dynamics simulations (preferably minimum expertise in using GROMACS),
+experience in programming
+(preferably in C++ because that is the language in which GROMACS is written),
+and basic Linux skills. 
+
+Please consult the following materials, if you’re uncertain of your skills:
+ * Linux commands, bash shell, a quiz and a link to `intro course`_ 
+ * short guide to `version control with Git`_
+ * `GROMACS tutorial`_ on ​​Introduction to Molecular Dynamics 
+
+..
+ **Where and When**
+ Online - 10-12 September 2024 - from 9:00 CEST to 17:30 CEST 
+
+..
+ **Maximum number attendees**: 40 attendees for lectures and around 10 attendees
+ for the hands-on session (PS: hands-on attendees depends on the number of mentors)   
+
+..
+ **Registration** contact GROMACS training (training@gromacs.org) before 15 July 2024 explaining briefly:
+    * who you are and where you work
+    * how you meet the pre-requisites for the course
+    * why you want to attend the course  
+
+.. The registration is close.
+.. Invitations will follow in the next week.
+
+..
+ Note, We will review on a rolling basis to select suitable candidates
+ until the places are filled. 
+
+..
+ After acceptance, the candidates will be requested to forward their hotel
+ or flight booking in order to confirm the place. This helps us ensure that the
+ available places are filled. Further instructions will follow.
+
+
+2024 Edition
+------------
+
+Online - 10-12 September 2024 - from 9:00 CEST to 17:30 CEST
+
+.. image:: images/workshop2024.png
+	   
+**Lectures**
+
+ * GROMACS structure and interface (`Mark Abraham`_),
+ * GROMACS GitLab and version control (`Sebastian Wingbermuehle`_)
+ * Testing and testing infrastructure (`Andrey Alekseenko`_), 
+ * Everything around coding (`Berk Hess`_)
+
+ Panel: `Andrey Alekseenko`_, `Berk Hess`_, `Mark Abraham`_ and `Magnus Lundborg`_ 
+ Mentors: `Amr Alhossary <https://gitlab.com/aalhossary>`_,
+ `Andrey Alekseenko`_, `Berk Hess`_, `Eliane Briand <https://gitlab.com/ElianeBriand>`_, 
+ `Giacomo Fiorin <https://research.ninds.nih.gov/staff-directory/giacomo-fiorin-phd>`_, 
+ `Hubert Santuz <https://gitlab.com/HubLot>`_, 
+ `Lukas Müllender <https://gitlab.com/lmuellender>`_, `Mark Abraham`_, `Magnus Lundborg`_, 
+ `Michele Pellegrino <https://gitlab.com/michele.pellegrino>`_, 
+ `Vedran Miletic <https://vedran.miletic.net/>`_,
+
+  Lecture materials `doi:10.5281/zenodo.13739992 <https://doi.org/10.5281/zenodo.13739992>`_ 
+  or go to `play list <https://www.youtube.com/playlist?list=PLzLqYW5ci-2d82Pbcv9r712NQlCgjF-2E>`_
+
+2023 Edition
+------------
+
+KTH main campus Royal Institute of Technology, Stockholm, Sweden 7-8 September 2023
+
+.. image:: images/workshop_foto2023.jpg
+   
+**Lectures**
+
+ * GROMACS structure and interface (`Mark Abraham`_),
+ * GROMACS GitLab and version control (`Sebastian Wingbermuehle`_)
+ * Testing and testing infrastructure (`Andrey Alekseenko`_), 
+ * Everything around coding (`Berk Hess`_)
+
+ Lecture materials `doi:10.5281/zenodo.10276348`_
+
+.. _`Erik Lindahl`: https://www.biophysics.se/index.php/members/erik-lindahl/
+.. _`Berk Hess`: https://www.biophysics.se/index.php/members/berk-hess/
+.. _`Andrey Alekseenko`: https://www.biophysics.se/index.php/members/andrey-alekseenko/
+.. _`Mark Abraham`: https://www.linkedin.com/in/mark-abraham-5a329599
+.. _`Magnus Lundborg`: https://www.biophysics.se/index.php/members/magnus-lundborg/
+.. _`Sebastian Wingbermuehle`: https://www.biophysics.se/index.php/members/sebastian-wingbermuhle/
+.. _`intro course`: https://cms.competency.ebi.ac.uk/learning-pathway/module/unix-shell
+.. _`Version control with Git`: https://cms.competency.ebi.ac.uk/learning-pathway/version-control-git
+.. _`GROMACS tutorial`: https://tutorials.gromacs.org/md-intro-tutorial.html
+.. _`doi:10.5281/zenodo.10276348`: https://zenodo.org/records/10276348
+
+
+
+
+

@@ -1,0 +1,85 @@
+.. gromacs-webpage documentation master file, created by
+   sphinx-quickstart on Thu Apr 22 17:35:08 2021.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to GROMACS
+=======================================      
+A free and open-source software suite for high-performance molecular dynamics and output analysis.
+
+**New to GROMACS**:
+
+* Try the `introduction tutorial
+  <https://tutorials.gromacs.org/md-intro-tutorial.html>`_.
+* Watch a webinar on `GROMACS <https://www.youtube.com/watch?v=MWafKFVgFTU>`_.  
+* Watch the current `GROMACS release webinar <https://youtu.be/Bp2ah2Y-xFk>`_.
+* Download the current GROMACS version `here
+  <https://manual.gromacs.org/current/download.html>`_.
+* Have a look at `documentation
+  <https://manual.gromacs.org/current/index.html>`_ page to know more how to
+  install and use GROMACS.
+* Do you have any questions, have a look at the user discussions on `GROMACS forums <http://forums.gromacs.org>`_.
+
+.. admonition:: News
+
+  "GROMACS 2026.4 is available."  Read here for an overview of the patch
+  `release notes <https://manual.gromacs.org/2026.4/release-notes/index.html>`_ - 2 October 2026 
+  
+  "GROMACS 2025.5 is available."  Read here for an overview of the patch
+  `release notes <https://manual.gromacs.org/2025.5/release-notes/index.html>`_ - 1 September 2026 
+ 
+  "GROMACS 2026.3 is available." For an overview of the patch 
+  `release note <https://manual.gromacs.org/2026.3/release-notes/2026/2026.3.html>`_ - June 2026
+  
+  "GROMACS 2026.2 is available." For an overview of the patch 
+  `release note <https://manual.gromacs.org/2026.2/release-notes/2026/2026.2.html>`_ - 6 May 2026
+  
+  "GROMACS 2026.1 is available." For an overview of the patch 
+  `release note <https://manual.gromacs.org/2026.1/release-notes/2026/2026.1.html>`_ - 6 March 2026
+
+  GROMACS webinars in March: `Whats new in GROMACS 2026 <https://bioexcel.eu/webinar-whats-new-in-groamcs-2026-0-2026-03-03/>`_ and `Peeking into the black box of GROMACS performance <https://bioexcel.eu/webinar-peeking-into-the-black-box-of-gromacs-performance-2026-03-17/>`_ 11 Febraury 2026
+  
+  Interested in GROMACS tutorial suite, watch `The GROMACS tutorial suite: from basic to advanced applications <https://bioexcel.eu/webinar-the-gromacs-tutorial-suite-from-basic-to-advanced-applications-2025-12-2/>`_ 29 January 2026
+
+  "GROMACS 2026.0 is available." For an overview of the most 
+  recent version see the `release highlights <https://manual.gromacs.org/2026.0/release-notes/2026/major/highlights.html>`_ and the  `release notes <https://manual.gromacs.org/2026.0/release-notes/index.html>`_ - 19 January 2026
+ 
+  "GROMACS 2025.4 is available."  Read here for an overview of the patch
+  `release notes <https://manual.gromacs.org/2025.4/release-notes/index.html>`_ - 23 November 2025 
+
+  "GROMACS 2025.3 is available."  Read here for an overview of the patch
+  `release notes <https://manual.gromacs.org/2025.3/release-notes/index.html>`_ - 12 September 2025 
+ 
+ 
+  
+ 	     
+.. image:: images/GMX_logos/gmx_logo_blue.png
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+	      
+   about
+   highlights
+   Documentation <https://manual.gromacs.org/current/index.html>
+   articles
+   tutorial_webinar
+   Downloads <https://manual.gromacs.org>
+   GROMACS forum <http://forum.gromacs.org>
+   report_issue 
+   development
+   user_contributions
+   user_survey
+   workshop
+
+ 
+..
+.. =======================   
+..    Indices and tables
+.. =======================
+
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
+
+

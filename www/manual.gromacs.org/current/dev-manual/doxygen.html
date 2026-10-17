@@ -1,0 +1,1583 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Automation and Infrastructure" href="infrastructure.html" /><link rel="prev" title="Development-time tools" href="tools.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Using Doxygen - GROMACS 2026.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css%3Fv=354aac6f.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css%3Fv=fd3f3429.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css%3Fv=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css%3Fv=4c969af8.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css%3Fv=302659d7.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="doxygen.html#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">GROMACS 2026.4 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/gmx_logo_blue.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../download.html">Downloads</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../release-notes/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Release notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/2026.4.html">GROMACS 2026.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/2026.3.html">GROMACS 2026.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/2026.2.html">GROMACS 2026.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/2026.1.html">GROMACS 2026.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2026/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/2025.5.html">GROMACS 2025.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/2025.4.html">GROMACS 2025.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/2025.3.html">GROMACS 2025.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/2025.2.html">GROMACS 2025.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/2025.1.html">GROMACS 2025.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2025/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.7.html">GROMACS 2024.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.6.html">GROMACS 2024.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.5.html">GROMACS 2024.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.4.html">GROMACS 2024.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.3.html">GROMACS 2024.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.2.html">GROMACS 2024.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/2024.1.html">GROMACS 2024.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2024/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/2023.5.html">GROMACS 2023.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/2023.4.html">GROMACS 2023.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/2023.3.html">GROMACS 2023.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/2023.2.html">GROMACS 2023.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/2023.1.html">GROMACS 2023.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2023/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.6.html">GROMACS 2022.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.5.html">GROMACS 2022.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.4.html">GROMACS 2022.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.3.html">GROMACS 2022.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.2.html">GROMACS 2022.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/2022.1.html">GROMACS 2022.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2022/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.7.html">GROMACS 2021.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.6.html">GROMACS 2021.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.5.html">GROMACS 2021.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.4.html">GROMACS 2021.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.3.html">GROMACS 2021.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.2.html">GROMACS 2021.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/2021.1.html">GROMACS 2021.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2021/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.7.html">GROMACS 2020.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.6.html">GROMACS 2020.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.5.html">GROMACS 2020.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.4.html">GROMACS 2020.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.3.html">GROMACS 2020.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.2.html">GROMACS 2020.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/2020.1.html">GROMACS 2020.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2020/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.6.html">GROMACS 2019.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.5.html">GROMACS 2019.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.4.html">GROMACS 2019.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.3.html">GROMACS 2019.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.2.html">GROMACS 2019.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/2019.1.html">GROMACS 2019.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2019/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.7.html">GROMACS 2018.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.6.html">GROMACS 2018.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.5.html">GROMACS 2018.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.4.html">GROMACS 2018.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.3.html">GROMACS 2018.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.2.html">GROMACS 2018.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/2018.1.html">GROMACS 2018.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2018/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/2016.5.html">GROMACS 2016.5 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/2016.4.html">GROMACS 2016.4 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/2016.3.html">GROMACS 2016.3 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/2016.2.html">GROMACS 2016.2 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/2016.1.html">GROMACS 2016.1 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/new-features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/performance.html#gpu-improvements">GPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/performance.html#cpu-improvements">CPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/performance.html#threading-improvements">Threading improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/performance.html#other-improvements">Other improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/bugs-fixed.html#fixes-for-bugs-introduced-during-development">Fixes for bugs introduced during development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/removed-features.html">Removed mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/2016/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes/older/index.html">Release notes for older GROMACS versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../install-guide/index.html">Installation guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Installation guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install-guide/exotic.html">Installation guide for exotic configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user-guide/index.html">User guide</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of User guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/known-issues.html">Known issues affecting users of GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../user-guide/getting-started.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user-guide/flow.html">Flow Chart</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../user-guide/system-preparation.html">System preparation</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of System preparation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/managing-simulations.html">Managing long simulations</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../user-guide/faq.html">Answers to frequently asked questions (FAQs)</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Answers to frequently asked questions (FAQs)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/force-fields.html">Force fields in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/mdp-options.html">Molecular dynamics parameters (.mdp options)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/mdrun-features.html">Useful mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/mdrun-performance.html">Getting good performance from <span class="xref std std-ref">mdrun</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/run-time-errors.html">Common errors when using GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../user-guide/cmdline.html">Command-line reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of Command-line reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx.html">molecular dynamics simulation suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-anaeig.html">gmx anaeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-analyze.html">gmx analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-angle.html">gmx angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-awh.html">gmx awh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-bar.html">gmx bar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-bundle.html">gmx bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-check.html">gmx check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-chi.html">gmx chi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-cluster.html">gmx cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-clustsize.html">gmx clustsize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-confrms.html">gmx confrms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-convert-tpr.html">gmx convert-tpr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-convert-trj.html">gmx convert-trj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-covar.html">gmx covar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-current.html">gmx current</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-density.html">gmx density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-densmap.html">gmx densmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-densorder.html">gmx densorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dielectric.html">gmx dielectric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dipoles.html">gmx dipoles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-disre.html">gmx disre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-distance.html">gmx distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dos.html">gmx dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dssp.html">gmx dssp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dump.html">gmx dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-dyecoupl.html">gmx dyecoupl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-editconf.html">gmx editconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-eneconv.html">gmx eneconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-enemat.html">gmx enemat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-energy.html">gmx energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-extract-cluster.html">gmx extract-cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-filter.html">gmx filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-freevolume.html">gmx freevolume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-gangle.html">gmx gangle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-genconf.html">gmx genconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-genion.html">gmx genion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-genrestr.html">gmx genrestr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-grompp.html">gmx grompp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-gyrate.html">gmx gyrate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-gyrate-legacy.html">gmx gyrate-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-h2order.html">gmx h2order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-hbond.html">gmx hbond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-hbond-legacy.html">gmx hbond-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-helix.html">gmx helix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-helixorient.html">gmx helixorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-help.html">gmx help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-hydorder.html">gmx hydorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-insert-molecules.html">gmx insert-molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-lie.html">gmx lie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-make_edi.html">gmx make_edi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-make_ndx.html">gmx make_ndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-mdmat.html">gmx mdmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-mdrun.html">gmx mdrun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-mindist.html">gmx mindist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-mk_angndx.html">gmx mk_angndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-msd.html">gmx msd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-nmeig.html">gmx nmeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-nmens.html">gmx nmens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-nmr.html">gmx nmr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-nmtraj.html">gmx nmtraj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-nonbonded-benchmark.html">gmx nonbonded-benchmark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-order.html">gmx order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-pairdist.html">gmx pairdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-pdb2gmx.html">gmx pdb2gmx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-pme_error.html">gmx pme_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-polystat.html">gmx polystat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-potential.html">gmx potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-principal.html">gmx principal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rama.html">gmx rama</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rdf.html">gmx rdf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-report-methods.html">gmx report-methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rms.html">gmx rms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rmsdist.html">gmx rmsdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rmsf.html">gmx rmsf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rotacf.html">gmx rotacf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-rotmat.html">gmx rotmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-saltbr.html">gmx saltbr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-sans-legacy.html">gmx sans-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-sasa.html">gmx sasa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-saxs-legacy.html">gmx saxs-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-scattering.html">gmx scattering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-select.html">gmx select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-sham.html">gmx sham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-sigeps.html">gmx sigeps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-solvate.html">gmx solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-sorient.html">gmx sorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-spatial.html">gmx spatial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-spol.html">gmx spol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-tcaf.html">gmx tcaf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-traj.html">gmx traj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-trajectory.html">gmx trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-trjcat.html">gmx trjcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-trjconv.html">gmx trjconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-trjorder.html">gmx trjorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-tune_pme.html">gmx tune_pme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-vanhove.html">gmx vanhove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-velacc.html">gmx velacc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-wham.html">gmx wham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-wheel.html">gmx wheel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-x2top.html">gmx x2top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/gmx-xpm2ps.html">gmx xpm2ps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../onlinehelp/selections.html">Selection syntax and usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/terminology.html">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/validation.html">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/environment-variables.html">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/floating-point.html">Floating point arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/security.html">Security when using GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/deprecation-policy.html">Policy for deprecating GROMACS functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../how-to/index.html">Short How-To guides</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Short How-To guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/beginners.html">Beginners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/topology.html">Adding a Residue to a Force Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/topology.html#water-solvation">Water solvation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/topology.html#non-water-solvent">Non water solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/topology.html#mixed-solvent">Mixed solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/topology.html#making-disulfide-bonds">Making Disulfide Bonds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/special.html">Running membrane simulations in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/special.html#parameterization-of-novel-molecules">Parameterization of novel molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/special.html#potential-of-mean-force">Potential of Mean Force</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/special.html#single-point-energy">Single-Point Energy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/special.html#carbon-nanotube">Carbon Nanotube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/visualize.html">Visualization Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/visualize.html#extracting-trajectory-information">Extracting Trajectory Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/visualize.html#external-tools-to-perform-trajectory-analysis">External tools to perform trajectory analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/visualize.html#plotting-data">Plotting Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-to/visualize.html#micelle-clustering">Micelle Clustering</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference-manual/index.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Reference Manual</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/preface.html">Preface and Disclaimer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/definitions.html">Definitions and Units</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference-manual/algorithms/algorithms.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Algorithms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/periodic-boundary-conditions.html">Periodic boundary conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/group-concept.html">The group concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/molecular-dynamics.html">Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/shell-molecular-dynamics.html">Shell molecular dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/constraint-algorithms.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/simulated-annealing.html">Simulated Annealing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/stochastic-dynamics.html">Stochastic Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/brownian-dynamics.html">Brownian Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/energy-minimization.html">Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/normal-mode-analysis.html">Normal-Mode Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/free-energy-calculations.html">Free energy calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/replica-exchange.html">Replica exchange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/essential-dynamics.html">Essential Dynamics sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/expanded-ensemble.html">Expanded Ensemble</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/parallelization-domain-decomp.html">Parallelization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/algorithms/parallelization-domain-decomp.html#domain-decomposition">Domain decomposition</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference-manual/functions/functions.html">Interaction function and force fields</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Interaction function and force fields</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/nonbonded-interactions.html">Non-bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/bonded-interactions.html">Bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/restraints.html">Restraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/polarization.html">Polarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/free-energy-interactions.html">Free energy interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/interaction-methods.html">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/interaction-methods.html#virtual-interaction-sites">Virtual interaction sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/long-range-electrostatics.html">Long Range Electrostatics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/long-range-vdw.html">Long Range Van der Waals interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/functions/force-field.html">Force field</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference-manual/topologies/topologies.html">Topologies</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Topologies</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/particle-type.html">Particle type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/parameter-files.html">Parameter files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/molecule-definition.html">Molecule definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/constraint-algorithm-section.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/pdb2gmx-input-files.html"><span class="xref std std-ref">pdb2gmx</span> input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/topology-file-formats.html">File formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/topologies/force-field-organization.html">Force field organization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/file-formats.html">File formats</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference-manual/special/special.html">Special Topics</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of Special Topics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/free-energy-implementation.html">Free energy implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/free-energy-implementation.html#potential-of-mean-force">Potential of mean force</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/pulling.html">Non-equilibrium pulling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/pulling.html#collective-variables-the-pull-code">Collective variables: the pull code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/awh.html">Adaptive biasing with AWH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/enforced-rotation.html">Enforced Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/electric-fields.html">Electric fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/comp-electrophys.html">Computational Electrophysiology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/free-energy-pmf.html">Calculating a PMF using the free-energy code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/remove-fast-dgf.html">Removing fastest degrees of freedom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/viscosity-calculation.html">Viscosity calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/shearing.html">Shear simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/tabulated-interaction-functions.html">Tabulated interaction functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/qmmm.html">Hybrid Quantum-Classical simulations (QM/MM) with CP2K interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/mimic-qmmm.html">MiMiC Hybrid Quantum Mechanical/Molecular Mechanical simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/vmd-imd.html">Using VMD plug-ins for trajectory file I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/vmd-imd.html#interactive-molecular-dynamics">Interactive Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/membrane-embedding.html">Embedding proteins into the membranes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/density-guided-simulation.html">Applying forces from three-dimensional densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/colvars.html">Collective Variable simulations with the Colvars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/plumed.html">Using PLUMED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/nnpot.html">Neural Network Potentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/special/fmm.html">Fast Multipole Method (FMM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/run-parameters.html">Run parameters and Programs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference-manual/analysis/analysis.html">Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Analysis</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/using-groups.html">Using Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/looking-at-trajectory.html">Looking at your trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/general-properties.html">General properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/radial-distribution-function.html">Radial distribution functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/correlation-function.html">Correlation functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/curve-fitting.html">Curve fitting in GROMACS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/mean-square-displacement.html">Mean Square Displacement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/bond-angle-dihedral.html">Bonds/distances, angles and dihedrals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/radius-of-gyration.html">Radius of gyration and distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/rmsd.html">Root mean square deviations in structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/covariance-analysis.html">Covariance analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/dihedral-pca.html">Dihedral principal component analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/hydrogen-bonds.html">Hydrogen bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/protein-related.html">Protein-related items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference-manual/analysis/interface-related.html">Interface-related items</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/details.html">Some implementation details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/averages.html">Averages and fluctuations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference-manual/references.html">Bibliography</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../gmxapi/index.html">gmxapi Python package</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of gmxapi Python package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../gmxapi/userguide/install.html">Full installation instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gmxapi/userguide/usage.html">Using the Python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gmxapi/userguide/pythonreference.html">gmxapi Python module reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../nblib/index.html">(Non-)Bonded LIBrary (NB-LIB) API</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of (Non-)Bonded LIBrary (NB-LIB) API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nblib/guide-to-writing-MD-programs.html">Guide to Writing MD Programs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api/index.html">C++ API</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of C++ API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/gmxlibs.html">Public C++ API</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Developer Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of Developer Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="contribute.html">Contribute to GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html">Codebase overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-system.html">Build system overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="change-management.html">Change Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relocatable-binaries.html">Relocatable binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation-generation.html">Documentation generation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="style.html">Style guidelines</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of Style guidelines</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="formatting.html">Guidelines for code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="includestyle.html">Guidelines for #include directives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="naming.html">Naming conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="language-features.html">Allowed language features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reportstyle.html">Guidelines for creating meaningful issue reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commitstyle.html">Guidelines for formatting of git commits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="error-handling.html">Error handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="tools.html">Development-time tools</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of Development-time tools</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="doxygen.html#">Using Doxygen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="change-management.html">Change Management</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="infrastructure.html">Automation and Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of Automation and Infrastructure</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="gitlab-ci.html">GitLab CI Pipeline Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gmxtree.html">Source tree checker scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="code-formatting.html">Automatic source code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testutils.html">Unit testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="physical_validation.html">Physical validation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="known-issues.html">Known issues relevant for developers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#doxygen-documentation">Doxygen documentation</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="doxygen.html#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/blob/main/docs/dev-manual/doxygen.rst" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/-/edit/main/docs/dev-manual/doxygen.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="using-doxygen">
+<h1>Using Doxygen<a class="headerlink" href="doxygen.html#using-doxygen" title="Link to this heading">¶</a></h1>
+<p>This section documents how Doxygen is set up in the GROMACS source tree,
+as well as guidelines for adding new Doxygen comments.  Examples are included,
+as well as tips and tricks for avoiding Doxygen warnings.  The guidelines focus
+on C++ code and other new code that follows the new module layout.
+Parts of the guidelines are still applicable to documenting older code (e.g.,
+within <code class="docutils literal notranslate"><span class="pre">gmxlib/</span></code> or <code class="docutils literal notranslate"><span class="pre">mdlib/</span></code>), in particular the guidelines about formatting
+the Doxygen comments and the use of <code class="docutils literal notranslate"><span class="pre">\internal</span></code>.
+See <a class="reference internal" href="overview.html#dev-doc-layout"><span class="std std-ref">Documentation organization</span></a> for the overall structure of the documentation.</p>
+<p>To get started quickly, you only need to read the first two sections to
+understand the overall structure of the documentation, and take a look at the
+examples at the end.  The remaining sections provide the details for
+understanding why the examples are the way they are, and for more complex
+situations.  They are meant more as a reference to look up solutions for
+particular problems, rather than single-time reading.  To understand or find
+individual Doxygen commands, you should first look at the Doxygen documentation
+(<a class="reference external" href="http://www.doxygen.nl/manual/">http://www.doxygen.nl/manual/</a>).</p>
+<section id="documentation-flavors">
+<h2>Documentation flavors<a class="headerlink" href="doxygen.html#documentation-flavors" title="Link to this heading">¶</a></h2>
+<p>The GROMACS source tree is set up to produce several different levels of Doxygen
+documentation:</p>
+<ol class="arabic simple">
+<li><p>Public API documentation (suffix <code class="docutils literal notranslate"><span class="pre">-user</span></code>), which documents functions and
+classes exported from the library and intended for use outside the GROMACS
+library.</p></li>
+<li><p>Library API documentation (suffix <code class="docutils literal notranslate"><span class="pre">-lib</span></code>), which additionally includes
+functions and classes that are designed to be used from other parts of
+GROMACS, as well as some guidelines that are mostly of interest to
+developers.</p></li>
+<li><p>Full documentation (suffix <code class="docutils literal notranslate"><span class="pre">-full</span></code>), which includes (nearly) all (documented)
+functions and classes in the source tree.</p></li>
+<li><p>Maximally verbose documentation (suffix <code class="docutils literal notranslate"><span class="pre">-dev</span></code>) with everything doxygen can
+extract as well as additional internal links.</p></li>
+</ol>
+<p>Each subsequent level of documentation includes all the documentation from the
+levels above it.  The suffixes above refer to the suffixes of Doxygen input and
+output files, as well as the name of the output directory.  When all the
+flavors have been built, the front pages of the documentation contain links to
+the other flavors, and explain the differences in more detail.</p>
+<p>As a general guideline, the public API documentation should be kept free of
+anything that a user linking against an unmodified GROMACS does not see.
+In other words, the public API documentation should mainly document the
+contents of installed headers, and provide the necessary overview of using
+those.  Also, verbosity requirements for the public API documentation are
+higher: ideally, readers of the documentation could immediately start using the
+API based on the documentation, without any need to look at the implementation.</p>
+<p>Similarly, the library API documentation should not contain things that other
+modules in GROMACS can or should never call.  In particular, anything declared
+locally in source files should be only available in the full documentation.
+Also, if something is documented, and is not identified to be in the library
+API, then it should not be necessary to call that function from outside its
+module.</p>
+</section>
+<section id="building-the-documentation">
+<h2>Building the documentation<a class="headerlink" href="doxygen.html#building-the-documentation" title="Link to this heading">¶</a></h2>
+<p>If you want to see up-to-date documentation, you can download artifacts from
+the <code class="docutils literal notranslate"><span class="pre">webpage</span></code> job of the latest scheduled pipeline for a corresponding branch
+(<a class="reference external" href="https://gitlab.com/gromacs/gromacs/-/pipelines?page=1&amp;scope=all&amp;source=schedule">https://gitlab.com/gromacs/gromacs/-/pipelines?page=1&amp;scope=all&amp;source=schedule</a>).
+CI also runs Doxygen for all changes pushed to GitLab for
+release and main branches, and the resulting documentation can be
+found in the artifacts of the corresponding <code class="docutils literal notranslate"><span class="pre">webpage</span></code> job.
+The Doxygen job will fail if it introduces any Doxygen warnings.</p>
+<p>You may need to build the documentation locally if you want to check the
+results after adding/modifying a significant amount of comments.  This is
+recommended in particular if you do not have much experience with Doxygen.
+It is a good idea to build with all the different settings to see that the
+result is what you want, and that you do not produce any warnings.
+For local work, it is generally a good idea to set <code class="docutils literal notranslate"><span class="pre">GMX_COMPACT_DOXYGEN=ON</span></code>
+CMake option, which removes some large generated graphs from the documentation
+and speeds up the process significantly. There are also “fast” versions
+of the <code class="docutils literal notranslate"><span class="pre">make</span></code> targets that skip the additional diagrams built for the <code class="docutils literal notranslate"><span class="pre">lib</span></code>
+level and lower.</p>
+<p>All files related to Doxygen reside in the <code class="docutils literal notranslate"><span class="pre">docs/doxygen/</span></code> subdirectory in the source
+and build trees.  In a freshly checked out source tree, this directory contains
+various <code class="docutils literal notranslate"><span class="pre">Doxyfile-*.cmakein</span></code> files.  When you run CMake, corresponding files
+<code class="docutils literal notranslate"><span class="pre">Doxyfile-user</span></code>, <code class="docutils literal notranslate"><span class="pre">Doxyfile-lib</span></code>, <code class="docutils literal notranslate"><span class="pre">Doxyfile-full</span></code>, <code class="docutils literal notranslate"><span class="pre">Doxyfile-dev</span></code> are generated at the
+corresponding location in the build tree.  There is also a
+<code class="docutils literal notranslate"><span class="pre">Doxyfile-common.cmakein</span></code>, which is used to produce <code class="docutils literal notranslate"><span class="pre">Doxyfile-common</span></code>.
+This file contains settings that are shared between all the input files.
+<code class="docutils literal notranslate"><span class="pre">Doxyfile-compact</span></code> provides the extra settings for <code class="docutils literal notranslate"><span class="pre">GMX_COMPACT_DOXYGEN=ON</span></code>.</p>
+<p>You can run Doxygen directly with one of the generated files (all output will
+be produced under the current working directory), or build one of the
+<code class="docutils literal notranslate"><span class="pre">doxygen-user</span></code>, <code class="docutils literal notranslate"><span class="pre">doxygen-lib</span></code>, <code class="docutils literal notranslate"><span class="pre">doxygen-full</span></code>, <code class="docutils literal notranslate"><span class="pre">doxygen-dev</span></code> targets.  The targets run
+Doxygen in a quieter mode and only show the warnings if there were any, and put
+the output under <code class="docutils literal notranslate"><span class="pre">docs/html/doxygen/</span></code> in the build tree, so that the Doxygen
+build cooperates with the broader <code class="docutils literal notranslate"><span class="pre">webpage</span></code> target.
+The <code class="docutils literal notranslate"><span class="pre">doxygen-all</span></code> target builds all three targets with less typing.</p>
+<p>The generated documentation is put under <code class="docutils literal notranslate"><span class="pre">html-user/</span></code>, <code class="docutils literal notranslate"><span class="pre">html-lib/</span></code>,
+<code class="docutils literal notranslate"><span class="pre">html-full/</span></code>, and/or <code class="docutils literal notranslate"><span class="pre">html-dev/</span></code>.  Open <code class="docutils literal notranslate"><span class="pre">index.xhtml</span></code> file from one of
+these subdirectories to start browsing (for GROMACS developers, the
+<code class="docutils literal notranslate"><span class="pre">html-lib/</span></code> is a reasonable starting point).  Log files with all Doxygen
+warnings are also produced as <code class="docutils literal notranslate"><span class="pre">docs/doxygen/doxygen-*.log</span></code>, so you can inspect them after
+the run.</p>
+<p>You will need Doxygen 1.8.5 to build the current
+documentation.  Other versions may work, but likely also produce warnings.
+Additionally, <a class="reference external" href="http://www.graphviz.org">graphviz</a> and
+<a class="reference external" href="http://www.mcternan.me.uk/mscgen/">mscgen</a> are required for some graphs in
+the documentation, and <code class="docutils literal notranslate"><span class="pre">latex</span></code> for formulas.  Working versions are likely
+available through most package managers.  It is possible to build the
+documentation without these tools, but you will see some errors and the related
+figures will be missing from the documentation.</p>
+</section>
+<section id="general-guidelines-for-doxygen-markup">
+<span id="dev-doxygen-guidelines"></span><h2>General guidelines for Doxygen markup<a class="headerlink" href="doxygen.html#general-guidelines-for-doxygen-markup" title="Link to this heading">¶</a></h2>
+<p>Doxygen provides quite a few different alternative styles for documenting the
+source code.  There are subtleties in how Doxygen treats the different types of
+comments, and this also depends somewhat on the Doxygen configuration.  It is
+possible to change the meaning of a comment by just changing the style of
+comment it is enclosed in.  To avoid such issues, and to avoid needing to
+manage all the alternatives, a single style throughout the source tree is
+preferable.  When it comes to treatment of styles, GROMACS uses the default
+Doxygen configuration with one exception: <code class="docutils literal notranslate"><span class="pre">JAVADOC_AUTOBRIEF</span></code> is set <code class="docutils literal notranslate"><span class="pre">ON</span></code> to
+allow more convenient one-line brief descriptions in C code.</p>
+<p>Majority of existing comments in GROMACS uses Qt-style comments (<code class="docutils literal notranslate"><span class="pre">/*!</span></code> and
+<code class="docutils literal notranslate"><span class="pre">//!</span></code> instead of <code class="docutils literal notranslate"><span class="pre">/**</span></code> and <code class="docutils literal notranslate"><span class="pre">///</span></code>, <code class="docutils literal notranslate"><span class="pre">\brief</span></code> instead of <code class="docutils literal notranslate"><span class="pre">&#64;brief</span></code> etc.),
+so these should be used also for new documentation.  There is a single
+exception for brief comments in C code; see below.</p>
+<p>Similarly, existing comments use <code class="docutils literal notranslate"><span class="pre">/*!</span></code> for multiline comments in both C and
+C++ code, instead of using multiple <code class="docutils literal notranslate"><span class="pre">//!</span></code> lines for C++.  The rationale is that
+since the code will be a mixture of both languages for a long time, it is more
+uniform to use similar style in both.  Also, since files will likely transition
+from C to C++ gradually, rewriting the comments because of different style
+issues should not generally be necessary.  Finally, multi-line <code class="docutils literal notranslate"><span class="pre">//!</span></code> comments
+can work differently depending on Doxygen configuration, so it is better to
+avoid that ambiguity.</p>
+<p>When adding comments, ensure that a short brief description is always produced.
+This is used in various listings, and should briefly explain the purpose of the
+method without unnecessarily expanding those lists.
+The basic guideline is to start all comment blocks with <code class="docutils literal notranslate"><span class="pre">\brief</span></code> (possibly
+after some other Doxygen commands).
+If you want to avoid the <code class="docutils literal notranslate"><span class="pre">\brief</span></code> for one-liners, you can use <code class="docutils literal notranslate"><span class="pre">//!</span></code>, but the
+description must fit on a single line; otherwise, it is not interpreted as a
+brief comment.  Note in particular that a simple <code class="docutils literal notranslate"><span class="pre">/*!</span></code> without a <code class="docutils literal notranslate"><span class="pre">\brief</span></code>
+does not produce a brief description.
+Also note that <code class="docutils literal notranslate"><span class="pre">\brief</span></code> marks the whole following paragraph as a brief
+description, so you should insert an empty line after the intended brief
+description.</p>
+<p>In C code, <code class="docutils literal notranslate"><span class="pre">//</span></code> comments must be avoided because some compilers do not like
+them.  If you want to avoid the <code class="docutils literal notranslate"><span class="pre">\brief</span></code> for one-liners in C code, use
+<code class="docutils literal notranslate"><span class="pre">/**</span></code> instead of <code class="docutils literal notranslate"><span class="pre">//!</span></code>.  If you do this, the brief description should not
+contain unescaped periods except at the end.  Because of this, you should
+prefer <code class="docutils literal notranslate"><span class="pre">//!</span></code> in C++ code.</p>
+<p>Put the documentation comments in the header file that contains the
+declaration, if such a header exists.
+Implementation-specific comments that do not influence how a method
+is used can go into the source file, just before the method definition, with an
+<code class="docutils literal notranslate"><span class="pre">\internal</span></code> tag in the beginning of the comment block.  Doxygen-style comments
+within functions are not generally usable.</p>
+<p>At times, you may need to exclude some part of a header or a source file such
+that Doxygen does not see it at all.  In general, you should try to avoid this,
+but it may be necessary to remove some functions that you do not want to appear
+in the public API documentation, and which would generate warnings if left
+undocumented, or to avoid Doxygen warnings from code it does not understand.
+Prefer <code class="docutils literal notranslate"><span class="pre">\cond</span></code> and <code class="docutils literal notranslate"><span class="pre">\endcond</span></code> to do this.  If <code class="docutils literal notranslate"><span class="pre">\cond</span></code> does not work for
+you, you can also use <code class="docutils literal notranslate"><span class="pre">#ifndef</span> <span class="pre">DOXYGEN</span></code>.  If you exclude a class method in
+a header, you also need to exclude it in the source code to avoid warnings.</p>
+</section>
+<section id="gromacs-specifics">
+<h2>GROMACS specifics<a class="headerlink" href="doxygen.html#gromacs-specifics" title="Link to this heading">¶</a></h2>
+<p>The general guidelines on the style of Doxygen comments were given above.
+This section introduces GROMACS specific constructs currently used in Doxygen
+documentation, as well as how GROMACS uses Doxygen groups to organize the
+documentation.</p>
+<p>Some consistency checks are done automatically using custom scripts.
+See <a class="reference internal" href="gmxtree.html"><span class="doc">Source tree checker scripts</span></a> for details.</p>
+<section id="controlling-documentation-visibility">
+<h3>Controlling documentation visibility<a class="headerlink" href="doxygen.html#controlling-documentation-visibility" title="Link to this heading">¶</a></h3>
+<p>To control in which level of documentation a certain function appears, three
+different mechanisms are used:</p>
+<ul class="simple">
+<li><p>Global Doxygen configuration.  This is mainly used to include
+declarations local to source files only in the full documentation.
+You can find the details from the <code class="docutils literal notranslate"><span class="pre">Doxyfile-*.cmakein</span></code> files, and some of
+them are also mentioned below on individual code constructs.</p></li>
+<li><p>The standard Doxygen command <code class="docutils literal notranslate"><span class="pre">\internal</span></code> marks the documentation to be only
+extracted into the full documentation (<code class="docutils literal notranslate"><span class="pre">INTERNAL_DOCS</span></code> is <code class="docutils literal notranslate"><span class="pre">ON</span></code> only for the
+full documentation).  This should be used as a first command in a comment
+block to exclude all the documentation.  It is possible to use <code class="docutils literal notranslate"><span class="pre">\internal</span></code>
+and <code class="docutils literal notranslate"><span class="pre">\endinternal</span></code> to exclude individual paragraphs, but <code class="docutils literal notranslate"><span class="pre">\if</span> <span class="pre">internal</span></code>
+is preferred (see below).
+In addition, GROMACS-specific custom Doxygen command <code class="docutils literal notranslate"><span class="pre">\libinternal</span></code> is
+provided, which should be used the same way to exclude the documentation from
+the public API documentation.  This command expands to either <code class="docutils literal notranslate"><span class="pre">\internal</span></code>
+or to a no-op, depending on the documentation level.</p></li>
+<li><p>Doxygen commands <code class="docutils literal notranslate"><span class="pre">\if</span></code> and <code class="docutils literal notranslate"><span class="pre">\cond</span></code> can be used with section names
+<code class="docutils literal notranslate"><span class="pre">libapi</span></code> and <code class="docutils literal notranslate"><span class="pre">internal</span></code> to only include the documentation in library API and
+the full documentation, respectively.  <code class="docutils literal notranslate"><span class="pre">libapi</span></code> is also defined in the full
+documentation.  These are declared using <code class="docutils literal notranslate"><span class="pre">ENABLED_SECTIONS</span></code> in the Doxygen
+configuration files.</p></li>
+</ul>
+<p>Examples of locations where it is necessary to use these explicit commands are
+given below in the sections on individual code constructs.</p>
+</section>
+<section id="modules-as-doxygen-groups">
+<h3>Modules as Doxygen groups<a class="headerlink" href="doxygen.html#modules-as-doxygen-groups" title="Link to this heading">¶</a></h3>
+<p>As described in <a class="reference internal" href="overview.html#dev-source-layout"><span class="std std-ref">Source code organization</span></a>, each subdirectory under <code class="docutils literal notranslate"><span class="pre">src/gromacs/</span></code>
+represents a <em>module</em>, i.e., a somewhat coherent collection of routines.
+Doxygen cannot automatically generate a list of routines in a module; it only
+extracts various alphabetical indexes that contain more or less all documented
+functions and classes.  To help reading the documentation, the routines for a
+module should be visible in one place.</p>
+<p>GROMACS uses Doxygen groups to achieve this: for each documented module, there
+is a <code class="docutils literal notranslate"><span class="pre">\defgroup</span></code> definition for the module, and all the relevant classes and
+functions need to be manually added to this group using <code class="docutils literal notranslate"><span class="pre">\ingroup</span></code> and
+<code class="docutils literal notranslate"><span class="pre">\addtogroup</span></code>.
+The group page also provides a natural place for overview documentation about
+the module, and can be navigated to directly from the “Modules” tab in the
+generated documentation.</p>
+<p>Some notes about using <code class="docutils literal notranslate"><span class="pre">\addtogroup</span></code> are in order:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">\addtogroup</span></code> only adds the elements that it directly contains into the
+group.  If it contains a namespace declaration, only the namespace is added
+to the group, but none of the namespace contents are.  For this reason,
+<code class="docutils literal notranslate"><span class="pre">\addtogroup</span></code> should go within the innermost scope, around the members that
+should actually be added.</p></li>
+<li><p>If the module should not appear in the public API documentation, its
+definition (<code class="docutils literal notranslate"><span class="pre">\defgroup</span></code>) should be prefixed with a <code class="docutils literal notranslate"><span class="pre">\libinternal</span></code>.
+In this case, also all <code class="docutils literal notranslate"><span class="pre">\addtogroup</span></code> commands for this module should be
+similarly prefixed.  Otherwise, they create the group in the public API
+documentation, but without any of the content from the <code class="docutils literal notranslate"><span class="pre">\defgroup</span></code>
+definition.  This may also cause the contents of the <code class="docutils literal notranslate"><span class="pre">\addtogroup</span></code> section
+to appear in the public API documentation, even if it otherwise would not.</p></li>
+</ul>
+</section>
+<section id="public-api-and-library-api-groups">
+<h3>Public API and library API groups<a class="headerlink" href="doxygen.html#public-api-and-library-api-groups" title="Link to this heading">¶</a></h3>
+<p>In addition to the module groups, two fixed groups are provided:
+<code class="docutils literal notranslate"><span class="pre">group_publicapi</span></code> and <code class="docutils literal notranslate"><span class="pre">group_libraryapi</span></code>.  Classes and files can be added to
+these groups using GROMACS specific custom <code class="docutils literal notranslate"><span class="pre">\inpublicapi</span></code> and
+<code class="docutils literal notranslate"><span class="pre">\inlibraryapi</span></code> commands.  The generated group documentation pages are not
+very useful, but annotated classes and files show the API definition under the
+name, making this information more easily accessible.  These commands in
+file-level comments are also used for some automatic intermodule dependency
+validation (see below).</p>
+<p>Note that functions, enumerations, and other entities that do not have a
+separate page in the generated documentation can only belong to one group;
+in such a case, the module group is preferred over the API group.</p>
+</section>
+</section>
+<section id="documenting-specific-code-constructs">
+<h2>Documenting specific code constructs<a class="headerlink" href="doxygen.html#documenting-specific-code-constructs" title="Link to this heading">¶</a></h2>
+<p>This section describes the techical details and some tips and tricks for
+documenting specific code constructs such that useful documentation is
+produced.  If you are wondering where to document a certain piece of
+information, see the documentation structure section in <a class="reference internal" href="overview.html#dev-doc-layout"><span class="std std-ref">Documentation organization</span></a>.
+The focus of the documentation should be on the overview content: Doxygen pages
+and the module documentation.  An experienced developer can relatively easily
+read and understand individual functions, but the documentation should help
+in getting the big picture.</p>
+<section id="doxygen-pages">
+<h3>Doxygen pages<a class="headerlink" href="doxygen.html#doxygen-pages" title="Link to this heading">¶</a></h3>
+<p>The pages that are accessible through navigation from the front page are
+written using Markdown and are located under <code class="docutils literal notranslate"><span class="pre">docs/doxygen/</span></code>.  Each page should be
+placed in the page hierarchy by making it a subpage of another page, i.e., it
+should be referenced once using <code class="docutils literal notranslate"><span class="pre">\subpage</span></code>.  <code class="docutils literal notranslate"><span class="pre">mainpage.md</span></code> is the root of the
+hierarchy.</p>
+<p>There are two subdirectories, <code class="docutils literal notranslate"><span class="pre">user/</span></code> and <code class="docutils literal notranslate"><span class="pre">lib/</span></code>, determining the highest
+documentation level where the page appears.  If you add pages to <code class="docutils literal notranslate"><span class="pre">lib/</span></code>, ensure
+that there are no references to the page from public API documentation.
+<code class="docutils literal notranslate"><span class="pre">\if</span> <span class="pre">libapi</span></code> can be used to add references in content that is otherwise
+public.
+Generally, the pages should be on a high enough level and provide overview
+content that is useful enough such that it is not necessary to exclude them
+from the library API documentation.</p>
+</section>
+<section id="modules">
+<h3>Modules<a class="headerlink" href="doxygen.html#modules" title="Link to this heading">¶</a></h3>
+<p>For each module, decide on a header file that is the most important one for
+that module (if there is no self-evident header, it may be better to designate,
+e.g., <code class="docutils literal notranslate"><span class="pre">module-doc.h</span></code> for this purpose, but this is currently not done for any
+module).  This header should contain the <code class="docutils literal notranslate"><span class="pre">\defgroup</span></code> definition for the
+module.  The name of the group should be <code class="file docutils literal notranslate"><span class="pre">module_</span><em><span class="pre">name</span></em></code>, where <em>name</em>
+is the name of the subdirectory that hosts the module.</p>
+<p>The module should be added to an appropriate group (see <code class="docutils literal notranslate"><span class="pre">docs/doxygen/misc.cpp</span></code> for
+definitions) using <code class="docutils literal notranslate"><span class="pre">\ingroup</span></code> to organize the “Modules” tab in the generated
+documentation.</p>
+<p>One or more contact persons who know about the contents of the module should be
+listed using <code class="docutils literal notranslate"><span class="pre">\author</span></code> commands.  This provides a point of contact if one
+has questions. Authors should be listed in chronological order of contributions,
+where possible.</p>
+</section>
+<section id="classes-structs">
+<h3>Classes/structs<a class="headerlink" href="doxygen.html#classes-structs" title="Link to this heading">¶</a></h3>
+<p>Classes and structs in header files appear always in Doxygen documentation,
+even if their enclosing file is not documented.  So start the documentation
+blocks of classes that are not part of the public API with <code class="docutils literal notranslate"><span class="pre">\internal</span></code> or
+<code class="docutils literal notranslate"><span class="pre">\libinternal</span></code>.  Classes declared locally in source files or in unnamed
+namespaces only appear in the full documentation.</p>
+<p>If a whole class is not documented, this does not currently generate any
+warning.  The class is simply exluded from the documentation.  But if a member
+of a documented class is not documented, a warning is generated.  Guidelines for
+documenting free functions apply to methods of a class as well.</p>
+<p>For base classes, the API classification (<code class="docutils literal notranslate"><span class="pre">\inpublicapi</span></code> or
+<code class="docutils literal notranslate"><span class="pre">\inlibraryapi</span></code>) should be based on where the class is meant to be
+subclassed.  The visibility (<code class="docutils literal notranslate"><span class="pre">\internal</span></code> or <code class="docutils literal notranslate"><span class="pre">\libinternal</span></code>), in contrast,
+should reflect the API classification of derived classes such that the base
+class documentation is always generated together with the derived classes.</p>
+<p>For classes that are meant to be subclassed and have protected members, the
+protected members should only appear at the documentation level where the class
+is meant to be subclassed.  For example, if a class is meant to be subclassed
+only within a module, the protected members should only appear in the
+full documentation.  This can be accomplished using <code class="docutils literal notranslate"><span class="pre">\cond</span></code> (note that you
+will need to add the <code class="docutils literal notranslate"><span class="pre">\cond</span></code> command also to the source files to hide the
+same methods from Doxygen, otherwise you will get confusing warnings).</p>
+</section>
+<section id="methods-functions-enums-macros">
+<h3>Methods/functions/enums/macros<a class="headerlink" href="doxygen.html#methods-functions-enums-macros" title="Link to this heading">¶</a></h3>
+<p>These items do not appear in the documentation unless their enclosing scope is
+documented.  For class members, the scope is the class; otherwise, it is the
+namespace if one exists, or the file.  An <code class="docutils literal notranslate"><span class="pre">\addtogroup</span></code> can also define a
+scope if the group has higher visibility than the scope outside it.
+So if a function is not within a namespace (mostly applicable to C code) and
+has the same visibility as its enclosing file, it is not necessary to add a
+<code class="docutils literal notranslate"><span class="pre">\internal</span></code> or <code class="docutils literal notranslate"><span class="pre">\libinternal</span></code>.</p>
+<p>Static functions are currently extracted for all documentation flavors to allow
+headers to declare <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">inline</span></code> functions (used in, for example, math code).
+Functions in anonymous namespaces are only extracted into the full
+documentation.  Together with the above rules, this means that you should avoid
+putting a <code class="docutils literal notranslate"><span class="pre">static</span></code> function within a documented namespace, even within source
+files, or it may inadvertently appear in the public API documentation.</p>
+<p>If you want to exclude an item from the documentation, you need to put in
+inside a <code class="docutils literal notranslate"><span class="pre">\cond</span></code> block such that Doxygen does not see it.
+Otherwise, a warning for an undocumented function is generated.  You need to
+enclose both the declaration and the definition with <code class="docutils literal notranslate"><span class="pre">\cond</span></code>.</p>
+</section>
+<section id="files">
+<h3>Files<a class="headerlink" href="doxygen.html#files" title="Link to this heading">¶</a></h3>
+<p>Each documented file should start with a documentation block (right after the
+copyright notice) that documents the file.  See the examples section for exact
+formatting.  Things to note:</p>
+<ul class="simple">
+<li><p>Please do not specify the file name explicitly after <code class="docutils literal notranslate"><span class="pre">\file</span></code>.  By default,
+a file comment applies to the file it is contained in, and an explicit file
+name only adds one more thing that can get out of date.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\brief</span></code> cannot appear on the same line as the <code class="docutils literal notranslate"><span class="pre">\file</span></code>, but should be on
+the next line.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\internal</span></code> or <code class="docutils literal notranslate"><span class="pre">\libinternal</span></code> should indicate where the header is visible.
+As a general guideline, all installed headers should appear in the public API
+documentation, i.e., not contain these commands.  If nothing else, then to
+document that it does not contain any public API functions.  Headers that
+declare anything in the library API should be marked with <code class="docutils literal notranslate"><span class="pre">\libinternal</span></code>,
+and the rest with <code class="docutils literal notranslate"><span class="pre">\internal</span></code>.</p></li>
+<li><p>All source files, as well as most test files, should be documented with
+<code class="docutils literal notranslate"><span class="pre">\internal</span></code>, since they do not provide anything to public or library API,
+and this avoids unintentionally extracting things from the file into those
+documentations.  Shared test files used in tests from other modules should be
+marked with <code class="docutils literal notranslate"><span class="pre">\libinternal</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\inpublicapi</span></code> or <code class="docutils literal notranslate"><span class="pre">\inlibraryapi</span></code> should be used to indicate where the
+header is meant to be directly included.</p></li>
+<li><p>As with modules, one or more contact persons should be listed with <code class="docutils literal notranslate"><span class="pre">\author</span></code>.
+If you make significant modifications or additions to a file, consider adding
+an <code class="docutils literal notranslate"><span class="pre">\author</span></code> line for yourself.</p></li>
+</ul>
+</section>
+<section id="directories">
+<h3>Directories<a class="headerlink" href="doxygen.html#directories" title="Link to this heading">¶</a></h3>
+<p>Directory documentation does not typically contain useful information beyond a
+possible brief description, since they correspond very closely to modules, and
+the modules themselves are documented.  A brief description is still useful to
+provide a high-level overview of the source tree on the generated “Files” page.
+A reference to the module is typically sufficient as a brief description for a
+directory.  All directories are currently documented in
+<code class="docutils literal notranslate"><span class="pre">docs/doxygen/directories.cpp</span></code>.</p>
+</section>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="doxygen.html#examples" title="Link to this heading">¶</a></h2>
+<section id="basic-c">
+<h3>Basic C++<a class="headerlink" href="doxygen.html#basic-c" title="Link to this heading">¶</a></h3>
+<p>Here is an example of documenting a C++ class and its containing header file.
+Comments in the code and the actual documentation explain the used Doxygen
+constructs.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/*! \libinternal \file</span>
+<span class="cm"> * \brief</span>
+<span class="cm"> * Declares gmx::MyClass.</span>
+<span class="cm"> *</span>
+<span class="cm"> * More details.  The documentation is still extracted for the class even if</span>
+<span class="cm"> * this whole comment block is missing.</span>
+<span class="cm"> *</span>
+<span class="cm"> * \author Example Author &lt;example@author.com&gt;</span>
+<span class="cm"> * \inlibraryapi</span>
+<span class="cm"> * \ingroup module_mymodule</span>
+<span class="cm"> */</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">gmx</span>
+<span class="p">{</span>
+
+<span class="cm">/*! \libinternal</span>
+<span class="cm"> * \brief</span>
+<span class="cm"> * Brief description for the class.</span>
+<span class="cm"> *</span>
+<span class="cm"> * More details.  The \libinternal tag is required for classes, since they are</span>
+<span class="cm"> * extracted into the documentation even in the absence of documentation for</span>
+<span class="cm"> * the enclosing scope.</span>
+<span class="cm"> * The \libinternal tag is on a separate line because of a bug in Doxygen</span>
+<span class="cm"> * 1.8.5 (only affects \internal, but for clarity it is also worked around</span>
+<span class="cm"> * here).</span>
+<span class="cm"> *</span>
+<span class="cm"> * \inlibraryapi</span>
+<span class="cm"> * \ingroup module_mymodule</span>
+<span class="cm"> */</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyClass</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="o">:</span>
+<span class="w">        </span><span class="c1">// Trivial constructors or destructors do not require documentation.</span>
+<span class="w">        </span><span class="c1">// But if a constructor takes parameters, it should be documented like</span>
+<span class="w">        </span><span class="c1">// methods below.</span>
+<span class="w">        </span><span class="n">MyClass</span><span class="p">();</span>
+<span class="w">        </span><span class="o">~</span><span class="n">MyClass</span><span class="p">();</span>
+
+<span class="w">        </span><span class="cm">/*! \brief</span>
+<span class="cm">         * Brief description for the method.</span>
+<span class="cm">         *</span>
+<span class="cm">         * \param[in] param1  Description of the first parameter.</span>
+<span class="cm">         * \param[in] param2  Description of the second parameter.</span>
+<span class="cm">         * \returns   Description of the return value.</span>
+<span class="cm">         * \throws    std::bad_alloc if out of memory.</span>
+<span class="cm">         *</span>
+<span class="cm">         * More details describing the method.  It is not an error to put this</span>
+<span class="cm">         * above the parameter block, but most existing code has it here.</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="nf">myMethod</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">param1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">param2</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">//! Brief description for the accessor.</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="nf">simpleAccessor</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">var_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="cm">/*! \brief</span>
+<span class="cm">         * Alternative, more verbose way of specifying a brief description.</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="nf">anotherAccessor</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="w">        </span><span class="cm">/*! \brief</span>
+<span class="cm">         * Brief description for another accessor that is so long that it does</span>
+<span class="cm">         * not conveniently fit on a single line cannot be specified with //!.</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="nf">secondAccessor</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">private</span><span class="o">:</span>
+<span class="w">        </span><span class="c1">// Private members (whether methods or variables) are currently ignored</span>
+<span class="w">        </span><span class="c1">// by Doxygen, so they don&#39;t need to be documented.  Documentation</span>
+<span class="w">        </span><span class="c1">// doesn&#39;t hurt, though.</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">var_</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace gmx</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>Basic C<a class="headerlink" href="doxygen.html#id1" title="Link to this heading">¶</a></h3>
+<p>Here is another example of documenting a C header file (so avoiding all
+C++-style comments), and including free functions.  It also demonstrates the use
+of <code class="docutils literal notranslate"><span class="pre">\addtogroup</span></code> to add multiple functions into a module group without repeated
+<code class="docutils literal notranslate"><span class="pre">\ingroup</span></code> tags.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/*! \file</span>
+<span class="cm"> * \brief</span>
+<span class="cm"> * Declares a collection of functions for performing a certain task.</span>
+<span class="cm"> *</span>
+<span class="cm"> * More details can go here.</span>
+<span class="cm"> *</span>
+<span class="cm"> * \author Example Author &lt;example@author.com&gt;</span>
+<span class="cm"> * \inpublicapi</span>
+<span class="cm"> * \ingroup module_mymodule</span>
+<span class="cm"> */</span>
+
+<span class="cm">/*! \addtogroup module_mymodule */</span>
+<span class="cm">/*! \{ */</span>
+
+<span class="cm">/*! \brief</span>
+<span class="cm"> * Brief description for the data structure.</span>
+<span class="cm"> *</span>
+<span class="cm"> * More details.</span>
+<span class="cm"> *</span>
+<span class="cm"> * \inpublicapi</span>
+<span class="cm"> */</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/** Brief description for member. */</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="n">member</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="n">second</span><span class="p">;</span><span class="w"> </span><span class="cm">/**&lt; Brief description for the second member. */</span>
+<span class="w">    </span><span class="cm">/*! \brief</span>
+<span class="cm">     * Brief description for the third member.</span>
+<span class="cm">     *</span>
+<span class="cm">     * Details.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="n">third</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">gmx_mystruct_t</span><span class="p">;</span>
+
+<span class="cm">/*! \brief</span>
+<span class="cm"> * Performs a simple operation.</span>
+<span class="cm"> *</span>
+<span class="cm"> * \param[in] value  Input value.</span>
+<span class="cm"> * \returns   Computed value.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Detailed description.</span>
+<span class="cm"> * \inpublicapi cannot be used here, because Doxygen only allows a single</span>
+<span class="cm"> * group for functions, and module_mymodule is the preferred group.</span>
+<span class="cm"> */</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+
+<span class="cm">/* Any . in the brief description, except at the end, should be escaped as \. */</span>
+<span class="cm">/** Brief description for this function. */</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">gmx_simple_function</span><span class="p">();</span>
+
+<span class="cm">/*! \} */</span>
+</pre></div>
+</div>
+</section>
+<section id="scoping-and-visibility-rules">
+<h3>Scoping and visibility rules<a class="headerlink" href="doxygen.html#scoping-and-visibility-rules" title="Link to this heading">¶</a></h3>
+<p>The rules where Doxygen expects something to be documented, and when are
+commands like <code class="docutils literal notranslate"><span class="pre">\internal</span></code> needed, can be complex.  The examples below
+describe some of the pitfalls.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/*! \libinternal \file</span>
+<span class="cm"> * \brief</span>
+<span class="cm"> * ...</span>
+<span class="cm"> *</span>
+<span class="cm"> * The examples below assume that the file is documented like this:</span>
+<span class="cm"> * with an \libinternal definition at the beginning, with an intent to not</span>
+<span class="cm"> * expose anything from the file in the public API.  Things work similarly for</span>
+<span class="cm"> * the full documentation if you replace \libinternal with \internal</span>
+<span class="cm"> * everywhere in the example.</span>
+<span class="cm"> *</span>
+<span class="cm"> * \ingroup module_example</span>
+<span class="cm"> */</span>
+
+
+<span class="cm">/*! \brief</span>
+<span class="cm"> * Brief description for a free function.</span>
+<span class="cm"> *</span>
+<span class="cm"> * A free function is not extracted into the documentation unless the enclosing</span>
+<span class="cm"> * scope (in this case, the file) is.  So a \libinternal is not necessary.</span>
+<span class="cm"> */</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">();</span>
+
+<span class="c1">// Assume that the module_example group is defined in the public API.</span>
+
+<span class="c1">//! \addtogroup module_example</span>
+<span class="c1">//! \{</span>
+
+<span class="c1">//! \cond libapi</span>
+<span class="cm">/*! \brief</span>
+<span class="cm"> * Brief description for a free function within \addtogroup.</span>
+<span class="cm"> *</span>
+<span class="cm"> * In this case, the enclosing scope is actually the module_example group,</span>
+<span class="cm"> * which is documented, so the function needs to be explicitly excluded.</span>
+<span class="cm"> * \\libinternal does not work, since it would produce warnings about an</span>
+<span class="cm"> * undocumented function, so the whole declaration is hidden from Doxygen.</span>
+<span class="cm"> */</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">();</span>
+<span class="c1">//! \endcond</span>
+
+<span class="c1">//! \}</span>
+
+<span class="c1">// For modules that are only declared in the library API, \addtogroup</span>
+<span class="c1">// cannot be used without an enclosing \cond.  Otherwise, it will create</span>
+<span class="c1">// a dummy module with the identifier as the name...</span>
+
+<span class="c1">//! \cond libapi</span>
+<span class="c1">//! \addtogroup module_libmodule</span>
+<span class="c1">//! \{</span>
+
+<span class="cm">/*! \brief</span>
+<span class="cm"> * Brief description.</span>
+<span class="cm"> *</span>
+<span class="cm"> * No \libinternal is necessary here because of the enclosing \cond.</span>
+<span class="cm"> */</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">();</span>
+
+<span class="c1">//! \}</span>
+<span class="c1">//! \endcond</span>
+
+<span class="c1">// An alternative to the above is use this, if the enclosing scope is only</span>
+<span class="c1">// documented in the library API:</span>
+
+<span class="c1">//! \libinternal \addtogroup module_libmodule</span>
+<span class="c1">//! \{</span>
+
+<span class="c1">//! Brief description.</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">()</span>
+
+<span class="c1">//! \}</span>
+
+<span class="cm">/*! \libinternal \brief</span>
+<span class="cm"> * Brief description for a struct.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Documented structs and classes from headers are always extracted into the</span>
+<span class="cm"> * documentation, so \libinternal is necessary to exclude it.</span>
+<span class="cm"> * Currently, undocumented structs/classes do not produce warnings, so \cond</span>
+<span class="cm"> * is not necessary.</span>
+<span class="cm"> */</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">t_example</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="n">member1</span><span class="p">;</span><span class="w"> </span><span class="c1">//!&lt; Each non-private member should be documented.</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">member2</span><span class="p">;</span><span class="w"> </span><span class="c1">//!&lt; Otherwise, Doxygen will produce warnings.</span>
+<span class="p">};</span>
+
+<span class="c1">// This namespace is documented in the public API.</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">gmx</span>
+<span class="p">{</span>
+
+<span class="c1">//! \cond libapi</span>
+<span class="cm">/*! \brief</span>
+<span class="cm"> * Brief description for a free function within a documented namespace.</span>
+<span class="cm"> *</span>
+<span class="cm"> * In this case, the enclosing scope is the documented namespace,</span>
+<span class="cm"> * so a \cond is necessary to avoid warnings.</span>
+<span class="cm"> */</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">();</span>
+<span class="c1">//! \endcond</span>
+
+<span class="cm">/*! \brief</span>
+<span class="cm"> * Class meant for subclassing only within the module, but the subclasses will</span>
+<span class="cm"> * be public.</span>
+<span class="cm"> *</span>
+<span class="cm"> * This base class still provides public methods that are visible through the</span>
+<span class="cm"> * subclasses, so it should appear in the public documentation.</span>
+<span class="cm"> * But it is not marked with \inpublicapi.</span>
+<span class="cm"> */</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BaseClass</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="o">:</span>
+<span class="w">        </span><span class="cm">/*! \brief</span>
+<span class="cm">         * A public method.</span>
+<span class="cm">         *</span>
+<span class="cm">         * This method also appears in the documentation of each subclass in</span>
+<span class="cm">         * the public and library API docs.</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="n">method</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">protected</span><span class="o">:</span>
+<span class="w">        </span><span class="c1">// The \cond is necessary to exlude this documentation from the public</span>
+<span class="w">        </span><span class="c1">// API, since the public API does not support subclassing.</span>
+<span class="w">        </span><span class="c1">//! \cond internal</span>
+<span class="w">        </span><span class="c1">//! A method that only subclasses inside the module see.</span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="n">methodForSubclassToCall</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">//! A method that needs to be implemented by subclasses.</span>
+<span class="w">        </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">virtualMethodToImplement</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">//! \endcond</span>
+<span class="p">};</span>
+
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace gmx</span>
+</pre></div>
+</div>
+</section>
+<section id="module-documentation">
+<h3>Module documentation<a class="headerlink" href="doxygen.html#module-documentation" title="Link to this heading">¶</a></h3>
+<p>Documenting a new module should place a comment like this in a central header
+for the module, such that the “Modules” tab in the generated documentation can
+be used to navigate to the module.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/*! \defgroup module_example &quot;Example module (example)&quot;</span>
+<span class="cm"> * \ingroup group_utilitymodules</span>
+<span class="cm"> * \brief</span>
+<span class="cm"> * Brief description for the module.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Detailed description of the module.  Can link to a separate Doxygen page for</span>
+<span class="cm"> * overview, and/or describe the most important headers and/or classes in the</span>
+<span class="cm"> * module as part of this documentation.</span>
+<span class="cm"> *</span>
+<span class="cm"> * For modules not exposed publicly, \libinternal can be added at the</span>
+<span class="cm"> * beginning (before \defgroup).</span>
+<span class="cm"> *</span>
+<span class="cm"> * \author Author Name &lt;author.name@email.com&gt;</span>
+<span class="cm"> */</span>
+
+<span class="c1">// In other code, use \addtogroup module_example and \ingroup module_example to</span>
+<span class="c1">// add content (classes, functions, etc.) onto the module page.</span>
+</pre></div>
+</div>
+</section>
+<section id="common-mistakes">
+<h3>Common mistakes<a class="headerlink" href="doxygen.html#common-mistakes" title="Link to this heading">¶</a></h3>
+<p>The most common mistake, in particular in C code, is to forget to document the
+file.  This causes Doxygen to ignore most comments in the file, so it
+does not validate the contents of the comments either, nor is it possible to
+actually check how the generated documentation looks like.</p>
+<p>The following examples show some other common mistakes (and some less common)
+that do not produce correct documentation, as well as Doxygen “features”/bugs
+that can be confusing.</p>
+<ul>
+<li><p>The struct itself is not documented; other comments within the declaration
+are ignored.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">t_struct</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// The comment tries to document both members at once, but it only</span>
+<span class="w">    </span><span class="c1">// applies to the first.  The second produces warnings about missing</span>
+<span class="w">    </span><span class="c1">// documentation (if the enclosing struct was documented).</span>
+
+<span class="w">    </span><span class="c1">//! Angle parameters.</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">beta</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</li>
+<li><p>This does not produce any brief documentation.
+An explicit <code class="docutils literal notranslate"><span class="pre">\brief</span></code> is required, or <code class="docutils literal notranslate"><span class="pre">//!</span></code> (C++) or <code class="docutils literal notranslate"><span class="pre">/**</span> <span class="pre">*/</span></code> (C)
+should be used.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/*! Brief comment. */</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+<li><p>This does not produce any documentation at all, since a <code class="docutils literal notranslate"><span class="pre">!</span></code> is missing at
+the beginning.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/* \brief</span>
+<span class="cm"> * Brief description.</span>
+<span class="cm"> *</span>
+<span class="cm"> * More details.</span>
+<span class="cm"> */</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+<li><p>This puts the whole paragraph into the brief description.
+A short description is preferable, separated by an empty line from the rest
+of the text.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/*! \brief</span>
+<span class="cm"> * Brief description. The description continues with all kinds of details about</span>
+<span class="cm"> * what the function does and how it should be called.</span>
+<span class="cm"> */</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+<li><p>This may be a Doxygen bug, but this does not produce any brief description.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/** \internal Brief description. */</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+<li><p>If the first declaration below appears in a header, and the second in a
+source file, then Doxygen does not associate them correctly and complains
+about missing documentation for the latter.  The solution is to explicitly
+add a namespace prefix also in the source file, even though the compiler
+does not require it.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Header file</span>
+<span class="c1">//! Example function with a namespace-qualified parameter type.</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">gmx</span><span class="o">::</span><span class="n">SomeClass</span><span class="w"> </span><span class="o">&amp;</span><span class="n">param</span><span class="p">);</span>
+
+<span class="c1">// Source file</span>
+<span class="k">using</span><span class="w"> </span><span class="n">gmx</span><span class="o">::</span><span class="n">SomeClass</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SomeClass</span><span class="w"> </span><span class="o">&amp;</span><span class="n">param</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>This puts the namespace into the mentioned module, instead of the contents
+of the namespace.  <code class="docutils literal notranslate"><span class="pre">\addtogroup</span></code> should go within the innermost scope.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">//! \addtogroup module_example</span>
+<span class="c1">//! \{</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">gmx</span>
+<span class="p">{</span>
+
+<span class="c1">//! Function intended to be part of module_example.</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">gmx_function</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="existing-code">
+<h3>Existing code<a class="headerlink" href="doxygen.html#existing-code" title="Link to this heading">¶</a></h3>
+<p>More examples you can find by looking at existing code in the source tree.  In
+particular new C++ code such as that in the <code class="docutils literal notranslate"><span class="pre">src/gromacs/analysisdata/</span></code> and
+<code class="docutils literal notranslate"><span class="pre">src/gromacs/options/</span></code> subdirectories contains a large amount of code
+documented mostly along these guidelines.  Some comments in
+<code class="docutils literal notranslate"><span class="pre">src/gromacs/selection/</span></code> (in particular, any C-like code) predate the
+introduction of these guidelines, so those are not the best examples.</p>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="infrastructure.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Automation and Infrastructure</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="tools.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Development-time tools</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, GROMACS development team
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="doxygen.html#">Using Doxygen</a><ul>
+<li><a class="reference internal" href="doxygen.html#documentation-flavors">Documentation flavors</a></li>
+<li><a class="reference internal" href="doxygen.html#building-the-documentation">Building the documentation</a></li>
+<li><a class="reference internal" href="doxygen.html#general-guidelines-for-doxygen-markup">General guidelines for Doxygen markup</a></li>
+<li><a class="reference internal" href="doxygen.html#gromacs-specifics">GROMACS specifics</a><ul>
+<li><a class="reference internal" href="doxygen.html#controlling-documentation-visibility">Controlling documentation visibility</a></li>
+<li><a class="reference internal" href="doxygen.html#modules-as-doxygen-groups">Modules as Doxygen groups</a></li>
+<li><a class="reference internal" href="doxygen.html#public-api-and-library-api-groups">Public API and library API groups</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="doxygen.html#documenting-specific-code-constructs">Documenting specific code constructs</a><ul>
+<li><a class="reference internal" href="doxygen.html#doxygen-pages">Doxygen pages</a></li>
+<li><a class="reference internal" href="doxygen.html#modules">Modules</a></li>
+<li><a class="reference internal" href="doxygen.html#classes-structs">Classes/structs</a></li>
+<li><a class="reference internal" href="doxygen.html#methods-functions-enums-macros">Methods/functions/enums/macros</a></li>
+<li><a class="reference internal" href="doxygen.html#files">Files</a></li>
+<li><a class="reference internal" href="doxygen.html#directories">Directories</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="doxygen.html#examples">Examples</a><ul>
+<li><a class="reference internal" href="doxygen.html#basic-c">Basic C++</a></li>
+<li><a class="reference internal" href="doxygen.html#id1">Basic C</a></li>
+<li><a class="reference internal" href="doxygen.html#scoping-and-visibility-rules">Scoping and visibility rules</a></li>
+<li><a class="reference internal" href="doxygen.html#module-documentation">Module documentation</a></li>
+<li><a class="reference internal" href="doxygen.html#common-mistakes">Common mistakes</a></li>
+<li><a class="reference internal" href="doxygen.html#existing-code">Existing code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js%3Fv=602b4562"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/scripts/furo.js%3Fv=5fa4622c"></script>
+    <script src="../_static/clipboard.min.js%3Fv=a7894cd8"></script>
+    <script src="../_static/copybutton.js%3Fv=f281be69"></script>
+    <script src="../_static/tabs.js%3Fv=3ee01567"></script>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+Developer Discussion Forum
+----------------------------
+Discussion on developing GROMACS and related software are hosted at the `GROMACS forum`_. Under the category `Developer discussion`_ you can discuss ideas and intentions related to the development of GROMACS.
+
+* **Do not post any questions about using the GROMACS application or performing
+  simulations to this category.** See `User discussions`_ category for that. The developers discussion is only for question related to software development related to GROMACS (such as contributing to GROMACS or using GROMACS as a library). 
+* Subscribe to `GROMACS forum`_, and  change your account preference by clicking your name at the top-right side. **It is important that you subscribe with your mail address exactly as it appears in the headers of the mails you send if you want to use the forum in mailing-list mode, otherwise your posts will be rejected!**
+* You can then send a request to join the GROMACS developers group to be able to post your discussion topics. 
+* Include large attachements as links for download.
+* Browse previous messages through the  `Developer discussion`_ forum. You can also browse the old mailing-list `gmx-developers Archives`_ page for messages before 20 October 2022. 
+* Note that in one thing the forum differs from the mailing list: post editing is allowed in the forum.
+
+.. _`GROMACS forum`: http://forums.gromacs.org 
+
+.. _`Developer discussion`: https://gromacs.bioexcel.eu/c/gromacs-developers/10
+
+.. _`User discussions`: https://gromacs.bioexcel.eu/c/gromacs-user-forum/5   
+   
+.. _`gmx-developers Archives`: https://mailman-1.sys.kth.se/pipermail/gromacs.org_gmx-developers/
+
+
+

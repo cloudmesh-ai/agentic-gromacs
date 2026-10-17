@@ -1,0 +1,19 @@
+User Survey
+============
+
+The 2023 GROMACS survey will help the GROMACS development team to prioritise
+upcoming features and will be used to steer the direction of efforts over the
+next couple of years. Your answers are of great value to us and will have a
+large impact on the future of GROMACS.
+
+We would like input from researchers who perform any and all forms of molecular dynamics simulations and whose experience using GROMACS ranges from zero to expert knowledge.
+
+The survey should take no longer than 10 minutes to fill out. You can find the survey below.
+
+.. GROMACS survey: click `here`_
+
+Deadline 6th June 2023 - Survey is close
+
+Thanks in advance for your help. 
+
+..  .. _here: https://docs.google.com/forms/d/e/1FAIpQLScu7PmuCgLCkeXcLyuXlP_eOnI4xE2P4fPIzhgH1do8D80mMw/viewform

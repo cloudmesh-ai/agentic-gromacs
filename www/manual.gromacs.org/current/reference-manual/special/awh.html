@@ -1,0 +1,1521 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Enforced Rotation" href="enforced-rotation.html" /><link rel="prev" title="Non-equilibrium pulling" href="pulling.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Adaptive biasing with AWH - GROMACS 2026.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css%3Fv=354aac6f.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css%3Fv=fd3f3429.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css%3Fv=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css%3Fv=4c969af8.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css%3Fv=302659d7.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="awh.html#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">GROMACS 2026.4 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/gmx_logo_blue.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../download.html">Downloads</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../release-notes/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Release notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.4.html">GROMACS 2026.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.3.html">GROMACS 2026.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.2.html">GROMACS 2026.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.1.html">GROMACS 2026.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.5.html">GROMACS 2025.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.4.html">GROMACS 2025.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.3.html">GROMACS 2025.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.2.html">GROMACS 2025.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.1.html">GROMACS 2025.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.7.html">GROMACS 2024.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.6.html">GROMACS 2024.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.5.html">GROMACS 2024.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.4.html">GROMACS 2024.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.3.html">GROMACS 2024.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.2.html">GROMACS 2024.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.1.html">GROMACS 2024.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.5.html">GROMACS 2023.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.4.html">GROMACS 2023.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.3.html">GROMACS 2023.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.2.html">GROMACS 2023.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.1.html">GROMACS 2023.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.6.html">GROMACS 2022.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.5.html">GROMACS 2022.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.4.html">GROMACS 2022.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.3.html">GROMACS 2022.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.2.html">GROMACS 2022.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.1.html">GROMACS 2022.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.7.html">GROMACS 2021.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.6.html">GROMACS 2021.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.5.html">GROMACS 2021.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.4.html">GROMACS 2021.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.3.html">GROMACS 2021.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.2.html">GROMACS 2021.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.1.html">GROMACS 2021.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.7.html">GROMACS 2020.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.6.html">GROMACS 2020.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.5.html">GROMACS 2020.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.4.html">GROMACS 2020.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.3.html">GROMACS 2020.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.2.html">GROMACS 2020.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.1.html">GROMACS 2020.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.6.html">GROMACS 2019.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.5.html">GROMACS 2019.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.4.html">GROMACS 2019.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.3.html">GROMACS 2019.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.2.html">GROMACS 2019.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.1.html">GROMACS 2019.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.7.html">GROMACS 2018.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.6.html">GROMACS 2018.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.5.html">GROMACS 2018.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.4.html">GROMACS 2018.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.3.html">GROMACS 2018.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.2.html">GROMACS 2018.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.1.html">GROMACS 2018.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.5.html">GROMACS 2016.5 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.4.html">GROMACS 2016.4 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.3.html">GROMACS 2016.3 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.2.html">GROMACS 2016.2 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.1.html">GROMACS 2016.1 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/new-features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#gpu-improvements">GPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#cpu-improvements">CPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#threading-improvements">Threading improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#other-improvements">Other improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/bugs-fixed.html#fixes-for-bugs-introduced-during-development">Fixes for bugs introduced during development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/removed-features.html">Removed mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/older/index.html">Release notes for older GROMACS versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../install-guide/index.html">Installation guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Installation guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../install-guide/exotic.html">Installation guide for exotic configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../user-guide/index.html">User guide</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of User guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/known-issues.html">Known issues affecting users of GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/getting-started.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user-guide/flow.html">Flow Chart</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/system-preparation.html">System preparation</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of System preparation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/managing-simulations.html">Managing long simulations</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/faq.html">Answers to frequently asked questions (FAQs)</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Answers to frequently asked questions (FAQs)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/force-fields.html">Force fields in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdp-options.html">Molecular dynamics parameters (.mdp options)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdrun-features.html">Useful mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdrun-performance.html">Getting good performance from <span class="xref std std-ref">mdrun</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/run-time-errors.html">Common errors when using GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/cmdline.html">Command-line reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of Command-line reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx.html">molecular dynamics simulation suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-anaeig.html">gmx anaeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-analyze.html">gmx analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-angle.html">gmx angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-awh.html">gmx awh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-bar.html">gmx bar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-bundle.html">gmx bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-check.html">gmx check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-chi.html">gmx chi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-cluster.html">gmx cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-clustsize.html">gmx clustsize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-confrms.html">gmx confrms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-convert-tpr.html">gmx convert-tpr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-convert-trj.html">gmx convert-trj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-covar.html">gmx covar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-current.html">gmx current</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-density.html">gmx density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-densmap.html">gmx densmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-densorder.html">gmx densorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dielectric.html">gmx dielectric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dipoles.html">gmx dipoles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-disre.html">gmx disre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-distance.html">gmx distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dos.html">gmx dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dssp.html">gmx dssp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dump.html">gmx dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dyecoupl.html">gmx dyecoupl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-editconf.html">gmx editconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-eneconv.html">gmx eneconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-enemat.html">gmx enemat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-energy.html">gmx energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-extract-cluster.html">gmx extract-cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-filter.html">gmx filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-freevolume.html">gmx freevolume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gangle.html">gmx gangle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genconf.html">gmx genconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genion.html">gmx genion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genrestr.html">gmx genrestr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-grompp.html">gmx grompp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gyrate.html">gmx gyrate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gyrate-legacy.html">gmx gyrate-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-h2order.html">gmx h2order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hbond.html">gmx hbond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hbond-legacy.html">gmx hbond-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-helix.html">gmx helix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-helixorient.html">gmx helixorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-help.html">gmx help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hydorder.html">gmx hydorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-insert-molecules.html">gmx insert-molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-lie.html">gmx lie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-make_edi.html">gmx make_edi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-make_ndx.html">gmx make_ndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mdmat.html">gmx mdmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mdrun.html">gmx mdrun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mindist.html">gmx mindist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mk_angndx.html">gmx mk_angndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-msd.html">gmx msd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmeig.html">gmx nmeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmens.html">gmx nmens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmr.html">gmx nmr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmtraj.html">gmx nmtraj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nonbonded-benchmark.html">gmx nonbonded-benchmark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-order.html">gmx order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pairdist.html">gmx pairdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pdb2gmx.html">gmx pdb2gmx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pme_error.html">gmx pme_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-polystat.html">gmx polystat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-potential.html">gmx potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-principal.html">gmx principal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rama.html">gmx rama</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rdf.html">gmx rdf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-report-methods.html">gmx report-methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rms.html">gmx rms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rmsdist.html">gmx rmsdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rmsf.html">gmx rmsf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rotacf.html">gmx rotacf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rotmat.html">gmx rotmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-saltbr.html">gmx saltbr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sans-legacy.html">gmx sans-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sasa.html">gmx sasa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-saxs-legacy.html">gmx saxs-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-scattering.html">gmx scattering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-select.html">gmx select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sham.html">gmx sham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sigeps.html">gmx sigeps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-solvate.html">gmx solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sorient.html">gmx sorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-spatial.html">gmx spatial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-spol.html">gmx spol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-tcaf.html">gmx tcaf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-traj.html">gmx traj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trajectory.html">gmx trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjcat.html">gmx trjcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjconv.html">gmx trjconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjorder.html">gmx trjorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-tune_pme.html">gmx tune_pme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-vanhove.html">gmx vanhove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-velacc.html">gmx velacc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-wham.html">gmx wham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-wheel.html">gmx wheel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-x2top.html">gmx x2top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-xpm2ps.html">gmx xpm2ps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/selections.html">Selection syntax and usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/terminology.html">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/validation.html">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/environment-variables.html">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/floating-point.html">Floating point arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/security.html">Security when using GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/deprecation-policy.html">Policy for deprecating GROMACS functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to/index.html">Short How-To guides</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Short How-To guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/beginners.html">Beginners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html">Adding a Residue to a Force Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#water-solvation">Water solvation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#non-water-solvent">Non water solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#mixed-solvent">Mixed solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#making-disulfide-bonds">Making Disulfide Bonds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html">Running membrane simulations in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#parameterization-of-novel-molecules">Parameterization of novel molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#potential-of-mean-force">Potential of Mean Force</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#single-point-energy">Single-Point Energy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#carbon-nanotube">Carbon Nanotube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html">Visualization Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#extracting-trajectory-information">Extracting Trajectory Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#external-tools-to-perform-trajectory-analysis">External tools to perform trajectory analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#plotting-data">Plotting Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#micelle-clustering">Micelle Clustering</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Reference Manual</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Reference Manual</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../preface.html">Preface and Disclaimer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../definitions.html">Definitions and Units</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../algorithms/algorithms.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Algorithms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/periodic-boundary-conditions.html">Periodic boundary conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/group-concept.html">The group concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/molecular-dynamics.html">Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/shell-molecular-dynamics.html">Shell molecular dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/constraint-algorithms.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/simulated-annealing.html">Simulated Annealing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/stochastic-dynamics.html">Stochastic Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/brownian-dynamics.html">Brownian Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/energy-minimization.html">Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/normal-mode-analysis.html">Normal-Mode Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/free-energy-calculations.html">Free energy calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/replica-exchange.html">Replica exchange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/essential-dynamics.html">Essential Dynamics sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/expanded-ensemble.html">Expanded Ensemble</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/parallelization-domain-decomp.html">Parallelization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/parallelization-domain-decomp.html#domain-decomposition">Domain decomposition</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../functions/functions.html">Interaction function and force fields</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Interaction function and force fields</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/nonbonded-interactions.html">Non-bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/bonded-interactions.html">Bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/restraints.html">Restraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/polarization.html">Polarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/free-energy-interactions.html">Free energy interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/interaction-methods.html">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/interaction-methods.html#virtual-interaction-sites">Virtual interaction sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/long-range-electrostatics.html">Long Range Electrostatics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/long-range-vdw.html">Long Range Van der Waals interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/force-field.html">Force field</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../topologies/topologies.html">Topologies</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Topologies</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../topologies/particle-type.html">Particle type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topologies/parameter-files.html">Parameter files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topologies/molecule-definition.html">Molecule definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topologies/constraint-algorithm-section.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topologies/pdb2gmx-input-files.html"><span class="xref std std-ref">pdb2gmx</span> input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topologies/topology-file-formats.html">File formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../topologies/force-field-organization.html">Force field organization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../file-formats.html">File formats</a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="special.html">Special Topics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of Special Topics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="free-energy-implementation.html">Free energy implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="free-energy-implementation.html#potential-of-mean-force">Potential of mean force</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pulling.html">Non-equilibrium pulling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pulling.html#collective-variables-the-pull-code">Collective variables: the pull code</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="awh.html#">Adaptive biasing with AWH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="enforced-rotation.html">Enforced Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="electric-fields.html">Electric fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="comp-electrophys.html">Computational Electrophysiology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="free-energy-pmf.html">Calculating a PMF using the free-energy code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="remove-fast-dgf.html">Removing fastest degrees of freedom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="viscosity-calculation.html">Viscosity calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shearing.html">Shear simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tabulated-interaction-functions.html">Tabulated interaction functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qmmm.html">Hybrid Quantum-Classical simulations (QM/MM) with CP2K interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mimic-qmmm.html">MiMiC Hybrid Quantum Mechanical/Molecular Mechanical simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vmd-imd.html">Using VMD plug-ins for trajectory file I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vmd-imd.html#interactive-molecular-dynamics">Interactive Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="membrane-embedding.html">Embedding proteins into the membranes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="density-guided-simulation.html">Applying forces from three-dimensional densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="colvars.html">Collective Variable simulations with the Colvars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plumed.html">Using PLUMED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nnpot.html">Neural Network Potentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fmm.html">Fast Multipole Method (FMM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../run-parameters.html">Run parameters and Programs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../analysis/analysis.html">Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Analysis</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/using-groups.html">Using Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/looking-at-trajectory.html">Looking at your trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/general-properties.html">General properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/radial-distribution-function.html">Radial distribution functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/correlation-function.html">Correlation functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/curve-fitting.html">Curve fitting in GROMACS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/mean-square-displacement.html">Mean Square Displacement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/bond-angle-dihedral.html">Bonds/distances, angles and dihedrals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/radius-of-gyration.html">Radius of gyration and distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/rmsd.html">Root mean square deviations in structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/covariance-analysis.html">Covariance analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/dihedral-pca.html">Dihedral principal component analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/hydrogen-bonds.html">Hydrogen bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/protein-related.html">Protein-related items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../analysis/interface-related.html">Interface-related items</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../details.html">Some implementation details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../averages.html">Averages and fluctuations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references.html">Bibliography</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../gmxapi/index.html">gmxapi Python package</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of gmxapi Python package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../gmxapi/userguide/install.html">Full installation instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gmxapi/userguide/usage.html">Using the Python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../gmxapi/userguide/pythonreference.html">gmxapi Python module reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../nblib/index.html">(Non-)Bonded LIBrary (NB-LIB) API</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of (Non-)Bonded LIBrary (NB-LIB) API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nblib/guide-to-writing-MD-programs.html">Guide to Writing MD Programs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/index.html">C++ API</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of C++ API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/gmxlibs.html">Public C++ API</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../dev-manual/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of Developer Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/contribute.html">Contribute to GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/overview.html">Codebase overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/build-system.html">Build system overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/change-management.html">Change Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/relocatable-binaries.html">Relocatable binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/documentation-generation.html">Documentation generation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../dev-manual/style.html">Style guidelines</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of Style guidelines</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/formatting.html">Guidelines for code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/includestyle.html">Guidelines for #include directives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/naming.html">Naming conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/language-features.html">Allowed language features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/reportstyle.html">Guidelines for creating meaningful issue reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/commitstyle.html">Guidelines for formatting of git commits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/error-handling.html">Error handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../dev-manual/tools.html">Development-time tools</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of Development-time tools</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/doxygen.html">Using Doxygen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/change-management.html">Change Management</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../dev-manual/infrastructure.html">Automation and Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of Automation and Infrastructure</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dev-manual/gitlab-ci.html">GitLab CI Pipeline Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/gmxtree.html">Source tree checker scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/code-formatting.html">Automatic source code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/testutils.html">Unit testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/physical_validation.html">Physical validation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/known-issues.html">Known issues relevant for developers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev-manual/index.html#doxygen-documentation">Doxygen documentation</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="awh.html#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/blob/main/docs/reference-manual/special/awh.rst" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/-/edit/main/docs/reference-manual/special/awh.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="adaptive-biasing-with-awh">
+<span id="awh"></span><h1>Adaptive biasing with AWH<a class="headerlink" href="awh.html#adaptive-biasing-with-awh" title="Link to this heading">¶</a></h1>
+<p>The accelerated weight histogram method <a class="reference internal" href="../references.html#reflidmar2012"><span class="std std-ref">185</span></a>
+<a class="reference internal" href="../references.html#reflindahl2014accelerated"><span class="std std-ref">137</span></a> calculates the PMF along a reaction coordinate by adding
+an adaptively determined biasing potential. AWH flattens free energy
+barriers along the reaction coordinate by applying a history-dependent
+potential to the system that “fills up” free energy minima. This is
+similar in spirit to other adaptive biasing potential methods, e.g. the
+Wang-Landau <a class="reference internal" href="../references.html#refwang2001efficient"><span class="std std-ref">138</span></a>, local
+elevation <a class="reference internal" href="../references.html#refhuber1994local"><span class="std std-ref">139</span></a> and
+metadynamics <a class="reference internal" href="../references.html#reflaio2002escaping"><span class="std std-ref">140</span></a> methods.
+The initial sampling stage of AWH makes the method robust against the
+choice of input parameters. Furthermore, the target distribution along
+the reaction coordinate may be chosen freely.</p>
+<section id="basics-of-the-method">
+<h2>Basics of the method<a class="headerlink" href="awh.html#basics-of-the-method" title="Link to this heading">¶</a></h2>
+<p>The AWH method can act on two different types of reaction coordinates.
+It can work directly on a discrete reaction coordinate <span class="math notranslate nohighlight">\(\lambda\)</span>
+in case this is the free-energy coupling parameter <a class="reference internal" href="../references.html#reflundborg2021"><span class="std std-ref">187</span></a>.
+And it can act on reaction coordinates that are (continuous) functions of the coordinates:
+<span class="math notranslate nohighlight">\(\xi(x)\)</span>. In this case AWH acts on a <em>reference coordinate</em> <span class="math notranslate nohighlight">\(\lambda\)</span> which
+takes discrete values and is coupled to <span class="math notranslate nohighlight">\(\xi(x)\)</span> using an umbrella function <span class="math notranslate nohighlight">\(Q\)</span>.
+We will now describe the method for the most general case. When acting directly
+on <span class="math notranslate nohighlight">\(\lambda\)</span>, the function <span class="math notranslate nohighlight">\(Q\)</span> is zero. The fundamentals of the
+method are based on the connection between atom coordinates and <span class="math notranslate nohighlight">\(\lambda\)</span> and
+are established through the extended ensemble <a class="reference internal" href="../references.html#reflyubartsev1992"><span class="std std-ref">68</span></a>,</p>
+<div class="math-wrapper docutils container" id="equation-eqawhpxlambda">
+<div class="math notranslate nohighlight" id="equation-eqawhpxlambda">
+<span class="eqno">(338)<a class="headerlink" href="awh.html#equation-eqawhpxlambda" title="Link to this equation">¶</a></span>\[P(x,\lambda) = \frac{1}{\mathcal{Z}}e^{g(\lambda) - Q(\xi(x),\lambda) - V(x)},\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(g(\lambda)\)</span> is a bias function (a free variable) and
+<span class="math notranslate nohighlight">\(V(x)\)</span> is the unbiased potential energy of the system. The
+distribution along <span class="math notranslate nohighlight">\(\lambda\)</span> can be tuned to be any predefined
+<em>target distribution</em> <span class="math notranslate nohighlight">\(\rho(\lambda)\)</span> (often chosen to be flat) by
+choosing <span class="math notranslate nohighlight">\(g(\lambda)\)</span> wisely. This is evident from</p>
+<div class="math-wrapper docutils container" id="equation-eqawhplambda">
+<div class="math notranslate nohighlight" id="equation-eqawhplambda">
+<span class="eqno">(339)<a class="headerlink" href="awh.html#equation-eqawhplambda" title="Link to this equation">¶</a></span>\[P(\lambda) = \int P(x,\lambda)  dx =
+\frac{1}{\mathcal{Z}}e^{g(\lambda)} \int e^{- Q(\xi(x),\lambda) - V(x)}  dx
+\equiv \frac{1}{\mathcal{Z}}e^{g(\lambda) - F(\lambda)},\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(F(\lambda)\)</span> is the free energy</p>
+<div class="math-wrapper docutils container" id="equation-eqawhflambda">
+<div class="math notranslate nohighlight" id="equation-eqawhflambda">
+<span class="eqno">(340)<a class="headerlink" href="awh.html#equation-eqawhflambda" title="Link to this equation">¶</a></span>\[F(\lambda) = -\ln \int e^{- Q(\xi(x),\lambda) - V(x)}  dx.\]</div>
+</div>
+<p>The reaction coordinate <span class="math notranslate nohighlight">\(\xi(x)\)</span> is commonly coupled to
+<span class="math notranslate nohighlight">\(\lambda\)</span> with a harmonic potential</p>
+<div class="math-wrapper docutils container" id="equation-eqnawhbasic">
+<div class="math notranslate nohighlight" id="equation-eqnawhbasic">
+<span class="eqno">(341)<a class="headerlink" href="awh.html#equation-eqnawhbasic" title="Link to this equation">¶</a></span>\[Q(\xi,\lambda) = \frac{1}{2} \beta k (\xi - \lambda)^2,\]</div>
+</div>
+<p>so that for large force constants <span class="math notranslate nohighlight">\(k\)</span>,
+<span class="math notranslate nohighlight">\(\xi \approx \lambda\)</span>. Note the use of dimensionless energies for
+compatibility with previously published work. Units of energy are
+obtained by multiplication with <span class="math notranslate nohighlight">\(k_BT=1/\beta\)</span>. In the simulation,
+<span class="math notranslate nohighlight">\(\lambda\)</span> samples the user-defined sampling interval <span class="math notranslate nohighlight">\(I\)</span>.</p>
+<p>Being the convolution of the PMF with the Gaussian defined by the
+harmonic potential, <span class="math notranslate nohighlight">\(F(\lambda)\)</span> is a smoothened version of the
+PMF. <a class="reference internal" href="awh.html#equation-eqawhplambda">(339)</a> shows that in order to obtain
+<span class="math notranslate nohighlight">\(P(\lambda)=\rho(\lambda)\)</span>, <span class="math notranslate nohighlight">\(F(\lambda)\)</span> needs to be
+determined accurately. Thus, AWH adaptively calculates
+<span class="math notranslate nohighlight">\(F(\lambda)\)</span> and simultaneously converges <span class="math notranslate nohighlight">\(P(\lambda)\)</span>
+toward <span class="math notranslate nohighlight">\(\rho(\lambda)\)</span>.</p>
+<p>For a multidimensional reaction coordinate <span class="math notranslate nohighlight">\(\xi\)</span>, the sampling
+interval is the Cartesian product <span class="math notranslate nohighlight">\(I=\Pi_{\mu} I_{\mu}\)</span> (a rectangular
+domain).</p>
+<p>N.b., it is not yet possible to use AWH for alchemical transformations
+that involve perturbed masses or constraints.</p>
+</section>
+<section id="the-free-energy-update">
+<h2>The free energy update<a class="headerlink" href="awh.html#the-free-energy-update" title="Link to this heading">¶</a></h2>
+<p>AWH is initialized with an estimate of the free energy
+<span class="math notranslate nohighlight">\(F_0(\lambda)\)</span>. At regular time intervals this estimate is updated
+using data collected in between the updates. At update <span class="math notranslate nohighlight">\(n\)</span>, the
+applied bias <span class="math notranslate nohighlight">\(g_n(\lambda)\)</span> is a function of the current free
+energy estimate <span class="math notranslate nohighlight">\(F_n(\lambda)\)</span> and target distribution
+<span class="math notranslate nohighlight">\(\rho_n(\lambda)\)</span>,</p>
+<div class="math-wrapper docutils container" id="equation-eqawhgrhofrelation">
+<div class="math notranslate nohighlight" id="equation-eqawhgrhofrelation">
+<span class="eqno">(342)<a class="headerlink" href="awh.html#equation-eqawhgrhofrelation" title="Link to this equation">¶</a></span>\[g_n(\lambda) = \ln \rho_n(\lambda) +F_n(\lambda),\]</div>
+</div>
+<p>which is consistent with <a class="reference internal" href="awh.html#equation-eqawhplambda">(339)</a>. Note that also the
+target distribution may be updated during the simulation (see examples
+in section <a class="reference internal" href="awh.html#awhtargets"><span class="std std-ref">Choice of target distribution</span></a>). Substituting this choice of <span class="math notranslate nohighlight">\(g=g_n\)</span>
+back into <a class="reference internal" href="awh.html#equation-eqawhplambda">(339)</a> yields the simple free energy update</p>
+<div class="math-wrapper docutils container" id="equation-eqawhdfnaive">
+<div class="math notranslate nohighlight" id="equation-eqawhdfnaive">
+<span class="eqno">(343)<a class="headerlink" href="awh.html#equation-eqawhdfnaive" title="Link to this equation">¶</a></span>\[\Delta F_n(\lambda)
+= F(\lambda) - F_n(\lambda)
+= -\ln\frac{P_n(\lambda)}{\rho_n(\lambda)},\]</div>
+</div>
+<p>which would yield a better estimate <span class="math notranslate nohighlight">\(F_{n+1} = F_n + \Delta F_n\)</span>,
+assuming <span class="math notranslate nohighlight">\(P_n(\lambda)\)</span> can be measured accurately. AWH estimates
+<span class="math notranslate nohighlight">\(P_n(\lambda)\)</span> by regularly calculating the conditional
+distribution</p>
+<div class="math-wrapper docutils container" id="equation-eqawhomega">
+<div class="math notranslate nohighlight" id="equation-eqawhomega">
+<span class="eqno">(344)<a class="headerlink" href="awh.html#equation-eqawhomega" title="Link to this equation">¶</a></span>\[\omega_n(\lambda|x) \equiv P_n(\lambda|x) = \frac{e^{g_n(\lambda) - Q(\xi(x), \lambda)}}{\sum_{\lambda'} e^{g_n(\lambda') - Q(\xi(x),\lambda')}}.\]</div>
+</div>
+<p>Accumulating these probability weights yields
+<span class="math notranslate nohighlight">\(\sum_t \omega(\lambda|x(t)) \sim P_n(\lambda)\)</span>, where
+<span class="math notranslate nohighlight">\(\int P_n(\lambda|x) P_n(x) dx = P_n(\lambda)\)</span> has been used. The
+<span class="math notranslate nohighlight">\(\omega_n(\lambda|x)\)</span> weights are thus the samples of the AWH
+method. With the limited amount of sampling one has in practice, update
+scheme <a class="reference internal" href="awh.html#equation-eqawhdfnaive">(343)</a> yields very noisy results. AWH instead applies a
+free energy update that has the same form but which can be applied
+repeatedly with limited and localized sampling,</p>
+<div class="math-wrapper docutils container" id="equation-eqnawhsampling">
+<div class="math notranslate nohighlight" id="equation-eqnawhsampling">
+<span class="eqno">(345)<a class="headerlink" href="awh.html#equation-eqnawhsampling" title="Link to this equation">¶</a></span>\[\Delta F_n = -\ln \frac{W_n(\lambda) + \sum_t \omega_n(\lambda|x(t))}{W_n(\lambda) + \sum_t\rho_n(\lambda)) }.\]</div>
+</div>
+<p>Here <span class="math notranslate nohighlight">\(W_n(\lambda)\)</span> is the <em>reference weight histogram</em>
+representing prior sampling. The update for <span class="math notranslate nohighlight">\(W(\lambda)\)</span>,
+disregarding the initial stage (see section <a class="reference internal" href="awh.html#awhinitialstage"><span class="std std-ref">The initial stage</span></a>), is</p>
+<div class="math-wrapper docutils container" id="equation-eqawhwupdate">
+<div class="math notranslate nohighlight" id="equation-eqawhwupdate">
+<span class="eqno">(346)<a class="headerlink" href="awh.html#equation-eqawhwupdate" title="Link to this equation">¶</a></span>\[W_{n+1}(\lambda) = W_n(\lambda) + \sum_t\rho_n(\lambda).\]</div>
+</div>
+<p>Thus, the weight histogram equals the targeted, “ideal” history of
+samples. There are two important things to note about the free energy
+update. First, sampling is driven away from oversampled, currently local
+regions. For such <span class="math notranslate nohighlight">\(\lambda\)</span> values,
+<span class="math notranslate nohighlight">\(\omega_n(\lambda) &gt; \rho_n(\lambda)\)</span> and
+<span class="math notranslate nohighlight">\(\Delta F_n(\lambda) &lt; 0\)</span>, which by <a class="reference internal" href="awh.html#equation-eqawhgrhofrelation">(342)</a>
+implies <span class="math notranslate nohighlight">\(\Delta g_n(\lambda) &lt; 0\)</span> (assuming
+<span class="math notranslate nohighlight">\(\Delta \rho_n \equiv 0\)</span>). Thus, the probability to sample
+<span class="math notranslate nohighlight">\(\lambda\)</span> decreases after the update (see <a class="reference internal" href="awh.html#equation-eqawhplambda">(339)</a>).
+Secondly, the normalization of the histogram
+<span class="math notranslate nohighlight">\(N_n=\sum_\lambda W_n(\lambda)\)</span>, determines the update size
+<span class="math notranslate nohighlight">\(| \Delta F(\lambda) |\)</span>. For instance, for a single sample
+<span class="math notranslate nohighlight">\(\omega(\lambda|x)\)</span>, and using a harmonic potential
+(:see <a class="reference internal" href="awh.html#equation-eqnawhbasic">(341)</a>),
+the shape of the update is approximately a
+Gaussian function of width <span class="math notranslate nohighlight">\(\sigma=1/\sqrt{\beta k}\)</span> and height
+<span class="math notranslate nohighlight">\(\propto 1/N_n\)</span> <a class="reference internal" href="../references.html#reflindahl2014accelerated"><span class="std std-ref">137</span></a>,</p>
+<div class="math-wrapper docutils container" id="equation-eqawhdfsize">
+<div class="math notranslate nohighlight" id="equation-eqawhdfsize">
+<span class="eqno">(347)<a class="headerlink" href="awh.html#equation-eqawhdfsize" title="Link to this equation">¶</a></span>\[| \Delta F_n(\lambda) | \propto \frac{1}{N_n} e^{-\frac{1}{2} \beta k (\xi(x) - \lambda)^2}.\]</div>
+</div>
+<p>When directly controlling the lambda state of the system, the shape of
+the update is instead</p>
+<div class="math-wrapper docutils container" id="equation-eqawhdfsizelambda">
+<div class="math notranslate nohighlight" id="equation-eqawhdfsizelambda">
+<span class="eqno">(348)<a class="headerlink" href="awh.html#equation-eqawhdfsizelambda" title="Link to this equation">¶</a></span>\[| \Delta F_n(\lambda) | \propto \frac{1}{N_n} P_n(\lambda | x).\]</div>
+</div>
+<p>Therefore, in both cases, as samples accumulate in <span class="math notranslate nohighlight">\(W(\lambda)\)</span> and
+<span class="math notranslate nohighlight">\(N_n\)</span> grows, the updates get smaller, allowing for the free energy to
+converge.</p>
+<p>Note that quantity of interest to the user is not <span class="math notranslate nohighlight">\(F(\lambda)\)</span> but
+the PMF <span class="math notranslate nohighlight">\(\Phi(\xi)\)</span>. <span class="math notranslate nohighlight">\(\Phi(\xi)\)</span> is extracted by reweighting
+samples <span class="math notranslate nohighlight">\(\xi(t)\)</span> on the fly <a class="reference internal" href="../references.html#reflindahl2014accelerated"><span class="std std-ref">137</span></a> (see
+also section <a class="reference internal" href="awh.html#awhreweight"><span class="std std-ref">Reweighting and combining biased data</span></a>) and will converge at the same rate as
+<span class="math notranslate nohighlight">\(F(\lambda)\)</span>, see <a class="reference internal" href="awh.html#fig-awhbiasevolution1"><span class="std std-numref">Fig. 41</span></a>. The PMF will be
+written to output (see section <a class="reference internal" href="awh.html#awhusage"><span class="std std-ref">Limitations</span></a>).</p>
+</section>
+<section id="applying-the-bias-to-the-system">
+<h2>Applying the bias to the system<a class="headerlink" href="awh.html#applying-the-bias-to-the-system" title="Link to this heading">¶</a></h2>
+<p>The bias potential can be applied to the system in two ways. Either by
+applying a harmonic potential centered at <span class="math notranslate nohighlight">\(\lambda(t)\)</span>, which is
+sampled using (rejection-free) Monte-Carlo sampling from the conditional
+distribution <span class="math notranslate nohighlight">\(\omega_n(\lambda | x(t)) = P_n(\lambda | x(t))\)</span>, see
+<a class="reference internal" href="awh.html#equation-eqawhomega">(344)</a>. This is also called Gibbs sampling or independence
+sampling. Alternatively, and by default in the code, the following
+<em>convolved bias potential</em> can be applied,</p>
+<div class="math-wrapper docutils container" id="equation-eqawhbiaspotential">
+<div class="math notranslate nohighlight" id="equation-eqawhbiaspotential">
+<span class="eqno">(349)<a class="headerlink" href="awh.html#equation-eqawhbiaspotential" title="Link to this equation">¶</a></span>\[U_n(\xi) = -\ln \int e^{ g_n(\lambda) -Q(\xi,\lambda)} d \lambda.\]</div>
+</div>
+<p>These two approaches are equivalent in the sense that they give rise to
+the same biased probabilities <span class="math notranslate nohighlight">\(P_n(x)\)</span>
+(cf. <a class="reference internal" href="awh.html#equation-eqawhpxlambda">(338)</a>) while the dynamics are clearly
+different in the two cases. This choice does not affect the internals of
+the AWH algorithm, only what force and potential AWH returns to the MD
+engine.</p>
+<p>Along a bias dimension directly controlling the
+<span class="math notranslate nohighlight">\(\lambda\)</span> state of the system, such as when controlling free energy
+perturbations, the Monte-Carlo sampling alternative is always used, even if
+a convolved bias potential is chosen to be used along the other dimensions
+(if there are more than one).</p>
+<figure class="align-default" id="id1">
+<span id="fig-awhbiasevolution1"></span><a class="reference internal image-reference" href="../../_images/awh-traj.png"><img alt="../../_images/awh-traj.png" src="../../_images/awh-traj.png" style="width: 8.0cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">AWH evolution in time for a Brownian particle in a double-well
+potential. The reaction coordinate <span class="math notranslate nohighlight">\(\xi(t)\)</span> traverses the sampling
+interval multiple times in the initial stage before exiting and entering
+the final stage. In the final stage, the dynamics of
+<span class="math notranslate nohighlight">\(\xi\)</span> becomes increasingly diffusive.</span><a class="headerlink" href="awh.html#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id2">
+<span id="fig-awhbiasevolution2"></span><a class="reference internal image-reference" href="../../_images/awh-invN.png"><img alt="../../_images/awh-invN.png" src="../../_images/awh-invN.png" style="width: 8.0cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 42 </span><span class="caption-text">In the final stage, the dynamics of
+<span class="math notranslate nohighlight">\(\xi\)</span> becomes increasingly diffusive. The times of covering are
+shown as <span class="math notranslate nohighlight">\(\times\)</span>-markers of different colors. At these times the
+free energy update size <span class="math notranslate nohighlight">\(\sim 1/N\)</span>, where <span class="math notranslate nohighlight">\(N\)</span> is the size of
+the weight histogram, is decreased by scaling <span class="math notranslate nohighlight">\(N\)</span> by a factor of
+<span class="math notranslate nohighlight">\(\gamma=3\)</span> (note that the default value of <span class="math notranslate nohighlight">\(\gamma\)</span>
+is 2 since GROMACS 2024).</span><a class="headerlink" href="awh.html#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id3">
+<span id="fig-awhbiasevolution3"></span><a class="reference internal image-reference" href="../../_images/awh-sampleweights.png"><img alt="../../_images/awh-sampleweights.png" src="../../_images/awh-sampleweights.png" style="width: 8.0cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 43 </span><span class="caption-text">In the final stage, <span class="math notranslate nohighlight">\(N\)</span> grows at the
+sampling rate and thus <span class="math notranslate nohighlight">\(1/N\sim1/t\)</span>. The exit from the final stage
+is determined on the fly by ensuring that the effective sample weight
+<span class="math notranslate nohighlight">\(s\)</span> of data collected in the final stage exceeds that of initial
+stage data (note that <span class="math notranslate nohighlight">\(\ln s(t)\)</span> is plotted).</span><a class="headerlink" href="awh.html#id3" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id4">
+<span id="fig-awhbiasevolution4"></span><a class="reference internal image-reference" href="../../_images/awh-pmfs.png"><img alt="../../_images/awh-pmfs.png" src="../../_images/awh-pmfs.png" style="width: 8.0cm;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 44 </span><span class="caption-text">An estimate of the PMF is also extracted from the simulation (bottom
+right), which after exiting the initial stage should estimate global
+free energy differences fairly accurately.</span><a class="headerlink" href="awh.html#id4" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="the-initial-stage">
+<span id="awhinitialstage"></span><h3>The initial stage<a class="headerlink" href="awh.html#the-initial-stage" title="Link to this heading">¶</a></h3>
+<p>Initially, when the bias potential is far from optimal, samples will be
+highly correlated. In such cases, letting <span class="math notranslate nohighlight">\(W(\lambda)\)</span> accumulate
+samples as prescribed by <a class="reference internal" href="awh.html#equation-eqawhwupdate">(346)</a>, entails
+a too rapid decay of the free energy update size. This motivates
+splitting the simulation into an <em>initial stage</em> where the weight
+histogram grows according to a more restrictive and robust protocol, and
+a <em>final stage</em> where the weight histogram grows linearly at the
+sampling rate (<a class="reference internal" href="awh.html#equation-eqawhwupdate">(346)</a>). The AWH initial
+stage takes inspiration from the well-known Wang-Landau algorithm <a class="reference internal" href="../references.html#refwang2001efficient"><span class="std std-ref">138</span></a>,
+although there are differences in the details.</p>
+<p>In the initial stage the update size is kept constant (by keeping
+<span class="math notranslate nohighlight">\(N_n\)</span> constant) until a transition across the sampling interval
+has been detected, a “covering”. For the definition of a covering, see
+<a class="reference internal" href="awh.html#equation-eqawhcovering">(350)</a> below. After a covering has
+occurred, <span class="math notranslate nohighlight">\(N_n\)</span> is scaled up by a constant “growth factor”
+<span class="math notranslate nohighlight">\(\gamma\)</span>, which by default has the value of 2. Thus, in the
+initial stage <span class="math notranslate nohighlight">\(N_n\)</span> is set dynamically as
+<span class="math notranslate nohighlight">\(N_{n} = \gamma^{m} N_0\)</span>, where <span class="math notranslate nohighlight">\(m\)</span> is the number of
+coverings. Since the update size scales as <span class="math notranslate nohighlight">\(1/N\)</span> (
+<a class="reference internal" href="awh.html#equation-eqawhdfsize">(347)</a>) this leads to a close to
+exponential decay of the update size in the initial stage, see
+<a class="reference internal" href="awh.html#fig-awhbiasevolution1"><span class="std std-numref">Fig. 41</span></a>.</p>
+<p>The update size directly determines the rate of change of
+<span class="math notranslate nohighlight">\(F_n(\lambda)\)</span> and hence, from
+<a class="reference internal" href="awh.html#equation-eqawhgrhofrelation">(342)</a>, also the rate of change of
+the bias funcion <span class="math notranslate nohighlight">\(g_n(\lambda)\)</span> Thus initially, when <span class="math notranslate nohighlight">\(N_n\)</span>
+is kept small and updates large, the system will be driven along the
+reaction coordinate by the constantly fluctuating bias. If <span class="math notranslate nohighlight">\(N_0\)</span>
+is set small enough, the first transition will typically be fast because
+of the large update size and will quickly give a first rough estimate of
+the free energy. The second transition, using <span class="math notranslate nohighlight">\(N_1=\gamma N_0\)</span>
+refines this estimate further. Thus, rather than very carefully filling
+free energy minima using a small initial update size, the sampling
+interval is sweeped back-and-forth multiple times, using a wide range of
+update sizes, see <a class="reference internal" href="awh.html#fig-awhbiasevolution1"><span class="std std-numref">Fig. 41</span></a>. This
+way, the initial stage also makes AWH robust against the choice of
+<span class="math notranslate nohighlight">\(N_0\)</span>.</p>
+</section>
+</section>
+<section id="the-covering-criterion">
+<h2>The covering criterion<a class="headerlink" href="awh.html#the-covering-criterion" title="Link to this heading">¶</a></h2>
+<p>In the general case of a multidimensional reaction coordinate
+<span class="math notranslate nohighlight">\(\lambda=(\lambda_{\mu})\)</span>, the sampling interval <span class="math notranslate nohighlight">\(I\)</span> is
+considered covered when all dimensions have been covered. A dimension
+<span class="math notranslate nohighlight">\(d\)</span> is covered if all points <span class="math notranslate nohighlight">\(\lambda_{\mu}\)</span> in the
+one-dimensional sampling interval <span class="math notranslate nohighlight">\(I_{\mu}\)</span> have been “visited”.
+Finally, a point <span class="math notranslate nohighlight">\(\lambda_{\mu} \in I_{\mu}\)</span> has been visited if there is
+at least one point <span class="math notranslate nohighlight">\(\lambda^*\in I\)</span> with
+<span class="math notranslate nohighlight">\(\lambda^*_{\mu} = \lambda_{\mu}\)</span> that since the last covering has
+accumulated probability weight corresponding to the peak of a
+multidimensional Gaussian distribution</p>
+<div class="math-wrapper docutils container" id="equation-eqawhcovering">
+<div class="math notranslate nohighlight" id="equation-eqawhcovering">
+<span class="eqno">(350)<a class="headerlink" href="awh.html#equation-eqawhcovering" title="Link to this equation">¶</a></span>\[\Delta W(\lambda^*)
+\ge w_{\mathrm{peak}}
+\equiv \prod_{\mu} \frac{\Delta \lambda_{\mu}}{\sqrt{2\pi}\sigma_k}.\]</div>
+</div>
+<p>Here, <span class="math notranslate nohighlight">\(\Delta \lambda_{\mu}\)</span> is the point spacing of the discretized
+<span class="math notranslate nohighlight">\(I_{\mu}\)</span> and <span class="math notranslate nohighlight">\(\sigma_k=1/\sqrt{\beta k_{\mu}}\)</span> (where <span class="math notranslate nohighlight">\(k_{\mu}\)</span>
+is the force constant) is the Gaussian width.</p>
+</section>
+<section id="exit-from-the-initial-stage">
+<h2>Exit from the initial stage<a class="headerlink" href="awh.html#exit-from-the-initial-stage" title="Link to this heading">¶</a></h2>
+<p>For longer times, when major free energy barriers have largely been
+flattened by the converging bias potential, the histogram
+<span class="math notranslate nohighlight">\(W(\lambda)\)</span> should grow at the actual sampling rate and the
+initial stage needs to be exited <a class="reference internal" href="../references.html#refbelardinelli2007fast"><span class="std std-ref">141</span></a>.
+There are multiple reasonable (heuristic) ways of determining when this
+transition should take place. One option is to postulate that the number
+of samples in the weight histogram <span class="math notranslate nohighlight">\(N_n\)</span> should never exceed the
+actual number of collected samples, and exit the initial stage when this
+condition breaks <a class="reference internal" href="../references.html#reflindahl2014accelerated"><span class="std std-ref">137</span></a>. In the initial stage,
+<span class="math notranslate nohighlight">\(N\)</span> grows close to exponentially while the collected number of
+samples grows linearly, so an exit will surely occur eventually. Here we
+instead apply an exit criterion based on the observation that
+“artificially” keeping <span class="math notranslate nohighlight">\(N\)</span> constant while continuing to collect
+samples corresponds to scaling down the relative weight of old samples
+relative to new ones. Similarly, the subsequent scaling up of <span class="math notranslate nohighlight">\(N\)</span>
+by a factor <span class="math notranslate nohighlight">\(\gamma\)</span> corresponds to scaling up the weight of old
+data. Briefly, the exit criterion is devised such that the weight of a
+sample collected <em>after</em> the initial stage is always larger or equal to
+the weight of a sample collected <em>during</em> the initial stage, see
+<a class="reference internal" href="awh.html#fig-awhbiasevolution1"><span class="std std-numref">Fig. 41</span></a>. This is consistent with
+scaling down early, noisy data.</p>
+<p>The initial stage exit criterion will now be described in detail. We
+start out at the beginning of a covering stage, so that <span class="math notranslate nohighlight">\(N\)</span> has
+just been scaled by <span class="math notranslate nohighlight">\(\gamma\)</span> and is now kept constant. Thus, the
+first sample of this stage has the weight <span class="math notranslate nohighlight">\(s= 1/\gamma\)</span> relative
+to the last sample of the previous covering stage. We assume that
+<span class="math notranslate nohighlight">\(\Delta N\)</span> samples are collected and added to <span class="math notranslate nohighlight">\(W\)</span> for each
+update . To keep <span class="math notranslate nohighlight">\(N\)</span> constant, <span class="math notranslate nohighlight">\(W\)</span> needs to be scaled down
+by a factor <span class="math notranslate nohighlight">\(N/(N + \Delta N)\)</span> after every update. Equivalently,
+this means that new data is scaled up relative to old data by the
+inverse factor. Thus, after <span class="math notranslate nohighlight">\(\Delta n\)</span> updates a new sample has
+the relative weight
+<span class="math notranslate nohighlight">\(s=(1/\gamma) [(N_n + \Delta N)/N_n]^{\Delta n}\)</span>. Now assume
+covering occurs at this time. To continue to the next covering stage,
+<span class="math notranslate nohighlight">\(N\)</span> should be scaled by <span class="math notranslate nohighlight">\(\gamma\)</span>, which corresponds to again
+multiplying <span class="math notranslate nohighlight">\(s\)</span> by <span class="math notranslate nohighlight">\(1/\gamma\)</span>. If at this point
+<span class="math notranslate nohighlight">\(s \ge \gamma\)</span>, then after rescaling <span class="math notranslate nohighlight">\(s \ge 1\)</span>; i.e. overall
+the relative weight of a new sample relative to an old sample is still
+growing fast. If on the contrary <span class="math notranslate nohighlight">\(s &lt; \gamma\)</span>, and this defines
+the exit from the initial stage, then the initial stage is over and from
+now <span class="math notranslate nohighlight">\(N\)</span> simply grows at the sampling rate (see
+<a class="reference internal" href="awh.html#equation-eqawhwupdate">(346)</a>). To really ensure that
+<span class="math notranslate nohighlight">\(s\ge 1\)</span> holds before exiting, so that samples after the exit have
+at least the sample weight of older samples, the last covering stage is
+extended by a sufficient number of updates.</p>
+<section id="choice-of-target-distribution">
+<span id="awhtargets"></span><h3>Choice of target distribution<a class="headerlink" href="awh.html#choice-of-target-distribution" title="Link to this heading">¶</a></h3>
+<p>The target distribution <span class="math notranslate nohighlight">\(\rho(\lambda)\)</span> is traditionally chosen to
+be uniform</p>
+<div class="math-wrapper docutils container" id="equation-eqnawhuniformdist">
+<div class="math notranslate nohighlight" id="equation-eqnawhuniformdist">
+<span class="eqno">(351)<a class="headerlink" href="awh.html#equation-eqnawhuniformdist" title="Link to this equation">¶</a></span>\[\rho_{\mathrm{const}}(\lambda) = \mathrm{const.}\]</div>
+</div>
+<p>This choice exactly flattens <span class="math notranslate nohighlight">\(F(\lambda)\)</span> in user-defined
+sampling interval <span class="math notranslate nohighlight">\(I\)</span>. Generally,
+<span class="math notranslate nohighlight">\(\rho(\lambda)=0, \lambda\notin I\)</span>. In certain cases other choices
+may be preferable. For instance, in the multidimensional case the
+rectangular sampling interval is likely to contain regions of very high
+free energy, e.g. where atoms are clashing. To exclude such regions,
+<span class="math notranslate nohighlight">\(\rho(\lambda)\)</span> can specified by the following function of the
+free energy</p>
+<div class="math-wrapper docutils container" id="equation-eqawhrhocut">
+<div class="math notranslate nohighlight" id="equation-eqawhrhocut">
+<span class="eqno">(352)<a class="headerlink" href="awh.html#equation-eqawhrhocut" title="Link to this equation">¶</a></span>\[\rho_{\mathrm{cut}}(\lambda) \propto \frac{1}{1+ e^{F(\lambda) - F_{\mathrm{cut}}}},\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(F_{\mathrm{cut}}\)</span> is a free energy cutoff (relative to
+<span class="math notranslate nohighlight">\(\min_\lambda F(\lambda)\)</span>). Thus, regions of the sampling interval
+where <span class="math notranslate nohighlight">\(F(\lambda) &gt; F_{\mathrm{cut}}\)</span> will be exponentially
+suppressed (in a smooth fashion). Alternatively, very high free energy
+regions could be avoided while still flattening more moderate free
+energy barriers by targeting a Boltzmann distribution corresponding to
+scaling <span class="math notranslate nohighlight">\(\beta=1/k_BT\)</span> by a factor <span class="math notranslate nohighlight">\(0&lt;s_\beta&lt;1\)</span>,</p>
+<div class="math-wrapper docutils container" id="equation-eqawhrhoboltz">
+<div class="math notranslate nohighlight" id="equation-eqawhrhoboltz">
+<span class="eqno">(353)<a class="headerlink" href="awh.html#equation-eqawhrhoboltz" title="Link to this equation">¶</a></span>\[\rho_{\mathrm{Boltz}}(\lambda) \propto e^{-s_\beta F(\lambda)},\]</div>
+</div>
+<p>The parameter <span class="math notranslate nohighlight">\(s_\beta\)</span> determines to what degree the free energy
+landscape is flattened; the lower <span class="math notranslate nohighlight">\(s_\beta\)</span>, the flatter. Note
+that both <span class="math notranslate nohighlight">\(\rho_{\mathrm{cut}}(\lambda)\)</span> and
+<span class="math notranslate nohighlight">\(\rho_{\mathrm{Boltz}}(\lambda)\)</span> depend on <span class="math notranslate nohighlight">\(F(\lambda)\)</span>,
+which needs to be substituted by the current best estimate
+<span class="math notranslate nohighlight">\(F_n(\lambda)\)</span>. Thus, the target distribution is also updated
+(consistently with <a class="reference internal" href="awh.html#equation-eqawhgrhofrelation">(342)</a>).</p>
+<p>There is in fact an alternative approach to obtaining
+<span class="math notranslate nohighlight">\(\rho_{\mathrm{Boltz}}(\lambda)\)</span> as the limiting target
+distribution in AWH, which is particular in the way the weight histogram
+<span class="math notranslate nohighlight">\(W(\lambda)\)</span> and the target distribution <span class="math notranslate nohighlight">\(\rho\)</span> are updated
+and coupled to each other. This yields an evolution of the bias
+potential which is very similar to that of well-tempered
+metadynamics <a class="reference internal" href="../references.html#refbarducci2008well"><span class="std std-ref">142</span></a>,
+see <a class="reference internal" href="../references.html#reflindahl2014accelerated"><span class="std std-ref">137</span></a> for details. Because of the popularity and
+success of well-tempered metadynamics, this is a special case worth
+considering. In this case <span class="math notranslate nohighlight">\(\rho\)</span> is a function of the reference
+weight histogram</p>
+<div class="math-wrapper docutils container" id="equation-eqnawhweighthistogram">
+<div class="math notranslate nohighlight" id="equation-eqnawhweighthistogram">
+<span class="eqno">(354)<a class="headerlink" href="awh.html#equation-eqnawhweighthistogram" title="Link to this equation">¶</a></span>\[\rho_{\mathrm{Boltz,loc}}(\lambda) \propto W(\lambda),\]</div>
+</div>
+<p>and the update of the weight histogram is modified (cf.
+<a class="reference internal" href="awh.html#equation-eqawhwupdate">(346)</a>)</p>
+<div class="math-wrapper docutils container" id="equation-eqnawhupdateweighthist">
+<div class="math notranslate nohighlight" id="equation-eqnawhupdateweighthist">
+<span class="eqno">(355)<a class="headerlink" href="awh.html#equation-eqnawhupdateweighthist" title="Link to this equation">¶</a></span>\[W_{n+1}(\lambda) =  W_{n}(\lambda) + s_{\beta}\sum_t \omega(\lambda | x(t)).\]</div>
+</div>
+<p>Thus, here the weight histogram equals the real history of samples, but
+scaled by <span class="math notranslate nohighlight">\(s_\beta\)</span>. This target distribution is called <em>local</em>
+Boltzmann since <span class="math notranslate nohighlight">\(W\)</span> is only modified locally, where sampling has
+taken place. We see that when <span class="math notranslate nohighlight">\(s_\beta \approx 0\)</span> the histogram
+essentially does not grow and the size of the free energy update will
+stay at a constant value (as in the original formulation of
+metadynamics). Thus, the free energy estimate will not converge, but
+continue to fluctuate around the correct value. This illustrates the
+inherent coupling between the convergence and choice of target
+distribution for this special choice of target. Furthermore note that
+when using <span class="math notranslate nohighlight">\(\rho=\rho_{\mathrm{Boltz,loc}}\)</span> there is no initial
+stage (section <a class="reference internal" href="awh.html#awhinitialstage"><span class="std std-ref">The initial stage</span></a>). The rescaling of the weight
+histogram applied in the initial stage is a global operation, which is
+incompatible <span class="math notranslate nohighlight">\(\rho_{\mathrm{Boltz,loc}}\)</span> only depending locally on
+the sampling history.</p>
+<p>The target distribution can also be modulated by arbitrary
+probability weights</p>
+<div class="math-wrapper docutils container" id="equation-eqnawhpropweigth">
+<div class="math notranslate nohighlight" id="equation-eqnawhpropweigth">
+<span class="eqno">(356)<a class="headerlink" href="awh.html#equation-eqnawhpropweigth" title="Link to this equation">¶</a></span>\[\rho(\lambda) = \rho_0(\lambda) w_{\mathrm{user}}(\lambda).\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(w_{\mathrm{user}}(\lambda)\)</span> is provided by user data and
+in principle <span class="math notranslate nohighlight">\(\rho_0(\lambda)\)</span> can be any of the target
+distributions mentioned above.</p>
+<p>Lastly, it is possible to automatically scale the target distribution
+(<span class="math notranslate nohighlight">\(\rho_0(\lambda)\)</span>) based on the AWH friction metric (see
+section <a class="reference internal" href="awh.html#awhfriction"><span class="std std-ref">The friction metric</span></a>). This implies scaling the target
+distribution by the square root of the friction metric
+(see <a class="reference internal" href="awh.html#equation-eqawhsqrtmetric">(361)</a>),</p>
+<div class="math-wrapper docutils container" id="equation-eqnawhmetricopt">
+<div class="math notranslate nohighlight" id="equation-eqnawhmetricopt">
+<span class="eqno">(357)<a class="headerlink" href="awh.html#equation-eqnawhmetricopt" title="Link to this equation">¶</a></span>\[\rho(\lambda) = \rho_0(\lambda) w_{\mathrm{user}}(\lambda) \sqrt{\det\eta_{\mu\nu}(\lambda)},\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(w_{\mathrm{user}}(\lambda)\)</span> can be uniform and
+sqrt{deteta_{munu}(lambda)} is the square root of the friction metric.
+This scaling of the target distribution, increasing the
+relative sampling of regions with slower diffusion, should generally lower the
+statistical error of the estimated free energy landscape.</p>
+<p>This modification is only applied after leaving the initial stage
+(section <a class="reference internal" href="awh.html#awhinitialstage"><span class="std std-ref">The initial stage</span></a>), if applicable, and is performed when updating
+the target distribution, typically when also updating the free energy. The scaling
+is based on the relative difference of the local friction metric compared to the
+average friction metric (of points that have a non-zero friction metric).</p>
+<p>If any histograms have not been sampled enough to have a friction metric they
+will be scaled by the average friction metric, i.e., practically unscaled.
+Insufficient sampling can result in a too low, but still non-zero, friction metric.
+To address that, the scaling down of the target distribution (relative scaling &lt; 1)
+is based on the local sampling of each point, so that the target distribution of
+points that have not been sampled much yet will be almost unaffected.
+Furthermore, the scaling can be limited by a maximum scaling factor
+(<a class="reference internal" href="../../user-guide/mdp-options.html#mdp-awh1-target-metric-scaling-limit"><code class="xref std std-mdp docutils literal notranslate"><span class="pre">awh1-target-metric-scaling-limit</span></code></a>). The lower limit
+of the scaling is the inverse of the maximum scaling factor.</p>
+<p>More information about this scaling can be found in <a class="reference internal" href="../references.html#reflundborg2023"><span class="std std-ref">194</span></a>.</p>
+<p>Scaling the target distribution based on the friction metric
+can be combined with Boltzmann or Local-Boltzmann target distributions.
+However, this is generally not recommended, due to the risk of feedback loops
+between the two adaptive update mechanisms.</p>
+</section>
+<section id="multiple-independent-or-sharing-biases">
+<h3>Multiple independent or sharing biases<a class="headerlink" href="awh.html#multiple-independent-or-sharing-biases" title="Link to this heading">¶</a></h3>
+<p>Multiple independent bias potentials may be applied within one
+simulation. This only makes sense if the biased coordinates
+<span class="math notranslate nohighlight">\(\xi^{(1)}\)</span>, <span class="math notranslate nohighlight">\(\xi^{(2)}\)</span>, <span class="math notranslate nohighlight">\(\ldots\)</span> evolve essentially
+independently from one another. A typical example of this would be when
+applying an independent bias to each monomer of a protein. Furthermore,
+multiple AWH simulations can be launched in parallel, each with a (set
+of) independent biases.</p>
+<p>If the defined sampling interval is large relative to the diffusion time
+of the reaction coordinate, traversing the sampling interval multiple
+times as is required by the initial stage
+(section <a class="reference internal" href="awh.html#awhinitialstage"><span class="std std-ref">The initial stage</span></a>) may take an infeasible mount of
+simulation time. In these cases it could be advantageous to parallelize
+the work and have a group of multiple “walkers” <span class="math notranslate nohighlight">\(\xi^{(i)}(t)\)</span>
+share a single bias potential. This can be achieved by collecting
+samples from all <span class="math notranslate nohighlight">\(\xi^{(i)}\)</span> of the same sharing group into a
+single histogram and update a common free energy estimate. Samples can
+be shared between walkers within the simulation and/or between multiple
+simulations. However, currently only sharing between simulations is
+supported in the code while all biases within a simulation are
+independent.</p>
+<p>Note that when attempting to shorten the simulation time by using
+bias-sharing walkers, care must be taken to ensure the simulations are
+still long enough to properly explore and equilibrate all regions of the
+sampling interval. To begin, the walkers in a group should be
+decorrelated and distributed approximately according to the target
+distribution before starting to refine the free energy. This can be
+achieved e.g. by “equilibrating” the shared weight histogram before
+letting it grow; for instance, <span class="math notranslate nohighlight">\(W(\lambda)/N\approx \rho(\lambda)\)</span>
+with some tolerance. Such a check is turned on by default
+(mdp parameter <a class="reference internal" href="../../user-guide/mdp-options.html#mdp-awh1-equilibrate-histogram"><code class="xref std std-mdp docutils literal notranslate"><span class="pre">awh1-equilibrate-histogram</span></code></a>). The tolerance is set
+by <a class="reference internal" href="../../user-guide/mdp-options.html#mdp-awh1-histogram-tolerance"><code class="xref std std-mdp docutils literal notranslate"><span class="pre">awh1-histogram-tolerance</span></code></a>, the default value of 0.3 is expected
+to work well in all cases, both with single and multiple walkers.</p>
+<p>Furthermore, the “covering” or transition criterion of the initial stage
+should to be generalized to detect when the sampling interval has been
+collectively traversed. One alternative is to just use the same
+criterion as for a single walker (but now with more samples), see
+<a class="reference internal" href="awh.html#equation-eqawhcovering">(350)</a>. However, in contrast to the
+single walker case this does not ensure that any real transitions across
+the sampling interval has taken place; in principle all walkers could be
+sampling only very locally and still cover the whole interval. Just as
+with a standard umbrella sampling procedure, the free energy may appear
+to be converged while in reality simulations sampling closeby
+<span class="math notranslate nohighlight">\(\lambda\)</span> values are sampling disconnected regions of phase space.
+A stricter criterion, which helps avoid such issues, is to require that
+before a simulation marks a point <span class="math notranslate nohighlight">\(\lambda_{\mu}\)</span> along dimension
+<span class="math notranslate nohighlight">\(\mu\)</span> as visited, and shares this with the other walkers, also all
+points within a certain diameter <span class="math notranslate nohighlight">\(D_{\mathrm{cover}}\)</span> should have
+been visited (i.e. fulfill <a class="reference internal" href="awh.html#equation-eqawhcovering">(350)</a>).
+Increasing <span class="math notranslate nohighlight">\(D_{\mathrm{cover}}\)</span> increases robustness, but may slow
+down convergence. For the maximum value of <span class="math notranslate nohighlight">\(D_{\mathrm{cover}}\)</span>,
+equal to the length of the sampling interval, the sampling interval is
+considered covered when at least one walker has independently traversed
+the sampling interval.</p>
+<p>In practice biases are shared by setting <a class="reference internal" href="../../user-guide/mdp-options.html#mdp-awh-share-multisim"><code class="xref std std-mdp docutils literal notranslate"><span class="pre">awh-share-multisim</span></code></a> to true
+and <a class="reference internal" href="../../user-guide/mdp-options.html#mdp-awh1-share-group"><code class="xref std std-mdp docutils literal notranslate"><span class="pre">awh1-share-group</span></code></a> (for bias 1) to a non-zero value. Here, bias 1
+will be shared between simulations that have the same share group value.
+Sharing can be different for bias 1, 2, etc. (although there are
+few use cases where this is useful). Technically there are no restrictions
+on sharing, apart from that biases that are shared need to have the same
+number of grid points and the update intervals should match.
+Note that biases can not be shared within a simulation.
+The latter could be useful, especially for multimeric proteins, but this
+is more difficult to implement.</p>
+</section>
+<section id="reweighting-and-combining-biased-data">
+<span id="awhreweight"></span><h3>Reweighting and combining biased data<a class="headerlink" href="awh.html#reweighting-and-combining-biased-data" title="Link to this heading">¶</a></h3>
+<p>Often one may want to, post-simulation, calculate the unbiased PMF
+<span class="math notranslate nohighlight">\(\Phi(u)\)</span> of another variable <span class="math notranslate nohighlight">\(u(x)\)</span>. <span class="math notranslate nohighlight">\(\Phi(u)\)</span> can be
+estimated using <span class="math notranslate nohighlight">\(\xi\)</span>-biased data by reweighting (“unbiasing”) the
+trajectory using the bias potential <span class="math notranslate nohighlight">\(U_{n(t)}\)</span>, see
+<a class="reference internal" href="awh.html#equation-eqawhbiaspotential">(349)</a>. Essentially, one bins the
+biased data along <span class="math notranslate nohighlight">\(u\)</span> and removes the effect of <span class="math notranslate nohighlight">\(U_{n(t)}\)</span>
+by dividing the weight of samples <span class="math notranslate nohighlight">\(u(t)\)</span> by
+<span class="math notranslate nohighlight">\(e^{-U_{n(t)}(\xi(t))}\)</span>,</p>
+<div class="math-wrapper docutils container" id="equation-eqawhunbias">
+<div class="math notranslate nohighlight" id="equation-eqawhunbias">
+<span class="eqno">(358)<a class="headerlink" href="awh.html#equation-eqawhunbias" title="Link to this equation">¶</a></span>\[\hat{\Phi}(u)  = -\ln
+\sum_t 1_u(u(t))e^{U_{n(t)}(\xi(t)} \mathcal{Z}_{n(t)}.\]</div>
+</div>
+<p>Here the indicator function <span class="math notranslate nohighlight">\(1_u\)</span> denotes the binning procedure:
+<span class="math notranslate nohighlight">\(1_u(u') = 1\)</span> if <span class="math notranslate nohighlight">\(u'\)</span> falls into the bin labeled by
+<span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(0\)</span> otherwise. The normalization factor
+<span class="math notranslate nohighlight">\(\mathcal{Z}_n = \int e^{-\Phi(\xi) - U_{n}(\xi)}d \xi\)</span> is the
+partition function of the extended ensemble. As can be seen
+<span class="math notranslate nohighlight">\(\mathcal{Z}_n\)</span> depends on <span class="math notranslate nohighlight">\(\Phi(\xi)\)</span>, the PMF of the
+(biased) reaction coordinate <span class="math notranslate nohighlight">\(\xi\)</span> (which is calculated and
+written to file by the AWH simulation). It is advisable to use only
+final stage data in the reweighting procedure due to the rapid change of
+the bias potential during the initial stage. If one would include
+initial stage data, one should use the sample weights that are inferred
+by the repeated rescaling of the histogram in the initial stage, for the
+sake of consistency. Initial stage samples would then in any case be
+heavily scaled down relative to final stage samples. Note that
+<a class="reference internal" href="awh.html#equation-eqawhunbias">(358)</a> can also be used to combine data
+from multiple simulations (by adding another sum also over the
+trajectory set). Furthermore, when multiple independent AWH biases have
+generated a set of PMF estimates <span class="math notranslate nohighlight">\(\{\hat{\Phi}^{(i)}(\xi)\}\)</span>, a
+combined best estimate <span class="math notranslate nohighlight">\(\hat{\Phi}(\xi)\)</span> can be obtained by
+applying self-consistent exponential averaging. More details on this
+procedure and a derivation of <a class="reference internal" href="awh.html#equation-eqawhunbias">(358)</a>
+(using slightly different notation) can be found in <a class="reference internal" href="../references.html#reflindahl2017sequence"><span class="std std-ref">143</span></a>.</p>
+</section>
+<section id="the-friction-metric">
+<span id="awhfriction"></span><h3>The friction metric<a class="headerlink" href="awh.html#the-friction-metric" title="Link to this heading">¶</a></h3>
+<p>During the AWH simulation, the following time-integrated force
+correlation function is calculated,</p>
+<div class="math-wrapper docutils container" id="equation-eqawhmetric">
+<div class="math notranslate nohighlight" id="equation-eqawhmetric">
+<span class="eqno">(359)<a class="headerlink" href="awh.html#equation-eqawhmetric" title="Link to this equation">¶</a></span>\[\eta_{\mu\nu}(\lambda) =
+\beta
+\int_0^\infty
+\frac{
+\left&lt;{\delta \mathcal{F}_{\mu}(x(t),\lambda)
+\delta \mathcal{F}_\nu(x(0),\lambda)
+\omega(\lambda|x(t)) \omega(\lambda|x(0))}\right&gt;}
+{\left&lt;{\omega^2(\lambda | x)}\right&gt;}
+dt.\]</div>
+</div>
+<p>Here
+<span class="math notranslate nohighlight">\(\mathcal F_\mu(x,\lambda) = k_\mu (\xi_\mu(x) - \lambda_\mu)\)</span> is
+the force along dimension <span class="math notranslate nohighlight">\(\mu\)</span> from an harmonic potential
+centered at <span class="math notranslate nohighlight">\(\lambda\)</span> and
+<span class="math notranslate nohighlight">\(\delta \mathcal F_{\mu}(x,\lambda) = \mathcal F_{\mu}(x,\lambda) - \left&lt;{\mathcal F_\mu(x,\lambda)}\right&gt;\)</span>
+is the deviation of the force. The factors <span class="math notranslate nohighlight">\(\omega(\lambda|x(t))\)</span>,
+see <a class="reference internal" href="awh.html#equation-eqawhomega">(344)</a>, reweight the samples.
+<span class="math notranslate nohighlight">\(\eta_{\mu\nu}(\lambda)\)</span> is a friction
+tensor <a class="reference internal" href="../references.html#reflindahl2018"><span class="std std-ref">186</span></a> and <a class="reference internal" href="../references.html#refsivak2012thermodynamic"><span class="std std-ref">144</span></a>.
+The diffusion matrix, on the flattened landscape, is equal to <span class="math notranslate nohighlight">\(k_B T\)</span> times
+the inverse of the friction metrix tensor:</p>
+<div class="math-wrapper docutils container" id="equation-eqawhdiffusionmatrix">
+<div class="math notranslate nohighlight" id="equation-eqawhdiffusionmatrix">
+<span class="eqno">(360)<a class="headerlink" href="awh.html#equation-eqawhdiffusionmatrix" title="Link to this equation">¶</a></span>\[\mathbf{D}(\lambda) = k_B T \mathbf{\eta}^{-1}(\lambda).\]</div>
+</div>
+<p>A measure of sampling (in)efficiency at each
+<span class="math notranslate nohighlight">\(\lambda\)</span> is given by</p>
+<div class="math-wrapper docutils container" id="equation-eqawhsqrtmetric">
+<div class="math notranslate nohighlight" id="equation-eqawhsqrtmetric">
+<span class="eqno">(361)<a class="headerlink" href="awh.html#equation-eqawhsqrtmetric" title="Link to this equation">¶</a></span>\[\eta^{\frac{1}{2}}(\lambda) = \sqrt{\det\eta_{\mu\nu}(\lambda)}.\]</div>
+</div>
+<p>A large value of <span class="math notranslate nohighlight">\(\eta^{\frac{1}{2}}(\lambda)\)</span> indicates slow
+dynamics and long correlation times, which may require more sampling.</p>
+</section>
+<section id="limitations">
+<span id="awhusage"></span><h3>Limitations<a class="headerlink" href="awh.html#limitations" title="Link to this heading">¶</a></h3>
+<p>The only real limitation of the AWH implementation, apart from the not uncommon
+practical issue that the method might not converge sufficiently fast, is a limit
+on the maximum free energy difference. This limit is set to <span class="math notranslate nohighlight">\(700 k_B T\)</span>, because
+<span class="math notranslate nohighlight">\(e^{700}\)</span> is close to the maximum value that can be accurately represented by
+a double-precision floating-point value. For physical reaction coordinates, this
+is not a limit in practice. This does limit the range of applications for
+alchemical coordinates. For instance, hydration free-energies of divalent
+cations with a pair of monovalent anions can exceed this limit. The limit can
+also be exceeded when decoupling large molecules from solvent, but this often
+coincides with the limit where the sampling becomes problematic.</p>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="awh.html#usage" title="Link to this heading">¶</a></h3>
+<p>AWH stores data in the energy file (<a class="reference internal" href="../file-formats.html#edr"><span class="std std-ref">edr</span></a>) with a frequency set by the
+user. The data – the PMF, the convolved bias, distributions of the
+<span class="math notranslate nohighlight">\(\lambda\)</span> and <span class="math notranslate nohighlight">\(\xi\)</span> coordinates, etc. – can be extracted
+after the simulation using the <a class="reference internal" href="../../onlinehelp/gmx-awh.html#gmx-awh"><span class="std std-ref">gmx awh</span></a> tool. Furthermore, the trajectory
+of the reaction coordinate <span class="math notranslate nohighlight">\(\xi(t)\)</span> is printed to the pull output
+file <span class="math notranslate nohighlight">\({\tt pullx.xvg}\)</span>. The log file (<a class="reference internal" href="../file-formats.html#log"><span class="std std-ref">log</span></a>) also contains
+information; check for messages starting with “awh”, they will tell you
+about covering and potential sampling issues.</p>
+</section>
+</section>
+<section id="setting-the-initial-update-size">
+<h2>Setting the initial update size<a class="headerlink" href="awh.html#setting-the-initial-update-size" title="Link to this heading">¶</a></h2>
+<p>The initial value of the weight histogram size <span class="math notranslate nohighlight">\(N\)</span> sets the
+initial update size (and the rate of change of the bias). When <span class="math notranslate nohighlight">\(N\)</span>
+is kept constant, like in the initial stage, the average variance of the
+free energy scales as <span class="math notranslate nohighlight">\(\varepsilon^2 \sim 1/(ND)\)</span>
+<a class="reference internal" href="../references.html#reflindahl2014accelerated"><span class="std std-ref">137</span></a>, for a simple model system with constant diffusion
+<span class="math notranslate nohighlight">\(D\)</span> along the reaction coordinate. This provides a ballpark
+estimate used by AWH to initialize <span class="math notranslate nohighlight">\(N\)</span> in terms of more meaningful
+quantities</p>
+<div class="math-wrapper docutils container" id="equation-eqawhn0">
+<div class="math notranslate nohighlight" id="equation-eqawhn0">
+<span class="eqno">(362)<a class="headerlink" href="awh.html#equation-eqawhn0" title="Link to this equation">¶</a></span>\[\frac{1}{N_0} = \frac{1}{N_0(\varepsilon_0, D)} = \Delta
+t_\mathrm{sample} \max_d \frac{2D_d}{L_d^2} \varepsilon_0^2\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(L_d\)</span> is the length of the interval and <span class="math notranslate nohighlight">\(D_d\)</span> is
+the diffusion constant along dimension <span class="math notranslate nohighlight">\(d\)</span> of the AWH bias.
+For one dimension, <span class="math notranslate nohighlight">\(L^2/2D\)</span> is the average time to diffuse
+over a distance of <span class="math notranslate nohighlight">\(L\)</span>. We then takes the maximum crossing
+time over all dimensions involved in the bias.
+Essentially, this formula tells us that a slower system (small <span class="math notranslate nohighlight">\(D\)</span>)
+requires more samples (larger <span class="math notranslate nohighlight">\(N^0\)</span>) to attain the same level of
+accuracy (<span class="math notranslate nohighlight">\(\varepsilon_0\)</span>) at a given sampling rate. Conversely,
+for a system of given diffusion, how to choose the initial biasing rate
+depends on how good the initial accuracy is. Both the initial error
+<span class="math notranslate nohighlight">\(\varepsilon_0\)</span> and the diffusion <span class="math notranslate nohighlight">\(D\)</span> only need to be
+roughly estimated or guessed. In the typical case, one would only tweak
+the <span class="math notranslate nohighlight">\(D\)</span> parameter, and use a default value for
+<span class="math notranslate nohighlight">\(\varepsilon_0\)</span>. For good convergence, <span class="math notranslate nohighlight">\(D\)</span> should be chosen
+as large as possible (while maintaining a stable system) giving large
+initial bias updates and fast initial transitions. Choosing <span class="math notranslate nohighlight">\(D\)</span>
+too small can lead to slow initial convergence. It may be a good idea to
+run a short trial simulation and after the first covering check the
+maximum free energy difference of the PMF estimate. If this is much
+larger than the expected magnitude of the free energy barriers that
+should be crossed, then the system is probably being pulled too hard and
+<span class="math notranslate nohighlight">\(D\)</span> should be decreased. An accurate estimate of the diffusion
+can be obtained from an AWH simulation with the <a class="reference internal" href="../../onlinehelp/gmx-awh.html#gmx-awh"><span class="std std-ref">gmx awh</span></a> tool.
+<span class="math notranslate nohighlight">\(\varepsilon_0\)</span> on the other hand, should be a rough estimate
+of the initial error.</p>
+</section>
+<section id="estimating-errors">
+<h2>Estimating errors<a class="headerlink" href="awh.html#estimating-errors" title="Link to this heading">¶</a></h2>
+<p>As with any adaptive method, estimating errors for AWH is difficult from
+data of a single simulation only. We are looking into methods to do this.
+For now, the only safe way to estimate errors is to run multiple completely
+independent simulations and compute a standard error estimate.
+Note that for the simulations to be really independent, they should start
+from different, equilibrated states along the reaction coordinate(s).
+In practice, this is often difficult to achieve, in particular in the common
+case that you only know the starting state along the reaction coordinate.
+The exit from the initial phase of AWH is designed such that, in most cases,
+such systematic errors are as small as the noise when exiting the initial phase,
+but it cannot be excluded that some effects are still present.</p>
+</section>
+<section id="tips-for-efficient-sampling">
+<h2>Tips for efficient sampling<a class="headerlink" href="awh.html#tips-for-efficient-sampling" title="Link to this heading">¶</a></h2>
+<p>The force constant <span class="math notranslate nohighlight">\(k\)</span> should be larger than the curvature of the
+PMF landscape. If this is not the case, the distributions of the
+reaction coordinate <span class="math notranslate nohighlight">\(\xi\)</span> and the reference coordinate
+<span class="math notranslate nohighlight">\(\lambda\)</span>, will differ significantly and warnings will be printed
+in the log file. One can choose <span class="math notranslate nohighlight">\(k\)</span> as large as the time step
+supports. This will necessarily increase the number of points of the
+discretized sampling interval <span class="math notranslate nohighlight">\(I\)</span>. In general however, it should
+not affect the performance of the simulation noticeably because the AWH
+update is implemented such that only sampled points are accessed at free
+energy update time.</p>
+<p>For an alchemical free-energy dimension, AWH accesses all
+<span class="math notranslate nohighlight">\(\lambda\)</span> points at every sampling step. Because the number of
+<span class="math notranslate nohighlight">\(\lambda\)</span> points is usually far below 100, there is no significant
+cost to this in the AWH method itself. However, foreign energy differences
+need to be computed for every <span class="math notranslate nohighlight">\(\lambda\)</span> value used, which can
+become somewhat costly.</p>
+<p>As with any method, the choice of reaction coordinate(s) is critical. If
+a single reaction coordinate does not suffice, identifying a second
+reaction coordinate and sampling the two-dimensional landscape may help.
+In this case, using a target distribution with a free energy cutoff (see
+<a class="reference internal" href="awh.html#equation-eqawhrhocut">(352)</a>) might be required to avoid
+sampling uninteresting regions of very high free energy. Obtaining
+accurate free energies for reaction coordinates of much higher
+dimensionality than 3 or possibly 4 is generally not feasible.</p>
+<p>Monitoring the transition rate of <span class="math notranslate nohighlight">\(\xi(t)\)</span>, across the sampling
+interval is also advisable. For reliable statistics (e.g. when
+reweighting the trajectory as described in section <a class="reference internal" href="awh.html#awhreweight"><span class="std std-ref">Reweighting and combining biased data</span></a>),
+one would generally want to observe at least a few transitions after
+having exited the initial stage. Furthermore, if the dynamics of the
+reaction coordinate suddenly changes, this may be a sign of e.g. a
+reaction coordinate problem.</p>
+<p>Difficult regions of sampling may also be detected by calculating the
+friction tensor <span class="math notranslate nohighlight">\(\eta_{\mu\nu}(\lambda)\)</span> in the sampling interval,
+see section <a class="reference internal" href="awh.html#awhfriction"><span class="std std-ref">The friction metric</span></a>. <span class="math notranslate nohighlight">\(\eta_{\mu\nu}(\lambda)\)</span> as well
+as the sampling efficiency measure <span class="math notranslate nohighlight">\(\eta^{\frac{1}{2}}(\lambda)\)</span>
+(<a class="reference internal" href="awh.html#equation-eqawhsqrtmetric">(361)</a>) are written to the energy file and can be
+extracted with <a class="reference internal" href="../../onlinehelp/gmx-awh.html#gmx-awh"><span class="std std-ref">gmx awh</span></a>. A high peak in
+<span class="math notranslate nohighlight">\(\eta^{\frac{1}{2}}(\lambda)\)</span> indicates that this region requires
+longer time to sample properly.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="enforced-rotation.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Enforced Rotation</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="pulling.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Non-equilibrium pulling</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, GROMACS development team
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="awh.html#">Adaptive biasing with AWH</a><ul>
+<li><a class="reference internal" href="awh.html#basics-of-the-method">Basics of the method</a></li>
+<li><a class="reference internal" href="awh.html#the-free-energy-update">The free energy update</a></li>
+<li><a class="reference internal" href="awh.html#applying-the-bias-to-the-system">Applying the bias to the system</a><ul>
+<li><a class="reference internal" href="awh.html#the-initial-stage">The initial stage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="awh.html#the-covering-criterion">The covering criterion</a></li>
+<li><a class="reference internal" href="awh.html#exit-from-the-initial-stage">Exit from the initial stage</a><ul>
+<li><a class="reference internal" href="awh.html#choice-of-target-distribution">Choice of target distribution</a></li>
+<li><a class="reference internal" href="awh.html#multiple-independent-or-sharing-biases">Multiple independent or sharing biases</a></li>
+<li><a class="reference internal" href="awh.html#reweighting-and-combining-biased-data">Reweighting and combining biased data</a></li>
+<li><a class="reference internal" href="awh.html#the-friction-metric">The friction metric</a></li>
+<li><a class="reference internal" href="awh.html#limitations">Limitations</a></li>
+<li><a class="reference internal" href="awh.html#usage">Usage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="awh.html#setting-the-initial-update-size">Setting the initial update size</a></li>
+<li><a class="reference internal" href="awh.html#estimating-errors">Estimating errors</a></li>
+<li><a class="reference internal" href="awh.html#tips-for-efficient-sampling">Tips for efficient sampling</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js%3Fv=602b4562"></script>
+    <script src="../../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js%3Fv=5fa4622c"></script>
+    <script src="../../_static/clipboard.min.js%3Fv=a7894cd8"></script>
+    <script src="../../_static/copybutton.js%3Fv=f281be69"></script>
+    <script src="../../_static/tabs.js%3Fv=3ee01567"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

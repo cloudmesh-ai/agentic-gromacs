@@ -1,0 +1,6 @@
+fastmcp
+sentence-transformers
+faiss-cpu
+pypdf
+numpy
+requests

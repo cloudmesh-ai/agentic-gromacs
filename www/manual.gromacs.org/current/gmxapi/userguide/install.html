@@ -1,0 +1,1595 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Using the Python package" href="usage.html" /><link rel="prev" title="gmxapi Python package" href="../index.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>Full installation instructions - GROMACS 2026.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css%3Fv=354aac6f.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css%3Fv=fd3f3429.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css%3Fv=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css%3Fv=4c969af8.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css%3Fv=302659d7.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="install.html#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">GROMACS 2026.4 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/gmx_logo_blue.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../download.html">Downloads</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../release-notes/index.html">Release notes</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Release notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.4.html">GROMACS 2026.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.3.html">GROMACS 2026.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.2.html">GROMACS 2026.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/2026.1.html">GROMACS 2026.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2026/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.5.html">GROMACS 2025.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.4.html">GROMACS 2025.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.3.html">GROMACS 2025.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.2.html">GROMACS 2025.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/2025.1.html">GROMACS 2025.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2025/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.7.html">GROMACS 2024.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.6.html">GROMACS 2024.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.5.html">GROMACS 2024.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.4.html">GROMACS 2024.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.3.html">GROMACS 2024.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.2.html">GROMACS 2024.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/2024.1.html">GROMACS 2024.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2024/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.5.html">GROMACS 2023.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.4.html">GROMACS 2023.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.3.html">GROMACS 2023.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.2.html">GROMACS 2023.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/2023.1.html">GROMACS 2023.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2023/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.6.html">GROMACS 2022.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.5.html">GROMACS 2022.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.4.html">GROMACS 2022.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.3.html">GROMACS 2022.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.2.html">GROMACS 2022.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/2022.1.html">GROMACS 2022.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/api.html">Changes to the API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2022/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.7.html">GROMACS 2021.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.6.html">GROMACS 2021.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.5.html">GROMACS 2021.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.4.html">GROMACS 2021.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.3.html">GROMACS 2021.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.2.html">GROMACS 2021.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/2021.1.html">GROMACS 2021.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2021/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.7.html">GROMACS 2020.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.6.html">GROMACS 2020.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.5.html">GROMACS 2020.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.4.html">GROMACS 2020.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.3.html">GROMACS 2020.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.2.html">GROMACS 2020.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/2020.1.html">GROMACS 2020.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2020/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.6.html">GROMACS 2019.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.5.html">GROMACS 2019.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.4.html">GROMACS 2019.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.3.html">GROMACS 2019.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.2.html">GROMACS 2019.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/2019.1.html">GROMACS 2019.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/deprecated-functionality.html">Deprecated functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/removed-functionality.html">Removed functionality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2019/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.7.html">GROMACS 2018.7 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.6.html">GROMACS 2018.6 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.5.html">GROMACS 2018.5 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.4.html">GROMACS 2018.4 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.3.html">GROMACS 2018.3 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.2.html">GROMACS 2018.2 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/2018.1.html">GROMACS 2018.1 release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/removed-features.html">Removed features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/portability.html">Portability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2018/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.5.html">GROMACS 2016.5 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.4.html">GROMACS 2016.4 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.3.html">GROMACS 2016.3 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.2.html">GROMACS 2016.2 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/2016.1.html">GROMACS 2016.1 Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/highlights.html">Highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/new-features.html">New and improved features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#gpu-improvements">GPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#cpu-improvements">CPU improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#threading-improvements">Threading improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/performance.html#other-improvements">Other improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/tools.html">Improvements to GROMACS tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/bugs-fixed.html">Bugs fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/bugs-fixed.html#fixes-for-bugs-introduced-during-development">Fixes for bugs introduced during development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/removed-features.html">Removed mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/2016/major/miscellaneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../release-notes/older/index.html">Release notes for older GROMACS versions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../install-guide/index.html">Installation guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Installation guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../install-guide/exotic.html">Installation guide for exotic configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../user-guide/index.html">User guide</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of User guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/known-issues.html">Known issues affecting users of GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/getting-started.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user-guide/flow.html">Flow Chart</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/system-preparation.html">System preparation</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of System preparation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/managing-simulations.html">Managing long simulations</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/faq.html">Answers to frequently asked questions (FAQs)</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Answers to frequently asked questions (FAQs)</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/force-fields.html">Force fields in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdp-options.html">Molecular dynamics parameters (.mdp options)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdrun-features.html">Useful mdrun features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/mdrun-performance.html">Getting good performance from <span class="xref std std-ref">mdrun</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/run-time-errors.html">Common errors when using GROMACS</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user-guide/cmdline.html">Command-line reference</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of Command-line reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx.html">molecular dynamics simulation suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-anaeig.html">gmx anaeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-analyze.html">gmx analyze</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-angle.html">gmx angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-awh.html">gmx awh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-bar.html">gmx bar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-bundle.html">gmx bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-check.html">gmx check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-chi.html">gmx chi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-cluster.html">gmx cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-clustsize.html">gmx clustsize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-confrms.html">gmx confrms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-convert-tpr.html">gmx convert-tpr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-convert-trj.html">gmx convert-trj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-covar.html">gmx covar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-current.html">gmx current</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-density.html">gmx density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-densmap.html">gmx densmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-densorder.html">gmx densorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dielectric.html">gmx dielectric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dipoles.html">gmx dipoles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-disre.html">gmx disre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-distance.html">gmx distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dos.html">gmx dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dssp.html">gmx dssp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dump.html">gmx dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-dyecoupl.html">gmx dyecoupl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-editconf.html">gmx editconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-eneconv.html">gmx eneconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-enemat.html">gmx enemat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-energy.html">gmx energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-extract-cluster.html">gmx extract-cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-filter.html">gmx filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-freevolume.html">gmx freevolume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gangle.html">gmx gangle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genconf.html">gmx genconf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genion.html">gmx genion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-genrestr.html">gmx genrestr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-grompp.html">gmx grompp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gyrate.html">gmx gyrate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-gyrate-legacy.html">gmx gyrate-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-h2order.html">gmx h2order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hbond.html">gmx hbond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hbond-legacy.html">gmx hbond-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-helix.html">gmx helix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-helixorient.html">gmx helixorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-help.html">gmx help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-hydorder.html">gmx hydorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-insert-molecules.html">gmx insert-molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-lie.html">gmx lie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-make_edi.html">gmx make_edi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-make_ndx.html">gmx make_ndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mdmat.html">gmx mdmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mdrun.html">gmx mdrun</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mindist.html">gmx mindist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-mk_angndx.html">gmx mk_angndx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-msd.html">gmx msd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmeig.html">gmx nmeig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmens.html">gmx nmens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmr.html">gmx nmr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nmtraj.html">gmx nmtraj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-nonbonded-benchmark.html">gmx nonbonded-benchmark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-order.html">gmx order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pairdist.html">gmx pairdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pdb2gmx.html">gmx pdb2gmx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-pme_error.html">gmx pme_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-polystat.html">gmx polystat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-potential.html">gmx potential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-principal.html">gmx principal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rama.html">gmx rama</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rdf.html">gmx rdf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-report-methods.html">gmx report-methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rms.html">gmx rms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rmsdist.html">gmx rmsdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rmsf.html">gmx rmsf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rotacf.html">gmx rotacf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-rotmat.html">gmx rotmat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-saltbr.html">gmx saltbr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sans-legacy.html">gmx sans-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sasa.html">gmx sasa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-saxs-legacy.html">gmx saxs-legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-scattering.html">gmx scattering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-select.html">gmx select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sham.html">gmx sham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sigeps.html">gmx sigeps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-solvate.html">gmx solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-sorient.html">gmx sorient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-spatial.html">gmx spatial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-spol.html">gmx spol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-tcaf.html">gmx tcaf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-traj.html">gmx traj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trajectory.html">gmx trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjcat.html">gmx trjcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjconv.html">gmx trjconv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-trjorder.html">gmx trjorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-tune_pme.html">gmx tune_pme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-vanhove.html">gmx vanhove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-velacc.html">gmx velacc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-wham.html">gmx wham</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-wheel.html">gmx wheel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-x2top.html">gmx x2top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/gmx-xpm2ps.html">gmx xpm2ps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../onlinehelp/selections.html">Selection syntax and usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/terminology.html">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/validation.html">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/environment-variables.html">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/floating-point.html">Floating point arithmetic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/security.html">Security when using GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/deprecation-policy.html">Policy for deprecating GROMACS functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../how-to/index.html">Short How-To guides</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Short How-To guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/beginners.html">Beginners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html">Adding a Residue to a Force Field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#water-solvation">Water solvation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#non-water-solvent">Non water solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#mixed-solvent">Mixed solvent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/topology.html#making-disulfide-bonds">Making Disulfide Bonds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html">Running membrane simulations in GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#parameterization-of-novel-molecules">Parameterization of novel molecules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#potential-of-mean-force">Potential of Mean Force</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#single-point-energy">Single-Point Energy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/special.html#carbon-nanotube">Carbon Nanotube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html">Visualization Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#extracting-trajectory-information">Extracting Trajectory Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#external-tools-to-perform-trajectory-analysis">External tools to perform trajectory analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#plotting-data">Plotting Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../how-to/visualize.html#micelle-clustering">Micelle Clustering</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference-manual/index.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of Reference Manual</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/preface.html">Preface and Disclaimer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/definitions.html">Definitions and Units</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference-manual/algorithms/algorithms.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of Algorithms</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/periodic-boundary-conditions.html">Periodic boundary conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/group-concept.html">The group concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/molecular-dynamics.html">Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/shell-molecular-dynamics.html">Shell molecular dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/constraint-algorithms.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/simulated-annealing.html">Simulated Annealing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/stochastic-dynamics.html">Stochastic Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/brownian-dynamics.html">Brownian Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/energy-minimization.html">Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/normal-mode-analysis.html">Normal-Mode Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/free-energy-calculations.html">Free energy calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/replica-exchange.html">Replica exchange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/essential-dynamics.html">Essential Dynamics sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/expanded-ensemble.html">Expanded Ensemble</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/parallelization-domain-decomp.html">Parallelization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/algorithms/parallelization-domain-decomp.html#domain-decomposition">Domain decomposition</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference-manual/functions/functions.html">Interaction function and force fields</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of Interaction function and force fields</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/nonbonded-interactions.html">Non-bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/bonded-interactions.html">Bonded interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/restraints.html">Restraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/polarization.html">Polarization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/free-energy-interactions.html">Free energy interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/interaction-methods.html">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/interaction-methods.html#virtual-interaction-sites">Virtual interaction sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/long-range-electrostatics.html">Long Range Electrostatics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/long-range-vdw.html">Long Range Van der Waals interactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/functions/force-field.html">Force field</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference-manual/topologies/topologies.html">Topologies</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of Topologies</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/particle-type.html">Particle type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/parameter-files.html">Parameter files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/molecule-definition.html">Molecule definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/constraint-algorithm-section.html">Constraint algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/pdb2gmx-input-files.html"><span class="xref std std-ref">pdb2gmx</span> input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/topology-file-formats.html">File formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/topologies/force-field-organization.html">Force field organization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/file-formats.html">File formats</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference-manual/special/special.html">Special Topics</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of Special Topics</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/free-energy-implementation.html">Free energy implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/free-energy-implementation.html#potential-of-mean-force">Potential of mean force</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/pulling.html">Non-equilibrium pulling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/pulling.html#collective-variables-the-pull-code">Collective variables: the pull code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/awh.html">Adaptive biasing with AWH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/enforced-rotation.html">Enforced Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/electric-fields.html">Electric fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/comp-electrophys.html">Computational Electrophysiology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/free-energy-pmf.html">Calculating a PMF using the free-energy code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/remove-fast-dgf.html">Removing fastest degrees of freedom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/viscosity-calculation.html">Viscosity calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/shearing.html">Shear simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/tabulated-interaction-functions.html">Tabulated interaction functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/qmmm.html">Hybrid Quantum-Classical simulations (QM/MM) with CP2K interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/mimic-qmmm.html">MiMiC Hybrid Quantum Mechanical/Molecular Mechanical simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/vmd-imd.html">Using VMD plug-ins for trajectory file I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/vmd-imd.html#interactive-molecular-dynamics">Interactive Molecular Dynamics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/membrane-embedding.html">Embedding proteins into the membranes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/density-guided-simulation.html">Applying forces from three-dimensional densities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/colvars.html">Collective Variable simulations with the Colvars module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/plumed.html">Using PLUMED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/nnpot.html">Neural Network Potentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/special/fmm.html">Fast Multipole Method (FMM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/run-parameters.html">Run parameters and Programs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference-manual/analysis/analysis.html">Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Analysis</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/using-groups.html">Using Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/looking-at-trajectory.html">Looking at your trajectory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/general-properties.html">General properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/radial-distribution-function.html">Radial distribution functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/correlation-function.html">Correlation functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/curve-fitting.html">Curve fitting in GROMACS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/mean-square-displacement.html">Mean Square Displacement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/bond-angle-dihedral.html">Bonds/distances, angles and dihedrals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/radius-of-gyration.html">Radius of gyration and distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/rmsd.html">Root mean square deviations in structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/covariance-analysis.html">Covariance analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/dihedral-pca.html">Dihedral principal component analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/hydrogen-bonds.html">Hydrogen bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/protein-related.html">Protein-related items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference-manual/analysis/interface-related.html">Interface-related items</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/details.html">Some implementation details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/averages.html">Averages and fluctuations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference-manual/references.html">Bibliography</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">gmxapi Python package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of gmxapi Python package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="install.html#">Full installation instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">Using the Python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pythonreference.html">gmxapi Python module reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../nblib/index.html">(Non-)Bonded LIBrary (NB-LIB) API</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of (Non-)Bonded LIBrary (NB-LIB) API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nblib/guide-to-writing-MD-programs.html">Guide to Writing MD Programs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/index.html">C++ API</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of C++ API</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/gmxlibs.html">Public C++ API</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../dev-manual/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of Developer Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/contribute.html">Contribute to GROMACS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/overview.html">Codebase overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/build-system.html">Build system overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/change-management.html">Change Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/relocatable-binaries.html">Relocatable binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/documentation-generation.html">Documentation generation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../dev-manual/style.html">Style guidelines</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of Style guidelines</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/formatting.html">Guidelines for code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/includestyle.html">Guidelines for #include directives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/naming.html">Naming conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/language-features.html">Allowed language features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/reportstyle.html">Guidelines for creating meaningful issue reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/commitstyle.html">Guidelines for formatting of git commits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/error-handling.html">Error handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../dev-manual/tools.html">Development-time tools</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of Development-time tools</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/doxygen.html">Using Doxygen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/change-management.html">Change Management</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../dev-manual/infrastructure.html">Automation and Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of Automation and Infrastructure</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../dev-manual/gitlab-ci.html">GitLab CI Pipeline Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/gmxtree.html">Source tree checker scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/code-formatting.html">Automatic source code formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/testutils.html">Unit testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../dev-manual/physical_validation.html">Physical validation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev-manual/known-issues.html">Known issues relevant for developers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev-manual/index.html#doxygen-documentation">Doxygen documentation</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="install.html#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/blob/main/docs/gmxapi/userguide/install.rst" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://gitlab.com/gromacs/gromacs/-/edit/main/docs/gmxapi/userguide/install.rst" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="full-installation-instructions">
+<h1>Full installation instructions<a class="headerlink" href="install.html#full-installation-instructions" title="Link to this heading">¶</a></h1>
+<p>Installation instructions for the <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> Python package,
+built on GROMACS.</p>
+<p>Command line examples assume the <a class="reference external" href="https://www.gnu.org/software/bash/">bash</a> shell.</p>
+<div class="note admonition">
+<p class="admonition-title">Regarding multiple GROMACS installations</p>
+<p>Many GROMACS users switch between multiple GROMACS installations on the same
+computer using an HPC module system and/or a <a class="reference internal" href="../../install-guide/index.html#getting-access-to-gromacs"><span class="std std-ref">GMXRC</span></a> configuration script.
+For the equivalent sort of environment switching with the <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> Python package,
+we recommend installing it in a different
+<a class="reference external" href="https://www.google.com/search?q=python+virtual+environment">Python virtual environment</a>
+for each GROMACS installation.
+Once built, a particular copy of the <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> Python package always refers to the
+same GROMACS installation.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Unprivileged <strong class="command">pip install</strong></p>
+<p>The following documentation contains frequent references to the <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> tool
+for installing Python packages. In some cases, an unprivileged user should
+use the <code class="docutils literal notranslate"><span class="pre">--user</span></code> command line flag to tell <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> to install packages
+into the user site-packages directory rather than the default site-packages
+directory for the Python installation. This flag is not appropriate when
+running <strong class="command">pip</strong> in a virtual environment (as recommended) and is omitted in
+this documentation. If you need the <code class="docutils literal notranslate"><span class="pre">--user</span></code> flag, you should modify the
+example commands to look something like <strong class="command">pip install --upgrade somepackage --user</strong></p>
+</div>
+<div class="info admonition">
+<p class="admonition-title">Python 3 executable names</p>
+<p>These instructions use the executable names <strong class="command">python</strong> and <strong class="command">pip</strong>
+instead of <strong class="command">python3</strong> or <strong class="command">pip3</strong>. Some Python installations require the <code class="docutils literal notranslate"><span class="pre">3</span></code>
+suffix, but it is usually not necessary if you have already activated a Python
+virtual environment (recommended).</p>
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="install.html#overview" title="Link to this heading">¶</a></h2>
+<p>Typically, setting up the <em>gmxapi</em> Python package follows these three steps.
+If this overview is sufficient for your computing environment,
+you may disregard the rest of this document.</p>
+<section id="install-gromacs">
+<h3>Install GROMACS<a class="headerlink" href="install.html#install-gromacs" title="Link to this heading">¶</a></h3>
+<p>Locate your GROMACS installation, or build and install.
+GROMACS 2022 or higher is recommended.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="http://manual.gromacs.org/documentation/current/install-guide/index.html">GROMACS installation</a></p>
+</div>
+<p>The following assumes GROMACS is installed to <code class="file docutils literal notranslate"><span class="pre">/path/to/gromacs</span></code></p>
+</section>
+<section id="set-up-a-python-virtual-environment">
+<h3>Set up a Python virtual environment<a class="headerlink" href="install.html#set-up-a-python-virtual-environment" title="Link to this heading">¶</a></h3>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="install.html#gmxapi-venv"><span class="std std-ref">Set up a Python virtual environment</span></a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/mpi4py.html#module-mpi4py" title="(in MPI for Python v4.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py</span></code></a> may require additional arguments (compiler hints).
+See <a class="reference internal" href="install.html#mpi-requirements"><span class="std std-ref">MPI requirements</span></a></p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span><span class="nv">$HOME</span>/myvenv
+.<span class="w"> </span><span class="nv">$HOME</span>/myvenv/bin/activate
+python<span class="w"> </span>-m<span class="w"> </span>ensurepip<span class="w"> </span>--default-pip
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel
+pip<span class="w"> </span>install<span class="w"> </span>mpi4py
+</pre></div>
+</div>
+</section>
+<section id="install-the-gmxapi-python-package">
+<h3>Install the gmxapi Python package<a class="headerlink" href="install.html#install-the-gmxapi-python-package" title="Link to this heading">¶</a></h3>
+<p>Pull the <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> package from PyPI,
+build it for the GROMACS installation at <code class="file docutils literal notranslate"><span class="pre">/path/to/gromacs</span></code>,
+and install it to the Python prefix for the current environment.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="w"> </span>/path/to/gromacs/bin/GMXRC
+pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>gmxapi
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="install.html#installation"><span class="std std-ref">Installing the Python package</span></a></p>
+</div>
+</section>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="install.html#background" title="Link to this heading">¶</a></h2>
+<p><em>gmxapi</em> comes in three parts:</p>
+<ul class="simple">
+<li><p>GROMACS gmxapi library for C++.</p></li>
+<li><p>This Python package, supporting Python 3.9 and higher</p></li>
+<li><p>MD restraint plugins and sample gmxapi client code</p></li>
+</ul>
+<section id="gromacs-requirements">
+<h3>GROMACS requirements<a class="headerlink" href="install.html#gromacs-requirements" title="Link to this heading">¶</a></h3>
+<p>The Python package requires a GROMACS installation.
+Locate an existing GROMACS installation, or
+<a class="reference external" href="http://manual.gromacs.org/documentation/current/install-guide/index.html">build and install GROMACS</a>
+before proceeding.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that gmxapi requires that GROMACS is configured with <code class="docutils literal notranslate"><span class="pre">GMXAPI=ON</span></code> and <code class="docutils literal notranslate"><span class="pre">BUILD_SHARED_LIBS=ON</span></code>.
+These are enabled by default in most cases. If these options were overridden
+for your GROMACS installation, you will see CMake errors when trying to build
+and install the gmxapi Python package or other client software.</p>
+</div>
+<p>If your installation has a <code class="file docutils literal notranslate"><span class="pre">GMXRC</span></code> file, “source” the file
+<a class="reference internal" href="../../install-guide/index.html#getting-access-to-gromacs"><span class="std std-ref">as you normally would</span></a> before using GROMACS.
+Otherwise, note the installation location so that you can provide it when
+building the gmxapi package.</p>
+</section>
+<section id="build-system-requirements">
+<h3>Build system requirements<a class="headerlink" href="install.html#build-system-requirements" title="Link to this heading">¶</a></h3>
+<p>gmxapi can be built for Python 3.9 and higher.</p>
+<p>You will need a C++ 17 compatible compiler and a reasonably up-to-date version
+of CMake.
+Full gmxapi functionality may also require an MPI compiler (e.g. <strong class="command">mpicc</strong>).</p>
+<p>Important: To build a module that can be imported by Python, you need a Python
+installation that includes the Python headers. Unfortunately, it is not always
+obvious whether these headers are present or where to find them. The simplest
+answer is to just try to build the Python package using these instructions, and
+if gmxapi is unable to find the Python tools it needs, try a different Python
+installation or install the additional development packages.</p>
+<p>On a Linux system, this may require installing packages such as <code class="docutils literal notranslate"><span class="pre">python-dev</span></code>
+and/or <code class="docutils literal notranslate"><span class="pre">python3-dev</span></code>.
+If you are building Python, either from scratch or with a tool like
+<strong class="command">pyenv install</strong> (see
+<a class="reference external" href="https://github.com/pyenv/pyenv/wiki#how-to-build-cpython-with---enable-shared">wiki entry</a>
+),
+be sure to enable installation of the Python C library with the
+<code class="docutils literal notranslate"><span class="pre">--enable-shared</span></code> flag.
+Alternatively, various Python distributions provide a
+sufficient build environment while only requiring installation into a user
+home directory. (Some examples below.)</p>
+<p>If you are using an HPC system with software available through modules you may
+be able to just <strong class="command">module load</strong> a different Python installation and find one
+that works.</p>
+</section>
+<section id="python-environment-requirements">
+<h3>Python environment requirements<a class="headerlink" href="install.html#python-environment-requirements" title="Link to this heading">¶</a></h3>
+<p>gmxapi requires Python 3.9 or higher. Check your version with
+<strong class="command">python3 --version</strong> or <strong class="command">python --version</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following documentation assumes you do not need to use a trailing ‘3’ to
+access a Python 3 interpreter on your system.
+The default Python interpreter on your system may use <strong class="command">python3</strong> and <strong class="command">pip3</strong>
+instead of <strong class="command">python</strong> and <strong class="command">pip</strong>. You can check the version with
+<strong class="command">python3 --version</strong> or <strong class="command">python --version</strong> and <strong class="command">pip --version</strong>.</p>
+</div>
+<p>To build and install, you need the Python packages for
+<a class="reference external" href="https://pypi.org/project/cmake/">cmake</a>, <a class="reference external" href="https://pypi.org/project/networkx/">networkx</a>, and <a class="reference external" href="https://pypi.org/project/setuptools/">setuptools</a>
+(all available from <a class="reference external" href="https://pip.pypa.io/en/stable/">PyPI with pip</a>).</p>
+<p>For full functionality, you should also have <a class="reference external" href="https://pypi.org/project/mpi4py/">mpi4py</a> and <a class="reference external" href="https://www.numpy.org/">numpy</a>.
+These requirements and version numbers are listed in <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code>.</p>
+<p>The easiest way to make sure you have the requirements installed, first update
+<a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>, then use the <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> file provided with the repository.
+File paths in this section are relative to the root directory of your local copy
+of the GROMACS source.</p>
+<p>Confirm that <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> is available, install <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> if it is missing, or get
+instructions on how to install <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>ensurepip<span class="w"> </span>--default-pip
+</pre></div>
+</div>
+<p>Install or upgrade required components:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>setuptools<span class="w"> </span>wheel
+</pre></div>
+</div>
+<section id="requirements-files-in-gromacs-source-tree">
+<h4>“requirements” files in GROMACS source tree<a class="headerlink" href="install.html#requirements-files-in-gromacs-source-tree" title="Link to this heading">¶</a></h4>
+<p>If you are building from source code in a local copy of the GROMACS source
+repository, a <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> allows you to preinstall the Python
+requirements before installing the <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> package.</p>
+<blockquote>
+<div><p>pip install -r python_packaging/gmxapi/requirements.txt</p>
+</div></blockquote>
+</section>
+</section>
+<section id="documentation-build-requirements">
+<h3>Documentation build requirements<a class="headerlink" href="install.html#documentation-build-requirements" title="Link to this heading">¶</a></h3>
+<p>See <a class="reference internal" href="install.html#gmxapi-package-documentation"><span class="std std-ref">Accessing gmxapi documentation</span></a></p>
+</section>
+<section id="testing-requirements">
+<span id="id1"></span><h3>Testing requirements<a class="headerlink" href="install.html#testing-requirements" title="Link to this heading">¶</a></h3>
+<p>Note that the test suite is only available in the GROMACS source tree.
+(It is not part of the installed package.)
+Acquire the GROMACS sources with <strong class="command">git</strong> or by downloading an archive, as documented elsewhere.</p>
+<p>Testing is performed with <a class="reference external" href="https://docs.pytest.org/en/latest/">pytest</a>.</p>
+<p><code class="file docutils literal notranslate"><span class="pre">python_packaging/gmxapi/requirements.txt</span></code> lists additional requirements for testing.
+With <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>python_packaging/gmxapi/requirements.txt
+</pre></div>
+</div>
+<p>To test the full functionality also requires an MPI parallel environment.
+You will need the <a class="reference external" href="https://pypi.org/project/mpi4py/">mpi4py</a> Python package and an MPI launcher
+(such as <strong class="command">mpiexec</strong>, <strong class="command">mpirun</strong>, a launcher provided by your HPC queuing system,
+or whatever is provided by your favorite MPI package for your operating system).</p>
+</section>
+<section id="mpi-requirements">
+<span id="id2"></span><h3>MPI requirements<a class="headerlink" href="install.html#mpi-requirements" title="Link to this heading">¶</a></h3>
+<p>For the ensemble simulations features, you will need an MPI installation.</p>
+<p>On an HPC system, this means you will probably have to use <strong class="command">module load</strong>
+to load a compatible set of MPI tools and compilers.
+Check your HPC documentation or try <strong class="command">module avail</strong> to look for an
+<code class="docutils literal notranslate"><span class="pre">openmpi</span></code>, <code class="docutils literal notranslate"><span class="pre">mpich</span></code>, or <code class="docutils literal notranslate"><span class="pre">mvapich</span></code> module and matching compiler module.
+This may be as simple as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>gcc
+module<span class="w"> </span>load<span class="w"> </span>mpicc
+</pre></div>
+</div>
+<p>If you are using a GROMACS installation that is already available through
+<code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span></code>, try to find a Python installation with the <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> package
+that is also available through <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span></code>. The <em>module</em> system will
+generally enforce toolchain compatibility between the loaded modules. If you
+<code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span></code> mpi4py or a Python installation with mpi4py, you will probably
+want to use this version of the package in your venv. (See <a class="reference internal" href="install.html#gmxapi-venv"><span class="std std-ref">Set up a Python virtual environment</span></a>)
+If you <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span></code> an MPI-enabled GROMACS installation, <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> will
+try to check <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> for compatibility.</p>
+<p>Note that the compilers loaded might not be the first compilers discovered
+automatically by the build tools we will use below,
+so you may have to specify compilers on the command line for consistency.
+It may be necessary to require that GROMACS, gmxapi,
+and the sample code are built with the same compiler(s).</p>
+<p>Note that strange errors have been known to occur when <a class="reference external" href="https://pypi.org/project/mpi4py/">mpi4py</a> is built with
+a different tool set than has been used to build Python and gmxapi.
+If the default compilers on your system are not sufficient for GROMACS or gmxapi,
+you may need to build, e.g., OpenMPI or MPICH, and/or
+<a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/install.html">build mpi4py</a> with a
+specific MPI compiler wrapper. This can complicate building in environments such
+as <a class="reference external" href="https://docs.conda.io/en/latest/">Conda</a>. You should be able to confirm that your MPI compiler wrapper is consistent
+with your GROMACS tool chain by comparing the output of <strong class="command">mpicc --version</strong>
+with the compiler information reported by <strong class="command">gmx --version</strong>.</p>
+<p>Set the <code class="docutils literal notranslate"><span class="pre">MPICC</span></code> environment variable to the MPI compiler wrapper and forcibly
+reinstall <a class="reference external" href="https://pypi.org/project/mpi4py/">mpi4py</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MPICC</span><span class="o">=</span><span class="sb">`</span>which<span class="w"> </span>mpicc<span class="sb">`</span>
+pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>--no-binary<span class="w"> </span><span class="s2">&quot;:all:&quot;</span><span class="w"> </span>--force-reinstall<span class="w"> </span>mpi4py
+</pre></div>
+</div>
+<p>If you have a different MPI C compiler wrapper, substitute it for <strong class="command">mpicc</strong> above.</p>
+<p>While <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> is configuring its build system during installation, it will
+try to confirm the compatibility of the <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> toolchain with that of the
+GROMACS installation. If they appear incompatible, you should see a <code class="docutils literal notranslate"><span class="pre">CMake</span></code>
+message that includes a guess at what you might try using for <code class="docutils literal notranslate"><span class="pre">MPICC</span></code>.
+(If using <code class="docutils literal notranslate"><span class="pre">pip</span></code>, consider using the <code class="docutils literal notranslate"><span class="pre">--verbose</span></code> option for more build output.)</p>
+</section>
+</section>
+<section id="installing-the-python-package">
+<span id="installation"></span><h2>Installing the Python package<a class="headerlink" href="install.html#installing-the-python-package" title="Link to this heading">¶</a></h2>
+<p>We recommend using Python’s <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>
+package installer to automatically download, build, and install the latest
+version of the gmxapi package into a Python
+<a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">virtual environment</a>,
+though it is also possible to install without a virtual environment.
+If installing without a virtual environment as an un-privileged user,
+you may need to use the <code class="docutils literal notranslate"><span class="pre">--user</span></code> option with <strong class="command">pip install</strong>.</p>
+<section id="recommended-installation">
+<h3>Recommended installation<a class="headerlink" href="install.html#recommended-installation" title="Link to this heading">¶</a></h3>
+<p>The instructions in this section assume that <em>pip</em> is able to download files
+from the internet. Alternatively, refer to <a class="reference internal" href="install.html#gmxapi-offline-install"><span class="std std-ref">Offline install</span></a>.</p>
+<section id="locate-or-install-gromacs">
+<h4>Locate or install GROMACS<a class="headerlink" href="install.html#locate-or-install-gromacs" title="Link to this heading">¶</a></h4>
+<p>You need a GROMACS installation that includes the gmxapi headers and library.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>gmxapi does not recognize multiple GROMACS installations to the same <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code>.</p>
+<p>The Python package uses files installed to <code class="docutils literal notranslate"><span class="pre">.../share/cmake/gmxapi/</span></code> to configure its C++
+component. These configuration files are overwritten when installing GROMACS to the same
+<a class="reference external" href="https://cmake.org/cmake/help/latest/variable/CMAKE_INSTALL_PREFIX.html">CMAKE_INSTALL_PREFIX</a>.
+Overlapping GROMACS installations may occur when GROMACS is installed for multiple
+configurations of MPI support and floating point precision.
+(See <a class="extlink-issue reference external" href="https://gitlab.com/gromacs/gromacs/-/issues/4334">Issue 4334</a> and related issues.)</p>
+</div>
+<p>If GROMACS 2020 or higher is already installed,
+<em>and</em> was configured with <code class="docutils literal notranslate"><span class="pre">GMXAPI=ON</span></code> at build time (the default),
+you may be able to just source the <a class="reference internal" href="../../install-guide/index.html#getting-access-to-gromacs"><span class="std std-ref">GMXRC</span></a>
+(so that the Python package knows where to find GROMACS)
+and skip to the next section.
+Note that some GROMACS installations, such as in high-performance computing environments,
+may not install a <code class="file docutils literal notranslate"><span class="pre">GMXRC</span></code>, and may instead provide access to the GROMACS
+installation through a <strong class="command">module load gromacs</strong> or similar command.</p>
+<p>If necessary, install a supported version of GROMACS.
+When building GROMACS from source, be sure to configure cmake with the flag
+<code class="docutils literal notranslate"><span class="pre">-DGMXAPI=ON</span></code> (default).</p>
+<p>Set the environment variables for the GROMACS installation so that the gmxapi
+headers and library can be found when building the Python package.
+If you installed to a <code class="file docutils literal notranslate"><span class="pre">gromacs-gmxapi</span></code> directory in your home directory as
+above and you use the <strong class="command">bash</strong> shell, do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span><span class="nv">$HOME</span>/gromacs-gmxapi/bin/GMXRC
+</pre></div>
+</div>
+<p>If you are using a GROMACS installation that does not provide <code class="docutils literal notranslate"><span class="pre">GMXRC</span></code>, see
+<a class="reference internal" href="install.html#gmxapi-cmake-hints">gmxapi cmake hints</a> and additional CMake hints below.</p>
+</section>
+<section id="gmxapi-venv">
+<span id="id3"></span><h4>Set up a Python virtual environment<a class="headerlink" href="install.html#gmxapi-venv" title="Link to this heading">¶</a></h4>
+<p>We recommend installing the Python package in a virtual environment.
+If not installing in a virtual environment, you may not be able to install
+necessary prerequisites (e.g. if you are not an administrator of the system you are on).</p>
+<p>The following instructions use the <a class="reference external" href="https://docs.python.org/3/library/venv.html#module-venv" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">venv</span></code></a> module.
+Alternative virtual environments, such as <a class="reference external" href="https://docs.conda.io/en/latest/">Conda</a>,
+should work fine, but are beyond the scope of this document.
+(We welcome contributed recipes!)</p>
+<p>Depending on your computing environment, the Python 3 interpreter may be accessed
+with the command <strong class="command">python</strong> or <strong class="command">python3</strong>. Use <strong class="command">python --version</strong> and
+<strong class="command">python3 --version</strong> to figure out which you need to use. The following assumes
+the Python 3 interpreter is accessed with <strong class="command">python3</strong>.</p>
+<div class="tip admonition" id="system-site-packages">
+<p class="admonition-title">–system-site-packages</p>
+<p>It can be tricky to properly or optimally build MPI enabled software in
+computing clusters, and administrators often provide prebuilt packages like
+<a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/mpi4py.html#module-mpi4py" title="(in MPI for Python v4.1)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mpi4py</span></code></a>. If your computing environment has multiple Python installations,
+try to choose one that already includes <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code>. When you are using a
+Python installation that provides <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code>, generally, you should be sure
+to use the existing <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> installation in your new virtual environment
+by creating the <code class="docutils literal notranslate"><span class="pre">venv</span></code> with the <code class="docutils literal notranslate"><span class="pre">--system-site-packages</span></code> option.</p>
+<p>In personal computing environments (laptops and workstations), it is common to
+have multiple Python installations, and it can be hard to keep packages in the
+different installations from conflicting with each other. Unless you know that
+you want to inherit the <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> package from the system installation, it is
+generally cleaner <em>not</em> to inherit the system site-packages.</p>
+</div>
+<p>Create a Python 3 virtual environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span><span class="nv">$HOME</span>/myvenv
+</pre></div>
+</div>
+<p><em>or</em> (see note):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>--system-site-packages<span class="w"> </span><span class="nv">$HOME</span>/myvenv
+</pre></div>
+</div>
+<p>Activate the virtual environment. Your shell prompt will probably be updated with the name of the environment you
+created to make it more obvious.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ source $HOME/myvenv/bin/activate
+(myvenv)$
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After activating the <em>venv</em>, <strong class="command">python</strong> and <strong class="command">pip</strong> are sufficient.
+(The ‘3’ suffix will no longer be necessary and will be omitted in the rest
+of this document.)</p>
+</div>
+<p>Activating the virtual environment may change your shell prompt to indicate the
+environment is active. The prompt is omitted from the remaining examples, but
+the remaining examples assume the virtual environment is still active.
+(Don’t do it now, but you can deactivate the environment by running <strong class="command">deactivate</strong>.)</p>
+</section>
+<section id="install-dependencies">
+<h4>Install dependencies<a class="headerlink" href="install.html#install-dependencies" title="Link to this heading">¶</a></h4>
+<p>It is always a good idea to update <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>, <a class="reference external" href="https://pypi.org/project/setuptools/">setuptools</a>, and <a class="reference external" href="https://pypi.org/project/wheel/">wheel</a> before installing
+new Python packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel
+</pre></div>
+</div>
+<p>The gmxapi installer requires a few additional packages. It is best to make sure
+they are installed and up to date before proceeding.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>cmake<span class="w"> </span>pybind11
+</pre></div>
+</div>
+<p>We use <a class="reference external" href="https://pypi.org/project/mpi4py/">mpi4py</a> for some features and to ensure compatible MPI bindings
+throughout your Python environment.
+<strong>If you did not inherit mpi4py from system site-packages</strong>
+(see <a class="reference internal" href="install.html#system-site-packages"><span class="std std-ref">above</span></a>),
+make sure to
+<a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/install.html">install it</a>
+using the same MPI installation that we are building
+GROMACS against, and build with compatible compilers.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">MPICC</span><span class="o">=</span><span class="sb">`</span>which<span class="w"> </span>mpicc<span class="sb">`</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>mpi4py
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="install.html#mpi-requirements"><span class="std std-ref">MPI requirements</span></a></p>
+</div>
+</section>
+<section id="install-the-latest-version-of-gmxapi">
+<h4>Install the latest version of gmxapi<a class="headerlink" href="install.html#install-the-latest-version-of-gmxapi" title="Link to this heading">¶</a></h4>
+<p>Fetch and install the latest official version of gmxapi from the Python Packaging Index.
+Avoid locally cached previously-built packages that may be incompatible with
+your current environment or GROMACS installation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the latest official release.</span>
+pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>gmxapi
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>download<span class="w"> </span>gmxapi
+pip<span class="w"> </span>install<span class="w"> </span>gmxapi-&lt;version&gt;.tar.gz
+</pre></div>
+</div>
+<p>substituting the name of the downloaded source distribution archive.</p>
+<div class="warning admonition">
+<p class="admonition-title">Avoid cached “wheel” packages.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> downloads a source distribution archive for gmxapi, then builds a
+“wheel” package for your GROMACS installation.
+This “wheel” normally gets cached, and will be used by any later attempt to
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">gmxapi</span></code> instead of rebuilding. This is not what you want,
+if you upgrade GROMACS or if you want to install the Python package for a
+different GROMACS configuration (e.g. double-precision or different MPI option.)</p>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">--no-cache-dir</span></code> to force rebuild of the package and its
+build dependencies. This may be slow, however, and you may want to use
+cached dependencies. You can
+<a class="reference external" href="https://pip.pypa.io/en/stable/topics/caching/#avoiding-caching">avoid wheel cache</a>
+for just one target package by installing from the filesystem
+instead of directly from PyPI.</p>
+<p>See also <a class="extlink-issue reference external" href="https://gitlab.com/gromacs/gromacs/-/issues/4335">Issue 4335</a></p>
+</div>
+<p>The <a class="reference external" href="https://pypi.org/project/gmxapi/#history">PyPI repository</a>
+may include pre-release versions,
+but <strong class="command">pip</strong> will ignore them unless you use the <code class="docutils literal notranslate"><span class="pre">--pre</span></code> flag:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the latest version, including pre-release versions.</span>
+pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--pre<span class="w"> </span>gmxapi
+</pre></div>
+</div>
+<p>If <strong class="command">pip</strong> does not find your GROMACS installation, use one of the following
+environment variables to provide a hint.</p>
+<section id="cmake-hints">
+<span id="gmxapi-cmake-hints"></span><h5>CMake hints<a class="headerlink" href="install.html#cmake-hints" title="Link to this heading">¶</a></h5>
+<p>The <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> package is distributed with C++ source code that needs to be compiled
+against GROMACS libraries.
+The build system is configured using CMake, mediated by scikit-build-core.
+Refer to <a class="reference external" href="https://scikit-build-core.readthedocs.io/en/latest/configuration.html#configuring-cmake-arguments-and-defines">scikit-build-core documentation</a>
+for the best information on passing build options through the Python package installer (<em>e.g.*</em> <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>).
+(Be sure to look at the “config-settings” and “Environment” tabs.
+The “pyproject.toml” tabs is for package maintainers.)</p>
+<p class="rubric">gmxapi_ROOT</p>
+<p>If you have a single GROMACS installation at <code class="file docutils literal notranslate"><span class="pre">/path/to/gromacs</span></code>, it is usually
+sufficient to provide this location to <strong class="command">pip</strong> through the <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">gmxapi_ROOT</span></code>
+environment variable, or as a CMake variable definition.</p>
+<div class="tab-set docutils container">
+<input checked="True" class="tab-input" id="tab-set--0-input--1" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--1">environment</label><div class="tab-content docutils container">
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">gmxapi_ROOT</span><span class="o">=</span>/path/to/gromacs<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>gmxapi
+</pre></div>
+</div>
+</div>
+<input class="tab-input" id="tab-set--0-input--2" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--2">pip argument</label><div class="tab-content docutils container">
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>gmxapi<span class="w"> </span>--config-setting<span class="o">=</span>cmake.define.gmxapi_ROOT<span class="o">=</span>/path/to/gromacs
+</pre></div>
+</div>
+</div>
+</div>
+<p class="rubric">GROMACS CMake hints</p>
+<p>It can be important to use the same compiler tool chain for both GROMACS
+and for client software (the Python package C++ extension).</p>
+<p>You can check <code class="docutils literal notranslate"><span class="pre">gmx</span> <span class="pre">--version</span></code> to see what compilers your installation used,
+and make sure that you don’t have incompatible compilers declared by environment
+variables such as <code class="docutils literal notranslate"><span class="pre">$CXX</span></code>.</p>
+<p>You can also use the GROMACS provided CMake cache file
+to provide extra hints to the Python extension build system
+about the software tools that were used to build GROMACS.
+(For more information, read about the <code class="docutils literal notranslate"><span class="pre">-C</span></code>
+<a class="reference external" href="https://cmake.org/cmake/help/latest/manual/cmake.1.html#options">command line option</a>
+for CMake.)</p>
+<p>In the following example,</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${UNIQUE_PREFIX}</span></code> is the path to the directory that holds the
+GROMACS <code class="docutils literal notranslate"><span class="pre">bin</span></code>, <code class="docutils literal notranslate"><span class="pre">lib</span></code>, <code class="docutils literal notranslate"><span class="pre">share</span></code> directories, <em>etc</em>.
+It is <em>unique</em> because GROMACS provides CMake support for only one build configuration at a time
+through <code class="docutils literal notranslate"><span class="pre">.../share/cmake/gmxapi/</span></code>, even if there are multiple library configurations installed to
+the same location. See <a class="extlink-issue reference external" href="https://gitlab.com/gromacs/gromacs/-/issues/4334">Issue 4334</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${SUFFIX}</span></code> is the suffix (e.g. <em>_d</em>, <em>_mpi</em>, etcetera) that distinguishes the
+particular build of GROMACS you want to target (refer to GROMACS installation
+instructions for more information.) <code class="docutils literal notranslate"><span class="pre">${SUFFIX}</span></code> may simply be empty, or <code class="docutils literal notranslate"><span class="pre">''</span></code>.</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>gmxapi<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--config-settings<span class="o">=</span>cmake.define.gmxapi_ROOT<span class="o">=</span><span class="si">${</span><span class="nv">UNIQUE_PREFIX</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--config-settings<span class="o">=</span>cmake.args<span class="o">=</span>-C<span class="si">${</span><span class="nv">UNIQUE_PREFIX</span><span class="si">}</span>/share/cmake/gromacs<span class="si">${</span><span class="nv">SUFFIX</span><span class="si">}</span>/gromacs-hints<span class="si">${</span><span class="nv">SUFFIX</span><span class="si">}</span>.cmake
+</pre></div>
+</div>
+<p>In sufficiently new <code class="docutils literal notranslate"><span class="pre">pip</span></code> versions, <code class="docutils literal notranslate"><span class="pre">-C</span></code>
+<a class="reference external" href="https://pip.pypa.io/en/stable/cli/pip_install/#cmdoption-C">is a shorter alternative</a>
+to <code class="docutils literal notranslate"><span class="pre">--config-settings=</span></code>.
+Do not confuse the <code class="docutils literal notranslate"><span class="pre">-C</span></code> option to <code class="docutils literal notranslate"><span class="pre">pip</span></code> with the <code class="docutils literal notranslate"><span class="pre">-C</span></code> option to <code class="docutils literal notranslate"><span class="pre">cmake</span></code>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://scikit-build-core.readthedocs.io/en/latest/configuration.html#configuring-cmake-arguments-and-defines">scikit-build-core config-settings</a></p>
+</div>
+</section>
+</section>
+</section>
+<section id="install-from-source">
+<h3>Install from source<a class="headerlink" href="install.html#install-from-source" title="Link to this heading">¶</a></h3>
+<p>You can also install the <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> Python package from within a local copy of
+the GROMACS source repository. Assuming you have already obtained the GROMACS
+source code and you are in the root directory of the source tree, you will find
+the <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> Python package sources in the <code class="file docutils literal notranslate"><span class="pre">python_packaging/gmxapi</span></code> directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>python_packaging/gmxapi
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="offline-install">
+<span id="gmxapi-offline-install"></span><h3>Offline install<a class="headerlink" href="install.html#offline-install" title="Link to this heading">¶</a></h3>
+<div class="tip admonition">
+<p class="admonition-title">Recommended, first:</p>
+<p><strong class="command">pip install --upgrade build pip setuptools wheel</strong></p>
+</div>
+<p>You can use <strong class="command">python -m build --skip-dependency-check</strong> to build a binary
+distribution archive (from the source distribution) for just the <em>gmxapi</em> package,
+but then you will have to manually satisfy (separate) dependencies in both the
+build and installation environments.</p>
+<p>While you have internet access, you need to get access to the <em>gmxapi</em> source
+distribution and the package dependencies.
+You will also want the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> and <code class="docutils literal notranslate"><span class="pre">build</span></code> packages in environments where
+the package(s) will be built.
+Only <code class="docutils literal notranslate"><span class="pre">pip</span></code> is necessary once a gmxapi <code class="docutils literal notranslate"><span class="pre">wheel</span></code> is built.</p>
+<p>The following instructions are paraphrased from
+<a class="reference external" href="https://pip.pypa.io/en/stable/user_guide/#installing-from-local-packages">https://pip.pypa.io/en/stable/user_guide/#installing-from-local-packages</a></p>
+<p>To build with internet access and then install without:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove any locally cached (previously built) wheels.</span>
+pip<span class="w"> </span>cache<span class="w"> </span>remove<span class="w"> </span>gmxapi
+
+<span class="c1"># Download gmxapi and dependencies from pypi.</span>
+pip<span class="w"> </span>wheel<span class="w"> </span>--wheel-dir<span class="w"> </span>DIR<span class="w"> </span>gmxapi
+<span class="c1"># or, using package source from the GROMACS repository</span>
+<span class="nb">cd</span><span class="w"> </span>python_packaging/gmxapi
+pip<span class="w"> </span>wheel<span class="w"> </span>--wheel-dir<span class="w"> </span>DIR<span class="w"> </span>.
+
+<span class="c1"># Later, install.</span>
+pip<span class="w"> </span>install<span class="w"> </span>--no-index<span class="w"> </span>--find-links<span class="o">=</span>DIR<span class="w"> </span>DIR/gmxapi*whl
+</pre></div>
+</div>
+<p>To download packages and dependencies for later build and installation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># if in the GROMACS source repository</span>
+<span class="nb">cd</span><span class="w"> </span>python_packaging/gmxapi
+<span class="c1"># or download and expand the archive</span>
+pip<span class="w"> </span>download<span class="w"> </span>--destination-directory<span class="w"> </span>DIR<span class="w"> </span>gmxapi
+tar<span class="w"> </span>xf<span class="w"> </span>DIR/gmxapi*
+<span class="nb">cd</span><span class="w"> </span>gmxapi*
+
+<span class="c1"># Pre-fetch dependencies to DIR</span>
+pip<span class="w"> </span>download<span class="w"> </span>--destination-directory<span class="w"> </span>DIR<span class="w"> </span>.
+
+<span class="c1"># Build and install from the source directory.</span>
+pip<span class="w"> </span>install<span class="w"> </span>--no-index<span class="w"> </span>--find-links<span class="o">=</span>DIR<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="building-a-source-archive">
+<h3>Building a source archive<a class="headerlink" href="install.html#building-a-source-archive" title="Link to this heading">¶</a></h3>
+<p>A source archive for the gmxapi python package can be built from the GROMACS
+source repository using the Python
+<a class="reference external" href="https://pypa-build.readthedocs.io/en/latest/">build</a> module.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>setuptools<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>python_packaging/gmxapi
+python<span class="w"> </span>-m<span class="w"> </span>build<span class="w"> </span>--sdist
+</pre></div>
+</div>
+<p>This command will create a <code class="docutils literal notranslate"><span class="pre">dist</span></code> directory containing a source distribution
+archive file. The file name has the form
+<code class="file docutils literal notranslate"><span class="pre">gmxapi-</span><em><span class="pre">version</span></em><span class="pre">.</span><em><span class="pre">suffix</span></em></code>, where
+<em>version</em> is the version from the package metadata, and <em>suffix</em> is an
+archive file extension determined by the local environment and the current
+packaging specifications.</p>
+<p>The version information is derived from <code class="xref py py-data docutils literal notranslate"><span class="pre">gmxapi.__version__</span></code>
+defined by the <a class="reference internal" href="pythonreference.html#module-gmxapi.version" title="gmxapi.version"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi.version</span></code></a> module.
+Pending refinement under <a class="extlink-issue reference external" href="https://gitlab.com/gromacs/gromacs/-/issues/3851">Issue 3851</a>,
+the gmxapi version information is hard coded in the <code class="file docutils literal notranslate"><span class="pre">version.py</span></code>.
+Make sure you have an up-to-date version of the sources and that the version
+information is appropriate before distributing a new release.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Python documentation for
+<a class="reference external" href="https://docs.python.org/3/distutils/sourcedist.html#creating-a-source-distribution">creating a source distribution</a></p>
+</div>
+<p>Package maintainers may update the
+<a class="reference external" href="https://pypi.org/project/gmxapi/">online repository</a>
+by uploading a freshly built <code class="docutils literal notranslate"><span class="pre">sdist</span></code> with
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">dist/gmxapi-{version}.{suffix}</span></code>.
+To update the repository at the PyPI test server, use
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">--repository</span> <span class="pre">testpypi</span> <span class="pre">dist/gmxapi-{version}.{suffix}</span></code>.</p>
+</section>
+</section>
+<section id="accessing-gmxapi-documentation">
+<span id="gmxapi-package-documentation"></span><h2>Accessing gmxapi documentation<a class="headerlink" href="install.html#accessing-gmxapi-documentation" title="Link to this heading">¶</a></h2>
+<p>Documentation for the Python classes and functions in the gmx module can
+be accessed in the usual ways, using <code class="docutils literal notranslate"><span class="pre">pydoc</span></code> from the command line or
+<code class="docutils literal notranslate"><span class="pre">help()</span></code> in an interactive Python session.</p>
+<p>The complete documentation (which you are currently reading)
+can be browsed <a class="reference external" href="../index.html">online</a>
+or built from a copy of the GROMACS source repository.</p>
+<p>Documentation is built from a combination of Python module documentation and
+static content, and requires a local copy of the GROMACS source repository.</p>
+<section id="build-with-gromacs">
+<h3>Build with GROMACS<a class="headerlink" href="install.html#build-with-gromacs" title="Link to this heading">¶</a></h3>
+<p>To build the full gmxapi documentation with GROMACS, configure GROMACS with
+<code class="docutils literal notranslate"><span class="pre">-DGMX_PYTHON_PACKAGE=ON</span></code> and build the GROMACS documentation normally.
+This will first build the <em>gmxapi</em> Python package and install it to a temporary
+location in the build tree. Sphinx can then import the package to automatically
+extract Python docstrings.</p>
+<p>Note that this is an entirely CMake-driven installation and Python dependencies
+will not be installed automatically. You can update your Python environment
+(before configuring with CMake) using the <code class="file docutils literal notranslate"><span class="pre">requirements.txt</span></code> files provided
+in the <code class="file docutils literal notranslate"><span class="pre">python_packaging/</span></code> directory of the repository. Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>python_packaging/gmxapi/requirements.txt
+</pre></div>
+</div>
+<p>Sometimes the build environment can choose a different Python interpreter than
+the one you intended.
+You can set the <code class="docutils literal notranslate"><span class="pre">Python3_ROOT_DIR</span></code> or <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> CMake variable to
+explicitly choose the Python installation or <em>venv</em> directory.
+See also
+<a class="reference external" href="https://cmake.org/cmake/help/latest/module/FindPython3.html">CMake FindPython3</a>.</p>
+<p>If you use pyenv or pyenv-virtualenv to dynamically manage your Python version,
+you can help identify a particular version with <code class="docutils literal notranslate"><span class="pre">pyenv</span> <span class="pre">version-name</span></code> and the
+directory with <code class="docutils literal notranslate"><span class="pre">pyenv</span> <span class="pre">prefix</span> <span class="pre">{version}</span></code>. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-DPython3_ROOT_DIR<span class="o">=</span><span class="k">$(</span>pyenv<span class="w"> </span>prefix<span class="w"> </span><span class="k">$(</span>pyenv<span class="w"> </span>version-name<span class="k">))</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="install.html#testing" title="Link to this heading">¶</a></h2>
+<p>Note <a class="reference internal" href="install.html#testing-requirements">testing requirements</a> above.</p>
+<p>After installing the <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> Python package,
+you can run the Python test suite from the GROMACS source tree.
+Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assuming you are in the root directory of the repository:</span>
+pytest<span class="w"> </span>python_packaging/gmxapi/test/
+</pre></div>
+</div>
+<p>Refer to <code class="file docutils literal notranslate"><span class="pre">python_packaging/README.md</span></code> for more detailed information.</p>
+</section>
+<section id="troubleshooting">
+<span id="gmxapi-install-troubleshooting"></span><h2>Troubleshooting<a class="headerlink" href="install.html#troubleshooting" title="Link to this heading">¶</a></h2>
+<section id="importerror-at-run-time-with-dynamic-linking-error">
+<h3>ImportError at run time with dynamic linking error<a class="headerlink" href="install.html#importerror-at-run-time-with-dynamic-linking-error" title="Link to this heading">¶</a></h3>
+<p>Symptom: Python fails with a weird <code class="docutils literal notranslate"><span class="pre">ImportError</span></code> citing something like <code class="docutils literal notranslate"><span class="pre">dlopen</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Traceback<span class="w"> </span><span class="o">(</span>most<span class="w"> </span>recent<span class="w"> </span>call<span class="w"> </span>last<span class="o">)</span>:
+<span class="w">  </span>File<span class="w"> </span><span class="s2">&quot;&lt;stdin&gt;&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>&lt;module&gt;
+ImportError:<span class="w"> </span>dlopen<span class="o">(</span>/.../gmxapi/_gmxapi.so,<span class="w"> </span>0x0002<span class="o">)</span>:<span class="w"> </span>Symbol<span class="w"> </span>not<span class="w"> </span>found:
+__ZN12gmxapicompat11readTprFileERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+<span class="w">  </span>Referenced<span class="w"> </span>from:<span class="w"> </span>/.../gmxapi/_gmxapi.so
+<span class="w">  </span>Expected<span class="w"> </span><span class="k">in</span>:<span class="w"> </span>/path/to/gromacs/lib/libgmxapi_mpi_d.0.3.1.dylib
+</pre></div>
+</div>
+<p>Inconsistencies in the build and run time environments can cause dynamic linking problems at run time.
+This could occur if you reinstall GROMACS built with a different compiler,
+or if <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">CMake</span></code> somehow get tricked into using the wrong compiler tool chain.</p>
+<p>Refer to the <a class="reference internal" href="install.html#gmxapi-cmake-hints">gmxapi cmake hints</a> for notes about compiler toolchains.
+Rebuild and reinstall the gmxapi Python package with <code class="docutils literal notranslate"><span class="pre">--no-cache-dir</span></code>
+and provide the <code class="docutils literal notranslate"><span class="pre">gromacs-hints.cmake</span></code> file for the GROMACS installation
+you intend to use.</p>
+</section>
+<section id="attributeerror-module-enum-has-no-attribute-intflag">
+<h3>AttributeError: module ‘enum’ has no attribute ‘IntFlag’<a class="headerlink" href="install.html#attributeerror-module-enum-has-no-attribute-intflag" title="Link to this heading">¶</a></h3>
+<p>If you had older versions of some of the dependencies installed,
+you might have picked up a transitive dependency on the <code class="docutils literal notranslate"><span class="pre">enum34</span></code> package.
+Try:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>-y<span class="w"> </span>enum34
+</pre></div>
+</div>
+<p>and see if that fixes the problem. If not, try a fresh virtual environment
+(see above) to help narrow down the problem before you
+<a class="reference external" href="https://gitlab.com/gromacs/gromacs/-/issues/">open an issue</a>.</p>
+</section>
+<section id="errors-regarding-pybind11">
+<h3>Errors regarding pybind11<a class="headerlink" href="install.html#errors-regarding-pybind11" title="Link to this heading">¶</a></h3>
+<p>An error may occur in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> with output that contains something like the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>ModuleNotFoundError:<span class="w"> </span>No<span class="w"> </span>module<span class="w"> </span>named<span class="w"> </span><span class="s1">&#39;pybind11&#39;</span>
+<span class="w">  </span>Building<span class="w"> </span>wheel<span class="w"> </span><span class="k">for</span><span class="w"> </span>gmxapi<span class="w"> </span><span class="o">(</span>pyproject.toml<span class="o">)</span>:<span class="w"> </span>finished<span class="w"> </span>with<span class="w"> </span>status<span class="w"> </span><span class="s1">&#39;error&#39;</span>
+<span class="w">  </span>ERROR:<span class="w"> </span>Failed<span class="w"> </span>building<span class="w"> </span>wheel<span class="w"> </span><span class="k">for</span><span class="w"> </span>gmxapi
+Failed<span class="w"> </span>to<span class="w"> </span>build<span class="w"> </span>gmxapi
+ERROR:<span class="w"> </span>Could<span class="w"> </span>not<span class="w"> </span>build<span class="w"> </span>wheels<span class="w"> </span><span class="k">for</span><span class="w"> </span>gmxapi,<span class="w"> </span>which<span class="w"> </span>is<span class="w"> </span>required<span class="w"> </span>to<span class="w"> </span>install<span class="w"> </span>pyproject.toml-based<span class="w"> </span>projects
+</pre></div>
+</div>
+<p>The important information here is that <code class="docutils literal notranslate"><span class="pre">pybind11</span></code> was not found.</p>
+<p>Build dependencies aren’t always automatically installed.
+Even if you are using <code class="docutils literal notranslate"><span class="pre">pip</span></code>, you may have disabled automatic dependency fulfillment with an option like <code class="docutils literal notranslate"><span class="pre">--no-build-isolation</span></code> or <code class="docutils literal notranslate"><span class="pre">--no-deps</span></code>.</p>
+<p>In any case, the problem should be resolved by explicitly installing the <code class="docutils literal notranslate"><span class="pre">pybind11</span></code>
+Python package before attempting to build <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pybind11
+</pre></div>
+</div>
+</section>
+<section id="couldn-t-find-the-gmxapi-support-library">
+<h3>Couldn’t find the <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> support library?<a class="headerlink" href="install.html#couldn-t-find-the-gmxapi-support-library" title="Link to this heading">¶</a></h3>
+<p>If you don’t want to “source” your <a class="reference internal" href="../../install-guide/index.html#getting-access-to-gromacs"><span class="std std-ref">GMXRC</span></a> file, you
+can tell the package where to find a gmxapi compatible GROMACS installation with
+<code class="docutils literal notranslate"><span class="pre">gmxapi_ROOT</span></code>. E.g. <code class="docutils literal notranslate"><span class="pre">gmxapi_ROOT=/path/to/gromacs</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code></p>
+<p>Before updating the <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> package it is generally a good idea to remove the
+previous installation and to start with a fresh build directory. You should be
+able to just <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">gmxapi</span></code>.</p>
+<p>Do you see something like the following?</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CMake Error at gmx/core/CMakeLists.txt:45 (find_package):
+   Could not find a package configuration file provided by &quot;gmxapi&quot; with any
+   of the following names:
+
+     gmxapiConfig.cmake
+     gmxapi-config.cmake
+
+   Add the installation prefix of &quot;gmxapi&quot; to CMAKE_PREFIX_PATH or set
+   &quot;gmxapi_ROOT&quot; to a directory containing one of the above files.  If &quot;gmxapi&quot;
+   provides a separate development package or SDK, be sure it has been
+   installed.
+</pre></div>
+</div>
+<p>This could be because</p>
+<ul class="simple">
+<li><p>GROMACS is not already installed</p></li>
+<li><p>GROMACS was built without the CMake variable <code class="docutils literal notranslate"><span class="pre">GMXAPI=ON</span></code></p></li>
+<li><p>or if <code class="docutils literal notranslate"><span class="pre">gmxapi_ROOT</span></code> (or <code class="docutils literal notranslate"><span class="pre">GROMACS_DIR</span></code>) is not a path containing directories
+like <code class="docutils literal notranslate"><span class="pre">bin</span></code> and <code class="docutils literal notranslate"><span class="pre">share</span></code>.</p></li>
+</ul>
+<p>If you are not a system administrator you are encouraged to install in a Python
+virtual environment, created with virtualenv or <a class="reference external" href="https://docs.conda.io/en/latest/">Conda</a>.
+Otherwise, you will need to specify the <code class="docutils literal notranslate"><span class="pre">--user</span></code> flag to <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+<p>Two of the easiest problems to run into are incompatible compilers and
+incompatible Python. Try to make sure that you use the same C and C++
+compilers for GROMACS, for the Python package, and for the sample
+plugin. These compilers should also correspond to the <strong class="command">mpicc</strong> compiler
+wrapper used to
+<a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/install.html">compile mpi4py</a>.
+In order to build the Python
+package, you will need the Python headers or development installation,
+which might not already be installed on the machine you are using. (If
+not, then you will get an error about missing <code class="file docutils literal notranslate"><span class="pre">Python.h</span></code> at some
+point.) If you have multiple Python installations (or modules available
+on an HPC system), you could try one of the other Python installations,
+or you or a system administrator could install an appropriate Python dev
+package. Alternatively, you might try installing your own Anaconda or
+MiniConda in your home directory.</p>
+<p>If an attempted installation fails with CMake errors about missing
+“gmxapi”, make sure that GROMACS is installed and can be found during
+installation. For instance,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">gmxapi_ROOT</span><span class="o">=</span>/Users/eric/gromacs<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--verbose<span class="w"> </span>gmxapi
+</pre></div>
+</div>
+<p>Pip and related Python package management tools can be a little too
+flexible and ambiguous sometimes. If things get really messed up, try
+explicitly uninstalling the <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> module and its dependencies, then do
+it again and repeat until <strong class="command">pip</strong> can no longer find any version of any
+of the packages.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>gmxapi
+pip<span class="w"> </span>uninstall<span class="w"> </span>cmake
+<span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>Successfully running the test suite is not essential to having a working
+<a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> package. We are working to make the testing more robust, but
+right now the test suite is a bit delicate and may not work right, even
+though you have a successfully built the <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> package. If you want to
+troubleshoot, though, the main problems seem to be that automatic
+installation of required python packages may not work (requiring manual
+installations, such as with <strong class="command">pip install somepackage</strong>) and ambiguities
+between python versions.</p>
+<p>If you are working in a development branch of the repository, note that
+the upstream branch may be reset to <code class="docutils literal notranslate"><span class="pre">main</span></code> after a new release is
+tagged. In general, but particularly on the <code class="docutils literal notranslate"><span class="pre">devel</span></code> branch, when you
+do a <strong class="command">git pull</strong>, you should use the <code class="docutils literal notranslate"><span class="pre">--rebase</span></code> flag.</p>
+<p>If you fetch this repository and then see a git status like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>status
+On<span class="w"> </span>branch<span class="w"> </span>devel
+Your<span class="w"> </span>branch<span class="w"> </span>and<span class="w"> </span><span class="s1">&#39;origin/devel&#39;</span><span class="w"> </span>have<span class="w"> </span>diverged,
+and<span class="w"> </span>have<span class="w"> </span><span class="m">31</span><span class="w"> </span>and<span class="w"> </span><span class="m">29</span><span class="w"> </span>different<span class="w"> </span>commits<span class="w"> </span>each,<span class="w"> </span>respectively.
+</pre></div>
+</div>
+<p>then <a class="reference internal" href="pythonreference.html#module-gmxapi" title="gmxapi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gmxapi</span></code></a> has probably entered a new development cycle. You can
+do <strong class="command">git pull --rebase</strong> to update to the latest development branch.</p>
+<p>If you do a <strong class="command">git pull</strong> while in <code class="docutils literal notranslate"><span class="pre">devel</span></code> and get a bunch of unexpected
+merge conflicts, do <strong class="command">git merge --abort; git pull --rebase</strong> and you should
+be back on track.</p>
+<p>If you are developing code for gmxapi, this should be an indication to
+rebase your feature branches for the new development cycle.</p>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="usage.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Using the Python package</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">gmxapi Python package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, GROMACS development team
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="install.html#">Full installation instructions</a><ul>
+<li><a class="reference internal" href="install.html#overview">Overview</a><ul>
+<li><a class="reference internal" href="install.html#install-gromacs">Install GROMACS</a></li>
+<li><a class="reference internal" href="install.html#set-up-a-python-virtual-environment">Set up a Python virtual environment</a></li>
+<li><a class="reference internal" href="install.html#install-the-gmxapi-python-package">Install the gmxapi Python package</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="install.html#background">Background</a><ul>
+<li><a class="reference internal" href="install.html#gromacs-requirements">GROMACS requirements</a></li>
+<li><a class="reference internal" href="install.html#build-system-requirements">Build system requirements</a></li>
+<li><a class="reference internal" href="install.html#python-environment-requirements">Python environment requirements</a><ul>
+<li><a class="reference internal" href="install.html#requirements-files-in-gromacs-source-tree">“requirements” files in GROMACS source tree</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="install.html#documentation-build-requirements">Documentation build requirements</a></li>
+<li><a class="reference internal" href="install.html#testing-requirements">Testing requirements</a></li>
+<li><a class="reference internal" href="install.html#mpi-requirements">MPI requirements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="install.html#installing-the-python-package">Installing the Python package</a><ul>
+<li><a class="reference internal" href="install.html#recommended-installation">Recommended installation</a><ul>
+<li><a class="reference internal" href="install.html#locate-or-install-gromacs">Locate or install GROMACS</a></li>
+<li><a class="reference internal" href="install.html#gmxapi-venv">Set up a Python virtual environment</a></li>
+<li><a class="reference internal" href="install.html#install-dependencies">Install dependencies</a></li>
+<li><a class="reference internal" href="install.html#install-the-latest-version-of-gmxapi">Install the latest version of gmxapi</a><ul>
+<li><a class="reference internal" href="install.html#cmake-hints">CMake hints</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="install.html#install-from-source">Install from source</a></li>
+<li><a class="reference internal" href="install.html#offline-install">Offline install</a></li>
+<li><a class="reference internal" href="install.html#building-a-source-archive">Building a source archive</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="install.html#accessing-gmxapi-documentation">Accessing gmxapi documentation</a><ul>
+<li><a class="reference internal" href="install.html#build-with-gromacs">Build with GROMACS</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="install.html#testing">Testing</a></li>
+<li><a class="reference internal" href="install.html#troubleshooting">Troubleshooting</a><ul>
+<li><a class="reference internal" href="install.html#importerror-at-run-time-with-dynamic-linking-error">ImportError at run time with dynamic linking error</a></li>
+<li><a class="reference internal" href="install.html#attributeerror-module-enum-has-no-attribute-intflag">AttributeError: module ‘enum’ has no attribute ‘IntFlag’</a></li>
+<li><a class="reference internal" href="install.html#errors-regarding-pybind11">Errors regarding pybind11</a></li>
+<li><a class="reference internal" href="install.html#couldn-t-find-the-gmxapi-support-library">Couldn’t find the <code class="docutils literal notranslate"><span class="pre">gmxapi</span></code> support library?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js%3Fv=602b4562"></script>
+    <script src="../../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js%3Fv=5fa4622c"></script>
+    <script src="../../_static/clipboard.min.js%3Fv=a7894cd8"></script>
+    <script src="../../_static/copybutton.js%3Fv=f281be69"></script>
+    <script src="../../_static/tabs.js%3Fv=3ee01567"></script>
+    </body>
+</html>
