@@ -5,6 +5,8 @@ This activity has evolved the GROMACS project from a collection of installation 
 
 The result is a three-layer architecture comprising a **Standalone Execution Layer** (M1 scripts), an **Instruction Layer** (Expert Skills), and an **Integration Layer** (MCP Servers), all tied together by an **Agentic Framework** designed to maximize simulation performance (ns/day) while maintaining strict scientific validity.
 
+![Architecture](images/architecture-grock.jpg)
+
 ---
 
 ## 1. Simulation Lifecycle & Operational Expansion
